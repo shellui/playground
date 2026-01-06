@@ -1,0 +1,31 @@
+{
+  "title": "ShellUI Playground",
+  "description": "A playground for ShellUI",
+  "layout": "default",
+  "navigation": {
+    "routes": [
+      {
+        "label": "Page 1",
+        "file": "./pages/page1/index.html",
+        "children": [
+          {
+            "label": "Page 1.1",
+            "file": "./pages/page1.1/index.html"
+          },
+          {
+            "label": "Page 1.2",
+            "file": "./pages/page1.2/index.html"
+          }
+        ]
+      },
+      {
+        "label": "Page 2",
+        "file": "./pages/page2/index.html"
+      },
+      {
+        "label": "ShellUI",
+        "url": "https://shellui.com"
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "shellui-playground",
+  "version": "0.0.1",
+  "description": "A playground for ShellUI",
+  "scripts": {
+    "start": "shellui start src",
+    "build": "shellui build src"
+  },
+  "author": "ShellUI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shellui/shellui-playground.git"
+  },
+  "dependencies": {
+    "@shellui/cli": "^0.0.1"
+  }
+}
