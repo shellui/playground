@@ -1,10 +1,12 @@
 {
   "name": "shellui-playground",
   "version": "0.0.1",
-  "description": "A playground for ShellUI",
+  "description": "A playground for ShellUI — demo deployed to GitHub Pages",
+  "type": "module",
   "scripts": {
-    "start": "shellui start src",
-    "build": "shellui build src"
+    "start": "shellui start",
+    "build": "shellui build",
+    "serve:dist": "node tools/serve/serve.js"
   },
   "author": "ShellUI",
   "license": "MIT",
@@ -12,7 +14,9 @@
     "type": "git",
     "url": "https://github.com/shellui/shellui-playground.git"
   },
+  "packageManager": "pnpm@9.15.0",
   "dependencies": {
-    "@shellui/cli": "^0.0.1"
+    "@shellui/cli": "^0.0.15",
+    "@shellui/core": "^0.0.15"
   }
 }

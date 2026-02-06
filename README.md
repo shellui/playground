@@ -1,19 +1,37 @@
 # ShellUI Playground
 
-Welcome to the **ShellUI Playground**! 🚀
+A demo of **ShellUI**, the microfrontend orchestration framework, deployed to GitHub Pages.
 
-This repository is designed to help you explore and test **ShellUI**, a powerful microfrontend orchestration framework.
+## Quick Start
 
-## What's Inside?
+```bash
+pnpm install
+pnpm start
+```
 
-*   **Microfrontend Pages**: Simple HTML examples (`src/pages/`) demonstrating isolated page content.
-*   **Shell Configuration**: Check out `src/shellui.json` to see how navigation and routes are defined.
+Open [http://localhost:4000](http://localhost:4000).
 
-## Getting Started
+## Build for Production
 
-1.  Clone the repo.
-2.  Explore the `src/pages` to see how microfrontends are structured.
-3.  Modify `src/shellui.json` to test different layouts and routing configurations.
+```bash
+pnpm build
+```
 
-Dive in, break things, and see how ShellUI can streamline your frontend architecture!
+The output is in `dist/` — deploy it to any static hosting provider.
 
+## Project Structure
+
+```
+shellui.config.ts     # ShellUI configuration (navigation, themes, layout)
+static/               # Static assets copied to dist at build time
+  favicon.svg
+  logo.svg
+  icons/              # Navigation icons
+  pages/              # Demo microfrontend pages
+    playground/       # Main playground page
+    docs/             # Documentation-style page
+```
+
+## Deploy to GitHub Pages
+
+Push to `main` and the GitHub Actions workflow will build and deploy automatically.
