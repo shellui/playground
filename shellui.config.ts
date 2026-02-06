@@ -151,7 +151,7 @@ const config: ShellUIConfig = {
       // Simple string label (backward compatible)
       label: "Playground",
       path: "playground",
-      url: "http://localhost:4000",
+      url: "https://playground.shellui.com",
       icon: "/icons/play.svg",
     },
     {
