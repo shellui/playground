@@ -1,6 +1,6 @@
 {
   "name": "shellui-playground",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A playground for ShellUI — demo deployed to GitHub Pages",
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
   },
   "packageManager": "pnpm@9.15.0",
   "dependencies": {
-    "@shellui/cli": "^0.0.23",
-    "@shellui/core": "^0.0.23"
+    "@shellui/cli": "^0.1.0",
+    "@shellui/core": "^0.1.0"
   }
 }
