@@ -15,6 +15,14 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf-8"));
 const isBuild =
   process.env.NODE_ENV === "production" || process.env.SHELLUI_BUILD === "true";
 
+// App iframe URL: dev = localhost (SHELLUI_APP_PORT, default 5173), build = /app/
+// Override with SHELLUI_APP_URL for full control
+const appUrl =
+  process.env.SHELLUI_APP_URL ??
+  (isBuild
+    ? "/app/"
+    : `http://localhost:${process.env.SHELLUI_APP_PORT || "5173"}`);
+
 // Generate version with build ID or dev suffix
 let version = packageJson.version;
 if (isBuild) {
@@ -42,6 +50,7 @@ const config: ShellUIConfig = {
   version: version,
   favicon: "/favicon.svg",
   logo: "/logo.svg",
+  start_url: "app",
   // Cookie consent: register cookies by host; accepted hosts stored in settings. Use host to gate features (e.g. getCookieConsentAccepted('sentry.io')).
   // consentedCookieHosts records which hosts were in config at last consent so we can detect new cookies and re-prompt while keeping existing approvals.
   cookieConsent: {
@@ -148,6 +157,18 @@ const config: ShellUIConfig = {
   ],
   navigation: [
     {
+      label: "App",
+      path: "app",
+      url: appUrl,
+      icon: "/icons/play.svg",
+    },
+    {
+      label: "App · About",
+      path: "about",
+      url: `${appUrl.replace(/\/$/, "")}/about`,
+      icon: "/icons/play.svg",
+    },
+    {
       // Simple string label (backward compatible)
       label: "Playground",
       path: "playground",
@@ -199,7 +220,7 @@ const config: ShellUIConfig = {
         {
           label: {
             en: "Settings",
-            fr: "Parametres",
+            fr: "Paramètres",
           },
           path: "settings",
           url: urls.settings,
@@ -210,7 +231,7 @@ const config: ShellUIConfig = {
     {
       label: {
         en: "Settings",
-        fr: "Parametres",
+        fr: "Paramètres",
       },
       path: "settings",
       url: urls.settings,

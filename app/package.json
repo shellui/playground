@@ -1,0 +1,23 @@
+{
+  "name": "playground-app",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && node scripts/copy-routes.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@shellui/sdk": "^0.2.0-alpha.1",
+    "i18next": "^24.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-i18next": "^15.1.1",
+    "react-router-dom": "^7.0.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.3"
+  }
+}

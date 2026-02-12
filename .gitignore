@@ -4,3 +4,4 @@ dist
 .DS_Store
 .vscode
 .shellui-config-loader.mjs
+.pnpm-store
