@@ -50,7 +50,6 @@ const config: ShellUIConfig = {
   version: version,
   favicon: "/favicon.svg",
   logo: "/logo.svg",
-  start_url: "app",
   // Cookie consent: register cookies by host; accepted hosts stored in settings. Use host to gate features (e.g. getCookieConsentAccepted('sentry.io')).
   // consentedCookieHosts records which hosts were in config at last consent so we can detect new cookies and re-prompt while keeping existing approvals.
   cookieConsent: {
@@ -158,13 +157,13 @@ const config: ShellUIConfig = {
   navigation: [
     {
       label: "App",
-      path: "app",
+      path: "",
       url: appUrl,
       icon: "/icons/play.svg",
     },
     {
       label: "App · About",
-      path: "app/about",
+      path: "about",
       url: `${appUrl.replace(/\/$/, "")}/about`,
       icon: "/icons/play.svg",
     },
