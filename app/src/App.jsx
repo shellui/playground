@@ -8,11 +8,11 @@ export default function App() {
 
   return (
     <>
-      <nav>
+      <nav className="font-body text-foreground">
         <Link to="/">{t('home')}</Link>
         <Link to="/about">{t('about')}</Link>
       </nav>
-      <main>
+      <main className="font-body text-foreground">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

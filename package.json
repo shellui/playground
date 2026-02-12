@@ -16,7 +16,7 @@
   },
   "packageManager": "pnpm@9.15.0",
   "dependencies": {
-    "@shellui/cli": "^0.2.0-alpha.1",
-    "@shellui/core": "^0.2.0-alpha.1"
+    "@shellui/cli": "^0.2.0-alpha.2",
+    "@shellui/core": "^0.2.0-alpha.2"
   }
 }
