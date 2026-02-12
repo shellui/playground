@@ -164,7 +164,7 @@ const config: ShellUIConfig = {
     },
     {
       label: "App · About",
-      path: "about",
+      path: "app/about",
       url: `${appUrl.replace(/\/$/, "")}/about`,
       icon: "/icons/play.svg",
     },
