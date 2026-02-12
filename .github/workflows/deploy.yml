@@ -36,8 +36,11 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "pnpm"
 
-      - name: Install dependencies
+      - name: Install dependencies (root)
         run: pnpm install --frozen-lockfile
+
+      - name: Install dependencies (app)
+        run: pnpm install --frozen-lockfile --dir app
 
       - name: Build
         run: pnpm build
