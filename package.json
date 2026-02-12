@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "shellui start",
-    "build": "shellui build",
+    "build": "shellui build && pnpm -C app build",
     "serve:dist": "node tools/serve/serve.js"
   },
   "author": "ShellUI",

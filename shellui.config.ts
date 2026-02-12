@@ -155,18 +155,18 @@ const config: ShellUIConfig = {
     },
   ],
   navigation: [
-    {
-      label: "App",
-      path: "",
-      url: appUrl,
-      icon: "/icons/play.svg",
-    },
-    {
-      label: "App · About",
-      path: "about",
-      url: `${appUrl.replace(/\/$/, "")}/about`,
-      icon: "/icons/play.svg",
-    },
+    // {
+    //   label: "App",
+    //   path: "",
+    //   url: appUrl,
+    //   icon: "/icons/play.svg",
+    // },
+    // {
+    //   label: "App · About",
+    //   path: "about",
+    //   url: `${appUrl.replace(/\/$/, "")}/about`,
+    //   icon: "/icons/play.svg",
+    // },
     {
       // Simple string label (backward compatible)
       label: "Playground",
