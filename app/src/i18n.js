@@ -5,6 +5,7 @@ const resources = {
   en: {
     translation: {
       welcome: 'This is a React app',
+      homeDescription: 'This is the home page.',
       home: 'Home',
       about: 'About',
       aboutTitle: 'About this app',
@@ -14,6 +15,7 @@ const resources = {
   fr: {
     translation: {
       welcome: "C'est une application React",
+      homeDescription: "Ceci est la page d'accueil.",
       home: 'Accueil',
       about: 'À propos',
       aboutTitle: 'À propos de cette application',

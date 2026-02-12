@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="font-body text-foreground">
       <h1 className="font-heading text-foreground">{t('welcome')}</h1>
-      <p className="text-foreground">This is the home page.</p>
+      <p className="text-foreground">{t('homeDescription')}</p>
     </div>
   );
 }
