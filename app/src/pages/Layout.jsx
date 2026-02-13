@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import shellui from "@shellui/sdk";
+import { TriangleAlert } from "lucide-react";
 import CodeBlock from "../components/CodeBlock";
+import { Alert, AlertTitle } from "../components/ui/Alert";
 import { Button } from "../components/ui/Button";
 
 const LAYOUT_CONFIG_CODE = `// shellui.config.ts
@@ -41,12 +43,10 @@ export default function Layout() {
       </h1>
       <p className="mt-2 text-foreground">{t("pageLayoutDescription")}</p>
 
-      <div
-        className="mt-4 p-3 rounded-lg border border-border bg-muted text-foreground"
-        role="status"
-      >
-        <p className="text-sm font-medium">⚠️ {t("pageLayoutExperimental")}</p>
-      </div>
+      <Alert className="mt-4">
+        <TriangleAlert />
+        <AlertTitle>{t("pageLayoutExperimental")}</AlertTitle>
+      </Alert>
 
       <p className="mt-2 text-sm text-muted-foreground">
         {t("pageLayoutConfigNote")}

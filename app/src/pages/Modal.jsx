@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import shellui from "@shellui/sdk";
+import { Info } from "lucide-react";
 import CodeBlock from "../components/CodeBlock";
+import { Alert, AlertTitle } from "../components/ui/Alert";
 import { Button } from "../components/ui/Button";
 
 function appRouteUrl(path) {
@@ -34,11 +36,10 @@ export default function Modal() {
       </h1>
       <p className="mt-2 text-foreground">{t("pageModalDrawerDescription")}</p>
 
-      <div className="mt-4 p-4 rounded-lg border border-primary/30 bg-primary/5">
-        <p className="text-foreground font-medium">
-          🎯 {t("pageModalDrawerFun")}
-        </p>
-      </div>
+      <Alert className="mt-4">
+        <Info />
+        <AlertTitle>{t("pageModalDrawerFun")}</AlertTitle>
+      </Alert>
 
       <section className="mt-6 space-y-8">
         <div>

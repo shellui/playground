@@ -34,7 +34,7 @@ const resources = {
         "Shell UI can open content in a modal overlay. The modal blocks interaction with the main content until dismissed (e.g. Settings).",
       pageLayoutTitle: "Layout",
       pageLayoutDescription:
-        "Shell UI supports different layout modes: sidebar (default, with collapsible nav), fullscreen (content only), or windows (taskbar and multi-window). Configure the layout in the shell to change how the app is presented.",
+        "Shell UI supports different layout modes: sidebar (default, with collapsible nav), app bar, fullscreen (content only), or windows (taskbar and multi-window). Configure the layout in the shell to change how the app is presented.",
       pageModalDrawerTitle: "Modal & Drawer",
       pageModalDrawerDescription:
         "Shell UI can open content in a modal overlay (blocks interaction until dismissed) or in a drawer that slides in from the edge. Use modals for focused tasks like Settings; use drawers for extra content or actions without leaving the current context.",
@@ -183,7 +183,7 @@ const resources = {
         "Shell UI peut ouvrir du contenu dans une fenêtre modale. La modale bloque l’interaction avec le contenu principal jusqu’à sa fermeture (ex. Paramètres).",
       pageLayoutTitle: "Mise en page",
       pageLayoutDescription:
-        "Shell UI propose plusieurs modes de mise en page : barre latérale (par défaut, avec nav repliable), plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans la coque pour changer la présentation de l’app.",
+        "Shell UI propose plusieurs modes de mise en page : barre latérale (par défaut, avec nav repliable), barre d'app, plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans la coque pour changer la présentation de l’app.",
       pageModalDrawerTitle: "Fenêtre modale et tiroir",
       pageModalDrawerDescription:
         "Shell UI peut ouvrir du contenu dans une fenêtre modale (bloque l’interaction jusqu’à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.",
