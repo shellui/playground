@@ -46,6 +46,30 @@ if (typeof toastId === 'string') {
   }, 2000);
 }`;
 
+const POSITION_CODE = `import shellui from '@shellui/sdk';
+
+// Position: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right'
+shellui.toast({
+  title: 'Top right',
+  description: 'This toast appears in the top-right corner.',
+  position: 'top-right',
+});
+
+shellui.toast({
+  title: 'Bottom left',
+  description: 'Popping up in this corner.',
+  position: 'bottom-left',
+});`;
+
+const POSITIONS = [
+  "top-left",
+  "top-center",
+  "top-right",
+  "bottom-left",
+  "bottom-center",
+  "bottom-right",
+];
+
 export default function Toaster() {
   const { t } = useTranslation();
 
@@ -155,6 +179,37 @@ export default function Toaster() {
             </Button>
           </div>
           <CodeBlock code={LOAD_THEN_SUCCESS_CODE} />
+        </div>
+
+        <div>
+          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
+            {t("exampleTitleToastPosition")}
+          </h2>
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            {POSITIONS.map((position) => {
+              const key = `toastPosition${position
+                .split("-")
+                .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+                .join("")}`;
+              return (
+                <Button
+                  key={position}
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    shellui.toast({
+                      title: t(key),
+                      description: t("toastPositionDescription"),
+                      position,
+                    })
+                  }
+                >
+                  {t(key)}
+                </Button>
+              );
+            })}
+          </div>
+          <CodeBlock code={POSITION_CODE} />
         </div>
       </section>
     </div>
