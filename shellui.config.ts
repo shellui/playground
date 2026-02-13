@@ -155,12 +155,12 @@ const config: ShellUIConfig = {
     },
   ],
   navigation: [
-    // {
-    //   label: "App",
-    //   path: "",
-    //   url: appUrl,
-    //   icon: "/icons/play.svg",
-    // },
+    {
+      label: "Homepage",
+      path: "",
+      url: appUrl,
+      icon: "/icons/home.svg",
+    },
     // {
     //   label: "App · About",
     //   path: "about",
@@ -168,64 +168,92 @@ const config: ShellUIConfig = {
     //   icon: "/icons/play.svg",
     // },
     {
+      // Group title can also be localized
+      title: {
+        en: "Features",
+        fr: "Fonctionnalités",
+      },
+      items: [
+        {
+          label: { en: "Layout", fr: "Mise en page" },
+          path: "layout",
+          url: `${appUrl.replace(/\/$/, "")}/layout`,
+          icon: "/icons/layout.svg",
+        },
+        {
+          label: { en: "Modal & Drawer", fr: "Fenêtre modale et tiroir" },
+          path: "modal",
+          url: `${appUrl.replace(/\/$/, "")}/modal`,
+          icon: "/icons/modal.svg",
+        },
+        {
+          label: { en: "Dialog", fr: "Dialogue" },
+          path: "dialog",
+          url: `${appUrl.replace(/\/$/, "")}/dialog`,
+          icon: "/icons/dialog.svg",
+        },
+        {
+          label: { en: "Toaster", fr: "Notifications" },
+          path: "toaster",
+          url: `${appUrl.replace(/\/$/, "")}/toaster`,
+          icon: "/icons/toaster.svg",
+        },
+      ],
+    },
+    {
+      // Group title can also be localized
+      title: {
+        en: "Preferences",
+        fr: "Préférences",
+      },
+      items: [
+        {
+          label: { en: "Themes", fr: "Thèmes" },
+          path: "themes",
+          url: `${appUrl.replace(/\/$/, "")}/themes`,
+          icon: "/icons/palette.svg",
+        },
+        {
+          label: { en: "Language & region", fr: "Langue & région" },
+          path: "languages",
+          url: `${appUrl.replace(/\/$/, "")}/languages`,
+          icon: "/icons/languages.svg",
+        },
+      ],
+    },
+    {
+      // Group title can also be localized
+      title: {
+        en: "External Links",
+        fr: "Liens externes",
+      },
+      items: [
+        {
+          label: "Website",
+          path: "website",
+          url: "https://shellui.com/",
+          icon: "/icons/globe.svg",
+        },
+        {
+          // Language-specific label (new feature)
+          label: {
+            en: "Docs",
+            fr: "Documentation",
+          },
+          path: "docs",
+          url: "https://docs.shellui.com",
+          icon: "/icons/book-open.svg",
+          position: "end",
+        },
+      ],
+    },
+    {
       // Simple string label (backward compatible)
       label: "Playground",
       path: "playground",
       url: "https://playground.shellui.com",
       icon: "/icons/play.svg",
-    },
-    {
-      // Language-specific label (new feature)
-      label: {
-        en: "Docs",
-        fr: "Documentation",
-      },
-      path: "docs",
-      url: "https://docs.shellui.com",
-      icon: "/icons/book-open.svg",
-    },
-    {
-      label: "ShellUI",
-      path: "shellui",
-      url: "https://shellui.com/",
-      icon: "/icons/user.svg",
-      openIn: "drawer",
-      drawerPosition: "right",
-    },
-    {
-      label: "Sebastienbarbier",
-      path: "sebastienbarbier",
-      url: "https://sebastienbarbier.com/",
-      openIn: "external",
       position: "end",
-      hiddenOnMobile: true,
-    },
-    {
-      // Group title can also be localized
-      title: {
-        en: "System",
-        fr: "Systeme",
-      },
-      items: [
-        {
-          label: {
-            en: "Page not found",
-            fr: "Page non trouvee",
-          },
-          path: "404",
-          url: "/thisisnotfound",
-          hidden: true,
-        },
-        {
-          label: {
-            en: "Settings",
-            fr: "Paramètres",
-          },
-          path: "settings",
-          url: urls.settings,
-          icon: "/icons/settings.svg",
-        },
-      ],
     },
     {
       label: {
