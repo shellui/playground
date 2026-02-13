@@ -123,7 +123,7 @@ const resources = {
       toastLoadThenSuccess: "Load then success",
       currentLayout: "Current layout",
       layoutFullscreenNote:
-        "Fullscreen is also available in config but we don’t provide a button here: if your app has its own navigation, switching to fullscreen can softlock the user (no shell chrome to go back). Use fullscreen only when the app is designed to be fullscreen-only.",
+        "Fullscreen is only for applications that handle navigation directly instead of using shellui.",
       switchLayout: "Switch layout",
       colorSchemeLabel: "Color scheme",
       currentColorScheme: "Current mode",
@@ -265,7 +265,7 @@ const resources = {
       toastLoadThenSuccess: "Chargement puis succès",
       currentLayout: "Mise en page actuelle",
       layoutFullscreenNote:
-        "Le mode plein écran existe aussi en config mais nous ne proposons pas de bouton ici : si votre app a sa propre navigation, passer en plein écran peut bloquer l’utilisateur (plus de chrome pour revenir). Utilisez le plein écran seulement quand l’app est conçue pour.",
+        "Le mode plein écran est réservé aux applications qui gèrent la navigation elles-mêmes au lieu d'utiliser shellui.",
       switchLayout: "Changer la mise en page",
       colorSchemeLabel: "Mode clair / sombre",
       currentColorScheme: "Mode actuel",
