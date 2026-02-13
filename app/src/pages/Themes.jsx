@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { Sun, Moon, Monitor } from "lucide-react";
 import shellui from "@shellui/sdk";
 import CodeBlock from "../components/CodeBlock";
 import { Button } from "../components/ui/Button";
@@ -71,6 +72,7 @@ export default function Themes() {
             size="sm"
             onClick={() => applyAppearance({ colorScheme: "light" })}
           >
+            <Sun className="size-3.5 shrink-0 mr-1.5" aria-hidden />
             {t("themeLight")}
           </Button>
           <Button
@@ -78,6 +80,7 @@ export default function Themes() {
             size="sm"
             onClick={() => applyAppearance({ colorScheme: "dark" })}
           >
+            <Moon className="size-3.5 shrink-0 mr-1.5" aria-hidden />
             {t("themeDark")}
           </Button>
           <Button
@@ -85,6 +88,7 @@ export default function Themes() {
             size="sm"
             onClick={() => applyAppearance({ colorScheme: "system" })}
           >
+            <Monitor className="size-3.5 shrink-0 mr-1.5" aria-hidden />
             {t("themeSystem")}
           </Button>
         </div>
