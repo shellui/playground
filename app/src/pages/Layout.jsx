@@ -6,7 +6,7 @@ import { Button } from "../components/ui/Button";
 
 const LAYOUT_CONFIG_CODE = `// shellui.config.ts
 const config: ShellUIConfig = {
-  // 'sidebar' (default) | 'fullscreen' | 'windows'
+  // 'sidebar' (default) | 'app-bar' | 'fullscreen' | 'windows'
   layout: "sidebar",
   // ...
 };`;
@@ -14,6 +14,7 @@ const config: ShellUIConfig = {
 const layoutToKey = (layout) => {
   if (layout === "fullscreen") return "layoutFullscreen";
   if (layout === "windows") return "layoutWindows";
+  if (layout === "app-bar") return "layoutAppBar";
   return "layoutSidebar";
 };
 
@@ -68,6 +69,13 @@ export default function Layout() {
             onClick={() => applyLayout("sidebar")}
           >
             {t("layoutSidebar")}
+          </Button>
+          <Button
+            variant={currentLayout === "app-bar" ? "default" : "outline"}
+            size="sm"
+            onClick={() => applyLayout("app-bar")}
+          >
+            {t("layoutAppBar")}
           </Button>
           <Button
             variant={currentLayout === "windows" ? "default" : "outline"}
