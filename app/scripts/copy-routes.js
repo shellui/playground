@@ -7,7 +7,7 @@ const distApp = path.join(__dirname, '../../dist/app');
 const indexHtml = path.join(distApp, 'index.html');
 
 // Routes that need their own index.html for direct URL access when serving statically
-const routes = ['about'];
+const routes = ['about', 'layout', 'modal', 'dialog', 'toaster', 'themes', 'languages'];
 
 if (!fs.existsSync(indexHtml)) {
   console.error('Build output not found at', indexHtml);

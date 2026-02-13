@@ -7,6 +7,13 @@ export default defineConfig(({ mode }) => ({
   server: {
     port: 5173,
     strictPort: true,
+    origin: 'http://localhost:5173',
+    cors: true,
+    hmr: {
+      clientPort: 5173,
+      host: 'localhost',
+      protocol: 'ws',
+    },
   },
   build: {
     outDir: '../dist/app',

@@ -1,6 +1,6 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import shellui, { addMessageListener } from '@shellui/sdk';
-import { getAppearanceFromPayload, applyThemeToDocument } from '../lib/theme';
+import { createContext, useContext, useState, useEffect } from "react";
+import shellui from "@shellui/sdk";
+import { getAppearanceFromPayload, applyThemeToDocument } from "../lib/theme";
 
 const ThemeContext = createContext(null);
 
@@ -11,7 +11,7 @@ const ThemeContext = createContext(null);
  */
 function getPayloadFromMessage(message) {
   const payload = message?.payload;
-  if (!payload || typeof payload !== 'object') return null;
+  if (!payload || typeof payload !== "object") return null;
   if (payload.settings != null) return payload;
   if (payload.appearance != null) return { settings: payload };
   return null;
@@ -22,7 +22,7 @@ function getPayloadFromMessage(message) {
  */
 export function ThemeProvider({ initialAppearance, children }) {
   const [appearance, setAppearance] = useState(
-    () => initialAppearance ?? shellui.initialSettings?.appearance ?? null
+    () => initialAppearance ?? shellui.initialSettings?.appearance ?? null,
   );
 
   useEffect(() => {
@@ -41,8 +41,14 @@ export function ThemeProvider({ initialAppearance, children }) {
 
     apply(initialAppearance ?? shellui.initialSettings?.appearance ?? null);
 
-    const cleanupUpdated = addMessageListener('SHELLUI_SETTINGS_UPDATED', handleSettings);
-    const cleanupSettings = addMessageListener('SHELLUI_SETTINGS', handleSettings);
+    const cleanupUpdated = shellui.addMessageListener(
+      "SHELLUI_SETTINGS_UPDATED",
+      handleSettings,
+    );
+    const cleanupSettings = shellui.addMessageListener(
+      "SHELLUI_SETTINGS",
+      handleSettings,
+    );
 
     return () => {
       cleanupUpdated();
@@ -51,9 +57,7 @@ export function ThemeProvider({ initialAppearance, children }) {
   }, [initialAppearance]);
 
   return (
-    <ThemeContext.Provider value={appearance}>
-      {children}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={appearance}>{children}</ThemeContext.Provider>
   );
 }
 

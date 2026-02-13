@@ -67,7 +67,6 @@ const config: ShellUIConfig = {
       },
     ],
   },
-  // Layout: 'sidebar' (default), 'fullscreen' (content only), or 'windows' (taskbar + multi-window)
   layout: "sidebar",
   // Enable specific languages: single language string or array of language codes
   // Examples:
@@ -251,7 +250,7 @@ const config: ShellUIConfig = {
       // Simple string label (backward compatible)
       label: "Playground",
       path: "playground",
-      url: "https://playground.shellui.com",
+      url: "/",
       icon: "/icons/play.svg",
       position: "end",
     },

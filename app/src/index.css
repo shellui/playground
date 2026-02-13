@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Shadcn-compatible theme variables; overridden by ThemeProvider from shellui settings */
 :root {
   --radius: 0.5rem;

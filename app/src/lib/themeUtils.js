@@ -10,7 +10,7 @@
  */
 export function applyVariablesToRoot(root, variables) {
   for (const [key, value] of Object.entries(variables)) {
-    if (value != null && key.startsWith('--')) {
+    if (value != null && key.startsWith("--")) {
       root.style.setProperty(key, value);
     }
   }
@@ -31,24 +31,24 @@ export function applyTypographyFromAppearance(root, appearance) {
   const genericFont = appearance.fontFamily ?? bodyFont;
 
   if (genericFont != null) {
-    root.style.setProperty('--font-family', genericFont);
+    root.style.setProperty("--font-family", genericFont);
   }
   if (bodyFont != null) {
-    root.style.setProperty('--font-body', bodyFont);
-    if (document.body) document.body.style.setProperty('font-family', bodyFont);
+    root.style.setProperty("--font-body", bodyFont);
+    if (document.body) document.body.style.setProperty("font-family", bodyFont);
   }
   if (headingFont != null) {
-    root.style.setProperty('--font-heading', headingFont);
+    root.style.setProperty("--font-heading", headingFont);
   }
   if (appearance.lineHeight != null) {
-    root.style.setProperty('--line-height', appearance.lineHeight);
+    root.style.setProperty("--line-height", appearance.lineHeight);
   }
   if (appearance.letterSpacing != null) {
-    root.style.setProperty('--letter-spacing', appearance.letterSpacing);
+    root.style.setProperty("--letter-spacing", appearance.letterSpacing);
   }
 }
 
-const FONT_LINK_ID = 'shellui-theme-fonts';
+const FONT_LINK_ID = "shellui-theme-fonts";
 
 /**
  * @param {string[] | undefined} urls
@@ -58,42 +58,43 @@ export function applyFontFiles(urls) {
   if (existing) existing.remove();
   if (!urls?.length) return;
   for (let i = 0; i < urls.length; i++) {
-    const link = document.createElement('link');
+    const link = document.createElement("link");
     if (i === 0) link.id = FONT_LINK_ID;
-    link.rel = 'stylesheet';
-    link.href = typeof urls[i] === 'string' ? urls[i] : urls[i].href || urls[i].url;
+    link.rel = "stylesheet";
+    link.href =
+      typeof urls[i] === "string" ? urls[i] : urls[i].href || urls[i].url;
     document.head?.appendChild(link);
   }
 }
 
 /** For legacy color-object application (camelCase keys -> --kebab-case). Export for theme.js if needed. */
 export const KEY_TO_CSS_VAR = {
-  background: '--background',
-  foreground: '--foreground',
-  card: '--card',
-  cardForeground: '--card-foreground',
-  popover: '--popover',
-  popoverForeground: '--popover-foreground',
-  primary: '--primary',
-  primaryForeground: '--primary-foreground',
-  secondary: '--secondary',
-  secondaryForeground: '--secondary-foreground',
-  muted: '--muted',
-  mutedForeground: '--muted-foreground',
-  accent: '--accent',
-  accentForeground: '--accent-foreground',
-  destructive: '--destructive',
-  destructiveForeground: '--destructive-foreground',
-  border: '--border',
-  input: '--input',
-  ring: '--ring',
-  radius: '--radius',
-  sidebarBackground: '--sidebar',
-  sidebarForeground: '--sidebar-foreground',
-  sidebarPrimary: '--sidebar-primary',
-  sidebarPrimaryForeground: '--sidebar-primary-foreground',
-  sidebarAccent: '--sidebar-accent',
-  sidebarAccentForeground: '--sidebar-accent-foreground',
-  sidebarBorder: '--sidebar-border',
-  sidebarRing: '--sidebar-ring',
+  background: "--background",
+  foreground: "--foreground",
+  card: "--card",
+  cardForeground: "--card-foreground",
+  popover: "--popover",
+  popoverForeground: "--popover-foreground",
+  primary: "--primary",
+  primaryForeground: "--primary-foreground",
+  secondary: "--secondary",
+  secondaryForeground: "--secondary-foreground",
+  muted: "--muted",
+  mutedForeground: "--muted-foreground",
+  accent: "--accent",
+  accentForeground: "--accent-foreground",
+  destructive: "--destructive",
+  destructiveForeground: "--destructive-foreground",
+  border: "--border",
+  input: "--input",
+  ring: "--ring",
+  radius: "--radius",
+  sidebarBackground: "--sidebar",
+  sidebarForeground: "--sidebar-foreground",
+  sidebarPrimary: "--sidebar-primary",
+  sidebarPrimaryForeground: "--sidebar-primary-foreground",
+  sidebarAccent: "--sidebar-accent",
+  sidebarAccentForeground: "--sidebar-accent-foreground",
+  sidebarBorder: "--sidebar-border",
+  sidebarRing: "--sidebar-ring",
 };
