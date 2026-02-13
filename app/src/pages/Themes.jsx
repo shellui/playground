@@ -32,11 +32,13 @@ export default function Themes() {
   const colorScheme = appearance?.colorScheme ?? "system";
 
   const applyAppearance = (updates) => {
-    const current = shellui.initialSettings ?? {};
-    const nextAppearance = { ...(current.appearance ?? {}), ...updates };
+    const currentSettings = shellui.initialSettings ?? {};
+    const nextAppearance = { ...(appearance ?? {}), ...updates };
     shellui.sendMessageToParent({
       type: "SHELLUI_SETTINGS_UPDATED",
-      payload: { settings: { ...current, appearance: nextAppearance } },
+      payload: {
+        settings: { ...currentSettings, appearance: nextAppearance },
+      },
     });
   };
 
