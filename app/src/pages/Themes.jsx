@@ -1,9 +1,90 @@
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Sun, Moon, Monitor } from "lucide-react";
 import shellui from "@shellui/sdk";
 import CodeBlock from "../components/CodeBlock";
 import { Button } from "../components/ui/Button";
 import { useTheme } from "../contexts/ThemeContext";
+import { getAvailableThemes } from "../lib/theme";
+
+function cn(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+/**
+ * Theme color preview component.
+ * @param {{ theme: import('@shellui/sdk').Theme; isSelected: boolean; isDark: boolean }} props
+ */
+function ThemePreview({ theme, isSelected, isDark }) {
+  const colors = isDark
+    ? theme.colors?.dark ?? {}
+    : theme.colors?.light ?? {};
+  const background = colors.background ?? (isDark ? "#0a0a0a" : "#ffffff");
+
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-lg border-2 transition-all",
+        isSelected ? "border-primary shadow-lg" : "border-border",
+      )}
+      style={{ backgroundColor: background }}
+    >
+      <div className="p-3 space-y-2">
+        {/* Primary color */}
+        <div
+          className="h-8 rounded-md"
+          style={{ backgroundColor: colors.primary }}
+        />
+        {/* Secondary colors */}
+        <div className="flex gap-1">
+          <div
+            className="h-6 flex-1 rounded"
+            style={{ backgroundColor: colors.background }}
+          />
+          <div
+            className="h-6 flex-1 rounded"
+            style={{ backgroundColor: colors.secondary }}
+          />
+          <div
+            className="h-6 flex-1 rounded"
+            style={{ backgroundColor: colors.accent }}
+          />
+        </div>
+        {/* Accent colors */}
+        <div className="flex gap-1">
+          <div
+            className="h-4 flex-1 rounded"
+            style={{ backgroundColor: colors.muted }}
+          />
+          <div
+            className="h-4 flex-1 rounded"
+            style={{ backgroundColor: colors.border }}
+          />
+        </div>
+      </div>
+      {/* Theme name overlay */}
+      <div
+        className="absolute bottom-0 left-0 right-0 backdrop-blur-sm px-2 py-1"
+        style={{ backgroundColor: background }}
+      >
+        <p
+          className="text-xs font-medium text-center"
+          style={
+            theme.fontFamily
+              ? {
+                  fontFamily: theme.fontFamily,
+                  letterSpacing: theme.letterSpacing || "normal",
+                  textShadow: theme.textShadow || "none",
+                }
+              : {}
+          }
+        >
+          {theme.displayName ?? theme.name}
+        </p>
+      </div>
+    </div>
+  );
+}
 
 const THEMES_CODE = `import shellui from '@shellui/sdk';
 
@@ -16,11 +97,6 @@ shellui.addMessageListener('SHELLUI_SETTINGS', (message) => {
 const theme = shellui.initialSettings?.appearance;
 applyThemeToDocument(theme);`;
 
-const THEME_OPTIONS = [
-  { name: "default", labelKey: "themeDefault" },
-  { name: "sebastienbarbier", labelKey: "themeSebastienbarbier" },
-];
-
 const colorSchemeToKey = (scheme) => {
   if (scheme === "dark") return "themeDark";
   if (scheme === "system") return "themeSystem";
@@ -31,6 +107,13 @@ export default function Themes() {
   const { t } = useTranslation();
   const appearance = useTheme();
   const colorScheme = appearance?.colorScheme ?? "system";
+
+  const availableThemes = useMemo(
+    () => getAvailableThemes(shellui.initialSettings ?? null),
+    [],
+  );
+  const currentThemeName = appearance?.name ?? "default";
+  const isDarkForPreview = colorScheme === "dark";
 
   const applyAppearance = (updates) => {
     const currentSettings = shellui.initialSettings ?? {};
@@ -93,22 +176,43 @@ export default function Themes() {
           </Button>
         </div>
 
-        <h3 className="font-heading text-sm font-medium text-foreground mt-4 mb-2">
-          {t("selectTheme")}
-        </h3>
-        <div className="flex flex-wrap gap-2 mb-3">
-          {THEME_OPTIONS.map(({ name, labelKey }) => (
-            <Button
-              key={name}
-              variant={
-                (appearance?.name ?? "default") === name ? "default" : "outline"
-              }
-              size="sm"
-              onClick={() => applyAppearance({ name })}
+        {/* Theme Selection (Color Scheme) */}
+        <div className="space-y-2 mt-4">
+          <div className="space-y-0.5">
+            <label
+              className="text-sm font-medium leading-none"
+              style={{ fontFamily: "var(--heading-font-family, inherit)" }}
             >
-              {t(labelKey)}
-            </Button>
-          ))}
+              {t("appearance.colorTheme")}
+            </label>
+            <p className="text-sm text-muted-foreground">
+              {t("appearance.colorThemeDescription")}
+            </p>
+          </div>
+          <div className="mt-2 grid grid-cols-2 md:grid-cols-3 gap-4">
+            {availableThemes.map((theme) => {
+              const isSelected = currentThemeName === theme.name;
+              return (
+                <button
+                  key={theme.name}
+                  onClick={() => {
+                    applyAppearance({ name: theme.name });
+                  }}
+                  className={cn(
+                    "text-left transition-all cursor-pointer",
+                    isSelected && "ring-2 ring-primary ring-offset-2 rounded-lg",
+                  )}
+                  aria-label={theme.displayName ?? theme.name}
+                >
+                  <ThemePreview
+                    theme={theme}
+                    isSelected={isSelected}
+                    isDark={isDarkForPreview}
+                  />
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         <CodeBlock code={THEMES_CODE} />

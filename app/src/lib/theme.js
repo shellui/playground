@@ -8,7 +8,7 @@ import {
   applyVariablesToRoot,
   applyTypographyFromAppearance,
   applyFontFiles,
-} from './themeUtils.js';
+} from "./themeUtils.js";
 
 /**
  * Get appearance from SDK settings (e.g. shellui.initialSettings).
@@ -22,13 +22,25 @@ export function getAppearanceFromSettings(settings) {
 }
 
 /**
+ * Get available themes from SDK settings (e.g. shellui.initialSettings).
+ * availableThemes lives under settings.appearance.
+ * Used to render a theme selector same as in shell settings.
+ *
+ * @param {import('@shellui/sdk').Settings | null | undefined} settings
+ * @returns {import('@shellui/sdk').Theme[]}
+ */
+export function getAvailableThemes(settings) {
+  return settings?.appearance?.availableThemes ?? [];
+}
+
+/**
  * Get appearance from SHELLUI_SETTINGS / SHELLUI_SETTINGS_UPDATED payload.
  *
  * @param {{ settings?: import('@shellui/sdk').Settings } | import('@shellui/sdk').Settings | null | undefined} payload
  * @returns {import('@shellui/sdk').Appearance | null}
  */
 export function getAppearanceFromPayload(payload) {
-  if (!payload || typeof payload !== 'object') return null;
+  if (!payload || typeof payload !== "object") return null;
   const settings = payload.settings ?? payload;
   return settings?.appearance ?? null;
 }
@@ -42,18 +54,18 @@ export function getAppearanceFromPayload(payload) {
 export function applyThemeToDocument(appearance) {
   const root = document.documentElement;
   if (!appearance) {
-    root.classList.remove('dark');
+    root.classList.remove("dark");
     return;
   }
 
-  if (appearance.mode === 'dark') {
-    root.classList.add('dark');
+  if (appearance.mode === "dark") {
+    root.classList.add("dark");
   } else {
-    root.classList.remove('dark');
+    root.classList.remove("dark");
   }
 
   const colorsForMode = appearance.colors?.[appearance.mode];
-  if (colorsForMode && typeof colorsForMode === 'object') {
+  if (colorsForMode && typeof colorsForMode === "object") {
     const variables = {};
     for (const [key, value] of Object.entries(colorsForMode)) {
       const cssVar = KEY_TO_CSS_VAR[key];
@@ -65,10 +77,11 @@ export function applyThemeToDocument(appearance) {
   applyTypographyFromAppearance(root, appearance);
   applyFontFiles(appearance.fontFiles);
 
-  const primary = typeof getComputedStyle !== 'undefined'
-    ? getComputedStyle(root).getPropertyValue('--primary').trim()
-    : '';
+  const primary =
+    typeof getComputedStyle !== "undefined"
+      ? getComputedStyle(root).getPropertyValue("--primary").trim()
+      : "";
   if (primary) {
-    root.style.setProperty('--link', primary);
+    root.style.setProperty("--link", primary);
   }
 }

@@ -11,6 +11,7 @@ import "./index.css";
 
 async function bootstrap() {
   await shellui.init();
+  console.log(shellui.initialSettings?.appearance);
   const initialLang =
     getLangFromSettings(shellui.initialSettings) || i18n.language || "en";
   await i18n.changeLanguage(initialLang);

@@ -149,6 +149,9 @@ const resources = {
       timezoneTokyo: "Tokyo",
       resetTimezoneToBrowser: "Reset to browser timezone",
       currentTimeInRegion: "Current time in region",
+      "appearance.colorTheme": "Color theme",
+      "appearance.colorThemeDescription":
+        "Choose a theme for colors and typography.",
     },
   },
   fr: {
@@ -299,6 +302,9 @@ const resources = {
       timezoneTokyo: "Tokyo",
       resetTimezoneToBrowser: "Réinitialiser au fuseau du navigateur",
       currentTimeInRegion: "Heure actuelle dans la région",
+      "appearance.colorTheme": "Thème de couleurs",
+      "appearance.colorThemeDescription":
+        "Choisissez un thème pour les couleurs et la typographie.",
     },
   },
 };
