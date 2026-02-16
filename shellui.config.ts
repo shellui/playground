@@ -157,7 +157,7 @@ const config: ShellUIConfig = {
     {
       label: "Homepage",
       path: "",
-      url: appUrl,
+      url: `${appUrl.replace(/\/$/, "")}/#/`,
       icon: "/icons/home.svg",
     },
     // {
@@ -176,25 +176,25 @@ const config: ShellUIConfig = {
         {
           label: { en: "Layout", fr: "Mise en page" },
           path: "layout",
-          url: `${appUrl.replace(/\/$/, "")}/layout`,
+          url: `${appUrl.replace(/\/$/, "")}/#/layout`,
           icon: "/icons/layout.svg",
         },
         {
           label: { en: "Modal & Drawer", fr: "Fenêtre modale et tiroir" },
           path: "modal",
-          url: `${appUrl.replace(/\/$/, "")}/modal`,
+          url: `${appUrl.replace(/\/$/, "")}/#/modal`,
           icon: "/icons/modal.svg",
         },
         {
           label: { en: "Dialog", fr: "Dialogue" },
           path: "dialog",
-          url: `${appUrl.replace(/\/$/, "")}/dialog`,
+          url: `${appUrl.replace(/\/$/, "")}/#/dialog`,
           icon: "/icons/dialog.svg",
         },
         {
           label: { en: "Toaster", fr: "Notifications" },
           path: "toaster",
-          url: `${appUrl.replace(/\/$/, "")}/toaster`,
+          url: `${appUrl.replace(/\/$/, "")}/#/toaster`,
           icon: "/icons/toaster.svg",
         },
       ],
@@ -209,13 +209,13 @@ const config: ShellUIConfig = {
         {
           label: { en: "Themes", fr: "Thèmes" },
           path: "themes",
-          url: `${appUrl.replace(/\/$/, "")}/themes`,
+          url: `${appUrl.replace(/\/$/, "")}/#/themes`,
           icon: "/icons/palette.svg",
         },
         {
           label: { en: "Language & region", fr: "Langue & région" },
           path: "languages",
-          url: `${appUrl.replace(/\/$/, "")}/languages`,
+          url: `${appUrl.replace(/\/$/, "")}/#/languages`,
           icon: "/icons/languages.svg",
         },
       ],

@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import shellui from "@shellui/sdk";
 import { LangProvider, getLangFromSettings } from "./contexts/LangContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -20,11 +20,9 @@ async function bootstrap() {
     <StrictMode>
       <ThemeProvider initialAppearance={initialTheme}>
         <LangProvider>
-          <BrowserRouter
-            basename={import.meta.env.BASE_URL.replace(/\/$/, "") || "/"}
-          >
+          <HashRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "") || "/"}>
             <App />
-          </BrowserRouter>
+          </HashRouter>
         </LangProvider>
       </ThemeProvider>
     </StrictMode>,

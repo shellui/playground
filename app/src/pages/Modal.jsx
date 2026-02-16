@@ -6,11 +6,9 @@ import { Alert, AlertTitle } from "../components/ui/Alert";
 import { Button } from "../components/ui/Button";
 
 function appRouteUrl(path) {
-  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
-  return new URL(
-    `${base}${path.startsWith("/") ? path : "/" + path}`,
-    window.location.href,
-  ).href;
+  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") || "/";
+  const pathPart = path.startsWith("/") ? path : "/" + path;
+  return `${window.location.origin}${base}#${pathPart}`;
 }
 
 const MODAL_CODE = `import shellui from '@shellui/sdk';
