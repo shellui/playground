@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@shellui/sdk": "^0.2.0-alpha.3",
+    "@shellui/sdk": "^0.2.0-alpha.4",
     "i18next": "^24.2.0",
     "lucide-react": "^0.468.0",
     "prism-react-renderer": "^2.4.0",
