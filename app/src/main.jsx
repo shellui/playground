@@ -20,7 +20,7 @@ async function bootstrap() {
     <StrictMode>
       <ThemeProvider initialAppearance={initialTheme}>
         <LangProvider>
-          <HashRouter basename={import.meta.env.BASE_URL.replace(/\/$/, "") || "/"}>
+          <HashRouter>
             <App />
           </HashRouter>
         </LangProvider>
