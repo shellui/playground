@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@shellui/cli':
-        specifier: ^0.2.0-beta.2
-        version: 0.2.0-beta.2(@types/babel__core@7.20.5)(jiti@2.6.1)(lightningcss@1.30.2)(postcss@8.5.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(terser@5.46.0)
+        specifier: ^0.2.0-beta.3
+        version: 0.2.0-beta.3(@types/babel__core@7.20.5)(jiti@2.6.1)(lightningcss@1.30.2)(postcss@8.5.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(terser@5.46.0)
       '@shellui/core':
-        specifier: ^0.2.0-beta.2
-        version: 0.2.0-beta.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^0.2.0-beta.3
+        version: 0.2.0-beta.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
 
 packages:
 
@@ -1261,18 +1261,18 @@ packages:
     peerDependencies:
       react: ^16.14.0 || 17.x || 18.x || 19.x
 
-  '@shellui/cli@0.2.0-beta.2':
-    resolution: {integrity: sha512-zJ8NZzjv4VnIym/TVqYQECvyETDKeWlBbgWYpWQpVbJqCISoXJY4EwYkgkeo1UCDF3h7jwvH4C4KCYQL18Lj1A==}
+  '@shellui/cli@0.2.0-beta.3':
+    resolution: {integrity: sha512-3VAzF3H9rgClbNwFBQmlWy9cZhCxrGnFw1nKjjOS5Nf9YnBn42J+tHG5+gzX464mVPjKQgOwjoNQRqQxEd2Ebg==}
     hasBin: true
 
-  '@shellui/core@0.2.0-beta.2':
-    resolution: {integrity: sha512-5rpDjvd+daJaRFLGI5kRl2DGtF4JqyE+8xw9jBhy3ABY+8i1XqF7GSO5T6YcZeI1Z3W5UmDxm8pvtgpWZWCogA==}
+  '@shellui/core@0.2.0-beta.3':
+    resolution: {integrity: sha512-PFTrTqOmRYIN49DhFQ80HL/vV0f0fSVmyLPPsNDjEAyw8I0vS4775eadBIeY4BX08nODVVNtCcZZnLU1ufYH1w==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
 
-  '@shellui/sdk@0.2.0-beta.2':
-    resolution: {integrity: sha512-YCF3aQTobwX3pJfXPGXNwUbwwvgplrjHzTr/66mbGN9Ky8mMrhC/7nNaAxfm5TTEmv/xEaBl7QGL092NXFsjAw==}
+  '@shellui/sdk@0.2.0-beta.3':
+    resolution: {integrity: sha512-0zs3p3NawauaE8HbHt1aelkfgVS1wt4yqeFbiunkvFt6ucqbolzv8uHRVcznRly7FgYTkt7T8KTQ2+4oFsUJDQ==}
 
   '@surma/rollup-plugin-off-main-thread@2.2.3':
     resolution: {integrity: sha512-lR8q/9W7hZpMWweNiAKU7NQerBnzQQLvi8qnTDU/fxItPhtZVMbPV3lbCwjhIlNBe9Bbr5V+KHshvWmVSG9cxQ==}
@@ -3778,9 +3778,9 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       react: 19.2.4
 
-  '@shellui/cli@0.2.0-beta.2(@types/babel__core@7.20.5)(jiti@2.6.1)(lightningcss@1.30.2)(postcss@8.5.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(terser@5.46.0)':
+  '@shellui/cli@0.2.0-beta.3(@types/babel__core@7.20.5)(jiti@2.6.1)(lightningcss@1.30.2)(postcss@8.5.6)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(terser@5.46.0)':
     dependencies:
-      '@shellui/core': 0.2.0-beta.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@shellui/core': 0.2.0-beta.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@tailwindcss/postcss': 4.1.18
       '@vitejs/plugin-react': 5.1.3(vite@7.3.1(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(tsx@4.21.0))
       autoprefixer: 10.4.24(postcss@8.5.6)
@@ -3811,7 +3811,7 @@ snapshots:
       - typescript
       - yaml
 
-  '@shellui/core@0.2.0-beta.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@shellui/core@0.2.0-beta.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@radix-ui/react-alert-dialog': 1.1.15(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-collapsible': 1.1.12(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -3820,7 +3820,7 @@ snapshots:
       '@radix-ui/react-slot': 1.2.4(react@19.2.4)
       '@radix-ui/react-tooltip': 1.2.8(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@sentry/react': 8.55.0(react@19.2.4)
-      '@shellui/sdk': 0.2.0-beta.2
+      '@shellui/sdk': 0.2.0-beta.3
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       i18next: 23.16.8
@@ -3844,7 +3844,7 @@ snapshots:
       - react-native
       - typescript
 
-  '@shellui/sdk@0.2.0-beta.2':
+  '@shellui/sdk@0.2.0-beta.3':
     dependencies:
       roarr: 7.21.4
 
