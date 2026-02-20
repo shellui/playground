@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Sun, Moon, Monitor } from "lucide-react";
 import shellui from "@shellui/sdk";
@@ -113,7 +113,28 @@ export default function Themes() {
     [],
   );
   const currentThemeName = appearance?.name ?? "default";
-  const isDarkForPreview = colorScheme === "dark";
+
+  // System preference for when colorScheme is "system" and appearance.mode isn't set
+  const [systemPrefersDark, setSystemPrefersDark] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches,
+  );
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => setSystemPrefersDark(mq.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  // When "system", use resolved mode (appearance.mode) or OS preference so preview matches current theme
+  const resolvedDark =
+    appearance?.mode != null
+      ? appearance.mode === "dark"
+      : systemPrefersDark;
+  const isDarkForPreview =
+    colorScheme === "dark" || (colorScheme === "system" && resolvedDark);
 
   const applyAppearance = (updates) => {
     const currentSettings = shellui.initialSettings ?? {};
