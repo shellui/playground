@@ -174,18 +174,6 @@ const config: ShellUIConfig = {
       },
       items: [
         {
-          label: { en: "Layout", fr: "Mise en page" },
-          path: "layout",
-          url: `${appUrl.replace(/\/$/, "")}/#/layout`,
-          icon: "/icons/layout.svg",
-        },
-        {
-          label: { en: "Modal & Drawer", fr: "Fenêtre modale et tiroir" },
-          path: "modal",
-          url: `${appUrl.replace(/\/$/, "")}/#/modal`,
-          icon: "/icons/modal.svg",
-        },
-        {
           label: { en: "Dialog", fr: "Dialogue" },
           path: "dialog",
           url: `${appUrl.replace(/\/$/, "")}/#/dialog`,
@@ -196,6 +184,18 @@ const config: ShellUIConfig = {
           path: "toaster",
           url: `${appUrl.replace(/\/$/, "")}/#/toaster`,
           icon: "/icons/toaster.svg",
+        },
+        {
+          label: { en: "Modal & Drawer", fr: "Fenêtre modale et tiroir" },
+          path: "modal",
+          url: `${appUrl.replace(/\/$/, "")}/#/modal`,
+          icon: "/icons/modal.svg",
+        },
+        {
+          label: { en: "Layout", fr: "Mise en page" },
+          path: "layout",
+          url: `${appUrl.replace(/\/$/, "")}/#/layout`,
+          icon: "/icons/layout.svg",
         },
       ],
     },
