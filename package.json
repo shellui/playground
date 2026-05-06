@@ -6,7 +6,13 @@
   "scripts": {
     "start": "shellui start",
     "build": "shellui build && pnpm -C app build",
-    "serve:dist": "node tools/serve/serve.js"
+    "serve:dist": "node tools/serve/serve.js",
+    "format": "pnpm exec prettier --write .",
+    "format:check": "pnpm exec prettier --check .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*": "pnpm exec prettier --write --ignore-unknown"
   },
   "author": "ShellUI",
   "license": "MIT",
@@ -18,5 +24,10 @@
   "dependencies": {
     "@shellui/cli": "^0.2.0",
     "@shellui/core": "^0.2.0"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1"
   }
 }
