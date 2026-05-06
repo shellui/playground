@@ -1,14 +1,14 @@
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { Button } from "../components/ui/Button";
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import { Button } from '../components/ui/Button';
 
 const FEATURES = [
-  { path: "/dialog", key: "pageDialogTitle" },
-  { path: "/toaster", key: "pageToasterTitle" },
-  { path: "/modal", key: "pageModalDrawerTitle" },
-  { path: "/layout", key: "pageLayoutTitle" },
-  { path: "/themes", key: "pageThemesTitle" },
-  { path: "/languages", key: "pageLanguagesTitle" },
+  { path: '/dialog', key: 'pageDialogTitle' },
+  { path: '/toaster', key: 'pageToasterTitle' },
+  { path: '/modal', key: 'pageModalDrawerTitle' },
+  { path: '/layout', key: 'pageLayoutTitle' },
+  { path: '/themes', key: 'pageThemesTitle' },
+  { path: '/languages', key: 'pageLanguagesTitle' },
 ];
 
 export default function Home() {
@@ -18,34 +18,31 @@ export default function Home() {
     <div className="font-body text-foreground max-w-3xl">
       <header className="mb-8">
         <h1 className="font-heading text-3xl font-bold text-foreground tracking-tight">
-          {t("playgroundTitle")}
+          {t('playgroundTitle')}
         </h1>
-        <p className="mt-2 text-lg text-muted-foreground">
-          {t("playgroundTagline")}
-        </p>
-        <p className="mt-4 text-foreground">{t("playgroundIntro")}</p>
+        <p className="mt-2 text-lg text-muted-foreground">{t('playgroundTagline')}</p>
+        <p className="mt-4 text-foreground">{t('playgroundIntro')}</p>
       </header>
 
       <section className="mb-8">
         <h2 className="font-heading text-xl font-semibold text-foreground mb-2">
-          {t("playgroundWhatIs")}
+          {t('playgroundWhatIs')}
         </h2>
-        <p className="text-foreground text-muted-foreground">
-          {t("playgroundWhatIsBody")}
-        </p>
+        <p className="text-foreground text-muted-foreground">{t('playgroundWhatIsBody')}</p>
       </section>
 
       <section className="mb-8">
         <h2 className="font-heading text-xl font-semibold text-foreground mb-2">
-          {t("playgroundTrySections")}
+          {t('playgroundTrySections')}
         </h2>
-        <p className="text-muted-foreground mb-4">
-          {t("playgroundTrySectionsBody")}
-        </p>
+        <p className="text-muted-foreground mb-4">{t('playgroundTrySectionsBody')}</p>
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 list-none p-0 m-0">
           {FEATURES.map(({ path, key }) => (
             <li key={path}>
-              <Link to={path} className="block">
+              <Link
+                to={path}
+                className="block"
+              >
                 <Button
                   variant="outline"
                   className="w-full justify-start h-auto py-3"
@@ -59,7 +56,7 @@ export default function Home() {
       </section>
 
       <p className="text-muted-foreground text-sm flex items-center gap-2 flex-wrap">
-        {t("playgroundCodeOnGitHub")}
+        {t('playgroundCodeOnGitHub')}
         <a
           href="https://github.com/shellui/playground"
           target="_blank"
@@ -77,7 +74,7 @@ export default function Home() {
           </svg>
           shellui/playground
         </a>
-        {t("playgroundHostedOnGitHubPages")}
+        {t('playgroundHostedOnGitHubPages')}
       </p>
     </div>
   );

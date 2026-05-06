@@ -70,7 +70,7 @@
 
 /* Theme font variables – set by applyThemeToDocument from Appearance (fontFamily, bodyFontFamily, headingFontFamily) */
 :root {
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: var(--font-family);
   --font-heading: var(--font-family);
 }
@@ -98,7 +98,12 @@ body {
   color: var(--muted-foreground);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
 }
 

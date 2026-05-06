@@ -1,17 +1,17 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import shellui from "@shellui/sdk";
-import i18n from "../i18n";
+import { createContext, useContext, useState, useEffect } from 'react';
+import shellui from '@shellui/sdk';
+import i18n from '../i18n';
 
-const LangContext = createContext("en");
+const LangContext = createContext('en');
 
 export function getLangFromSettings(settings) {
   const code = settings?.language?.code;
-  return code === "fr" || code === "en" ? code : "en";
+  return code === 'fr' || code === 'en' ? code : 'en';
 }
 
 export function LangProvider({ children }) {
   const [lang, setLang] = useState(
-    () => getLangFromSettings(shellui.initialSettings) || i18n.language || "en",
+    () => getLangFromSettings(shellui.initialSettings) || i18n.language || 'en',
   );
 
   useEffect(() => {
@@ -29,18 +29,11 @@ export function LangProvider({ children }) {
       }
     };
 
-    const initial =
-      getLangFromSettings(shellui.initialSettings) || i18n.language || "en";
+    const initial = getLangFromSettings(shellui.initialSettings) || i18n.language || 'en';
     applyLang(initial);
 
-    const cleanupUpdated = shellui.addMessageListener(
-      "SHELLUI_SETTINGS_UPDATED",
-      handleSettings,
-    );
-    const cleanupSettings = shellui.addMessageListener(
-      "SHELLUI_SETTINGS",
-      handleSettings,
-    );
+    const cleanupUpdated = shellui.addMessageListener('SHELLUI_SETTINGS_UPDATED', handleSettings);
+    const cleanupSettings = shellui.addMessageListener('SHELLUI_SETTINGS', handleSettings);
 
     return () => {
       cleanupUpdated();
@@ -53,5 +46,5 @@ export function LangProvider({ children }) {
 
 export function useLang() {
   const lang = useContext(LangContext);
-  return lang ?? "en";
+  return lang ?? 'en';
 }

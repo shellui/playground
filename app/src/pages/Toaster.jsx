@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
-import shellui from "@shellui/sdk";
-import CodeBlock from "../components/CodeBlock";
-import { Button } from "../components/ui/Button";
+import { useTranslation } from 'react-i18next';
+import shellui from '@shellui/sdk';
+import CodeBlock from '../components/CodeBlock';
+import { Button } from '../components/ui/Button';
 
 const SUCCESS_CODE = `import shellui from '@shellui/sdk';
 
@@ -62,12 +62,12 @@ shellui.toast({
 });`;
 
 const POSITIONS = [
-  "top-left",
-  "top-center",
-  "top-right",
-  "bottom-left",
-  "bottom-center",
-  "bottom-right",
+  'top-left',
+  'top-center',
+  'top-right',
+  'bottom-left',
+  'bottom-center',
+  'bottom-right',
 ];
 
 export default function Toaster() {
@@ -76,14 +76,14 @@ export default function Toaster() {
   return (
     <div className="font-body text-foreground max-w-3xl">
       <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t("pageToasterTitle")}
+        {t('pageToasterTitle')}
       </h1>
-      <p className="mt-2 text-foreground">{t("pageToasterDescription")}</p>
+      <p className="mt-2 text-foreground">{t('pageToasterDescription')}</p>
 
       <section className="mt-6 space-y-8">
         <div>
           <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t("exampleTitleToastSuccess")}
+            {t('exampleTitleToastSuccess')}
           </h2>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
@@ -91,13 +91,13 @@ export default function Toaster() {
               size="sm"
               onClick={() =>
                 shellui.toast({
-                  title: t("toastSuccess"),
-                  description: "Action completed.",
-                  type: "success",
+                  title: t('toastSuccess'),
+                  description: 'Action completed.',
+                  type: 'success',
                 })
               }
             >
-              {t("toastSuccess")}
+              {t('toastSuccess')}
             </Button>
           </div>
           <CodeBlock code={SUCCESS_CODE} />
@@ -105,7 +105,7 @@ export default function Toaster() {
 
         <div>
           <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t("exampleTitleToastError")}
+            {t('exampleTitleToastError')}
           </h2>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
@@ -113,13 +113,13 @@ export default function Toaster() {
               size="sm"
               onClick={() =>
                 shellui.toast({
-                  title: t("toastError"),
-                  description: "Something went wrong.",
-                  type: "error",
+                  title: t('toastError'),
+                  description: 'Something went wrong.',
+                  type: 'error',
                 })
               }
             >
-              {t("toastError")}
+              {t('toastError')}
             </Button>
           </div>
           <CodeBlock code={ERROR_CODE} />
@@ -127,7 +127,7 @@ export default function Toaster() {
 
         <div>
           <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t("exampleTitleToastAction")}
+            {t('exampleTitleToastAction')}
           </h2>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
@@ -135,15 +135,15 @@ export default function Toaster() {
               size="sm"
               onClick={() =>
                 shellui.toast({
-                  title: t("toastWithAction"),
-                  description: "Click Undo or Dismiss.",
-                  type: "default",
-                  action: { label: "Undo", onClick: () => {} },
-                  cancel: { label: "Dismiss", onClick: () => {} },
+                  title: t('toastWithAction'),
+                  description: 'Click Undo or Dismiss.',
+                  type: 'default',
+                  action: { label: 'Undo', onClick: () => {} },
+                  cancel: { label: 'Dismiss', onClick: () => {} },
                 })
               }
             >
-              {t("toastWithAction")}
+              {t('toastWithAction')}
             </Button>
           </div>
           <CodeBlock code={ACTION_CODE} />
@@ -151,7 +151,7 @@ export default function Toaster() {
 
         <div>
           <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t("exampleTitleToastLoadThenSuccess")}
+            {t('exampleTitleToastLoadThenSuccess')}
           </h2>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
@@ -159,23 +159,23 @@ export default function Toaster() {
               size="sm"
               onClick={() => {
                 const toastId = shellui.toast({
-                  title: "Processing...",
-                  description: "Please wait.",
-                  type: "loading",
+                  title: 'Processing...',
+                  description: 'Please wait.',
+                  type: 'loading',
                 });
-                if (typeof toastId === "string") {
+                if (typeof toastId === 'string') {
                   setTimeout(() => {
                     shellui.toast({
                       id: toastId,
-                      type: "success",
-                      title: "Done!",
-                      description: "Your upload completed.",
+                      type: 'success',
+                      title: 'Done!',
+                      description: 'Your upload completed.',
                     });
                   }, 2000);
                 }
               }}
             >
-              {t("toastLoadThenSuccess")}
+              {t('toastLoadThenSuccess')}
             </Button>
           </div>
           <CodeBlock code={LOAD_THEN_SUCCESS_CODE} />
@@ -183,14 +183,14 @@ export default function Toaster() {
 
         <div>
           <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t("exampleTitleToastPosition")}
+            {t('exampleTitleToastPosition')}
           </h2>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             {POSITIONS.map((position) => {
               const key = `toastPosition${position
-                .split("-")
+                .split('-')
                 .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-                .join("")}`;
+                .join('')}`;
               return (
                 <Button
                   key={position}
@@ -199,7 +199,7 @@ export default function Toaster() {
                   onClick={() =>
                     shellui.toast({
                       title: t(key),
-                      description: t("toastPositionDescription"),
+                      description: t('toastPositionDescription'),
                       position,
                     })
                   }

@@ -1,13 +1,13 @@
-import { useTranslation } from "react-i18next";
-import shellui from "@shellui/sdk";
-import { Info } from "lucide-react";
-import CodeBlock from "../components/CodeBlock";
-import { Alert, AlertTitle } from "../components/ui/Alert";
-import { Button } from "../components/ui/Button";
+import { useTranslation } from 'react-i18next';
+import shellui from '@shellui/sdk';
+import { Info } from 'lucide-react';
+import CodeBlock from '../components/CodeBlock';
+import { Alert, AlertTitle } from '../components/ui/Alert';
+import { Button } from '../components/ui/Button';
 
 function appRouteUrl(path) {
-  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "") || "/";
-  const pathPart = path.startsWith("/") ? path : "/" + path;
+  const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '/';
+  const pathPart = path.startsWith('/') ? path : '/' + path;
   return `${window.location.origin}${base}#${pathPart}`;
 }
 
@@ -30,34 +30,34 @@ export default function Modal() {
   return (
     <div className="font-body text-foreground max-w-3xl">
       <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t("pageModalDrawerTitle")}
+        {t('pageModalDrawerTitle')}
       </h1>
-      <p className="mt-2 text-foreground">{t("pageModalDrawerDescription")}</p>
+      <p className="mt-2 text-foreground">{t('pageModalDrawerDescription')}</p>
 
       <Alert className="mt-4">
         <Info />
-        <AlertTitle>{t("pageModalDrawerFun")}</AlertTitle>
+        <AlertTitle>{t('pageModalDrawerFun')}</AlertTitle>
       </Alert>
 
       <section className="mt-6 space-y-8">
         <div>
           <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t("exampleTitleModal")}
+            {t('exampleTitleModal')}
           </h2>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
               variant="default"
               size="sm"
-              onClick={() => shellui.openModal(appRouteUrl("/themes"))}
+              onClick={() => shellui.openModal(appRouteUrl('/themes'))}
             >
-              {t("openModalWithThemes")}
+              {t('openModalWithThemes')}
             </Button>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => shellui.openModal(appRouteUrl("/languages"))}
+              onClick={() => shellui.openModal(appRouteUrl('/languages'))}
             >
-              {t("openModalWithLanguages")}
+              {t('openModalWithLanguages')}
             </Button>
           </div>
           <CodeBlock code={MODAL_CODE} />
@@ -65,7 +65,7 @@ export default function Modal() {
 
         <div>
           <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t("exampleTitleDrawer")}
+            {t('exampleTitleDrawer')}
           </h2>
           <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
@@ -73,29 +73,33 @@ export default function Modal() {
               size="sm"
               onClick={() =>
                 shellui.openDrawer({
-                  url: appRouteUrl("/themes"),
-                  position: "right",
-                  size: "400px",
+                  url: appRouteUrl('/themes'),
+                  position: 'right',
+                  size: '400px',
                 })
               }
             >
-              {t("openDrawerFromRight")}
+              {t('openDrawerFromRight')}
             </Button>
             <Button
               variant="secondary"
               size="sm"
               onClick={() =>
                 shellui.openDrawer({
-                  url: appRouteUrl("/languages"),
-                  position: "bottom",
-                  size: "40vh",
+                  url: appRouteUrl('/languages'),
+                  position: 'bottom',
+                  size: '40vh',
                 })
               }
             >
-              {t("openDrawerFromBottom")}
+              {t('openDrawerFromBottom')}
             </Button>
-            <Button variant="ghost" size="sm" onClick={shellui.closeDrawer}>
-              {t("closeDrawer")}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={shellui.closeDrawer}
+            >
+              {t('closeDrawer')}
             </Button>
           </div>
           <CodeBlock code={DRAWER_CODE} />
