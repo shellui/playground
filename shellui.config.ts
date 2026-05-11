@@ -20,6 +20,15 @@ const appUrl =
   process.env.SHELLUI_APP_URL ??
   (isBuild ? '/app/' : `http://localhost:${process.env.SHELLUI_APP_PORT || '5173'}`);
 
+const shelluiBackendUrl = process.env.SHELLUI_BACKEND_URL?.trim() || 'https://id.shellui.com';
+const shelluiAdminUrl = process.env.SHELLUI_ADMIN_URL?.trim() || 'https://admin.shellui.com';
+const shelluiCompanyId = (() => {
+  const raw = process.env.SHELLUI_COMPANY_ID?.trim();
+  if (!raw) return 1;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : 1;
+})();
+
 // Generate version with build ID or dev suffix
 let version = packageJson.version;
 if (isBuild) {
@@ -65,6 +74,16 @@ const config: ShellUIConfig = {
     ],
   },
   layout: 'sidebar',
+  backend: {
+    type: 'shellui',
+    url: shelluiBackendUrl,
+    companyId: shelluiCompanyId,
+    adminUrl: shelluiAdminUrl,
+    login: {
+      methods: ['oauth'],
+      oauthProviders: ['github'],
+    },
+  },
   // Enable specific languages: single language string or array of language codes
   // Examples:
   // language: 'en',           // Only English
@@ -262,6 +281,17 @@ const config: ShellUIConfig = {
       openIn: 'modal',
       position: 'end',
       hiddenOnMobile: true,
+    },
+    {
+      label: {
+        en: 'Login',
+        fr: 'Connexion',
+      },
+      path: 'login',
+      url: urls.login,
+      icon: '/icons/user.svg',
+      openIn: 'modal',
+      position: 'end',
     },
   ],
 };

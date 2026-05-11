@@ -21,6 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+      SHELLUI_BACKEND_URL: ${{ vars.SHELLUI_BACKEND_URL || 'https://id.shellui.com' }}
+      SHELLUI_ADMIN_URL: ${{ vars.SHELLUI_ADMIN_URL || 'https://admin.shellui.com' }}
+      SHELLUI_COMPANY_ID: ${{ vars.SHELLUI_COMPANY_ID || '1' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
