@@ -56,6 +56,15 @@ const config: ShellUIConfig = {
   version: version,
   favicon: '/favicon.svg',
   logo: '/logo.svg',
+  legalDocuments: {
+    privacyPolicy: fs.readFileSync(path.join(__dirname, 'legal', 'privacy-policy.md'), 'utf8'),
+    termsOfService: fs.readFileSync(path.join(__dirname, 'legal', 'terms-of-service.md'), 'utf8'),
+    legalNotice: fs.readFileSync(path.join(__dirname, 'legal', 'legal-notice.md'), 'utf8'),
+    dataProcessingAgreement: fs.readFileSync(
+      path.join(__dirname, 'legal', 'data-processing-agreement.md'),
+      'utf8',
+    ),
+  },
   // Cookie consent: register cookies by host; accepted hosts stored in settings. Use host to gate features (e.g. getCookieConsentAccepted('sentry.io')).
   // consentedCookieHosts records which hosts were in config at last consent so we can detect new cookies and re-prompt while keeping existing approvals.
   cookieConsent: {
