@@ -1,7 +1,5 @@
 {
   "name": "playground-app",
-  "private": true,
-  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@shellui/sdk": "^0.2.0",
+    "@shellui/sdk": "^0.4.1",
     "i18next": "^24.2.0",
     "lucide-react": "^0.468.0",
     "prism-react-renderer": "^2.4.0",

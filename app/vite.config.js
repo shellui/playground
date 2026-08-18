@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: '../dist/app',
+    outDir: '../dist/web/app',
     emptyDirOutDir: true,
   },
 }));
