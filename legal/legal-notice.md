@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-14
 
-This Legal Notice is sample markdown for the ShellUI Playground. It demonstrates how `legalDocuments.legalNotice` is exposed on `/legal/legal-notice`.
+This Legal Notice is sample markdown for the Shellui Playground. It demonstrates how `legalDocuments.legalNotice` is exposed on `/legal/legal-notice`.
 
 ## Publisher
 

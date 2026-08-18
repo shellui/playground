@@ -1,6 +1,6 @@
-# ShellUI Playground
+# Shellui Playground
 
-A demo of **ShellUI**, the microfrontend orchestration framework, deployed to GitHub Pages.
+A demo of **Shellui**, the microfrontend orchestration framework, deployed to GitHub Pages.
 
 ## Quick Start
 
@@ -22,7 +22,7 @@ The output is in `dist/` — deploy it to any static hosting provider.
 ## Project Structure
 
 ```
-shellui.config.ts     # ShellUI configuration (navigation, themes, layout)
+shellui.config.ts     # Shellui configuration (navigation, themes, layout)
 static/               # Static assets copied to dist at build time
   favicon.svg
   logo.svg

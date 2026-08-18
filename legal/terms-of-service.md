@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-14
 
-These Terms of Service are sample markdown for the ShellUI Playground. They demonstrate how `legalDocuments.termsOfService` is published by the shell.
+These Terms of Service are sample markdown for the Shellui Playground. They demonstrate how `legalDocuments.termsOfService` is published by the shell.
 
 ## Acceptable Use
 

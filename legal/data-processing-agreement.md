@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-14
 
-This Data Processing Agreement (DPA) is sample markdown for the ShellUI Playground. It shows how `legalDocuments.dataProcessingAgreement` is rendered alongside other legal documents.
+This Data Processing Agreement (DPA) is sample markdown for the Shellui Playground. It shows how `legalDocuments.dataProcessingAgreement` is rendered alongside other legal documents.
 
 ## Scope
 

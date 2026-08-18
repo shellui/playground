@@ -2,7 +2,7 @@
 
 Last updated: 2026-05-14
 
-This Privacy Policy is sample markdown for the ShellUI Playground. It shows how `legalDocuments.privacyPolicy` is rendered on public routes and in Settings.
+This Privacy Policy is sample markdown for the Shellui Playground. It shows how `legalDocuments.privacyPolicy` is rendered on public routes and in Settings.
 
 ## Data We Collect
 
