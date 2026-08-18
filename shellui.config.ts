@@ -54,7 +54,7 @@ const config: ShellUIConfig = {
   port: 4000,
   title: 'shellui',
   version: version,
-  favicon: '/favicon.svg',
+  favicon: '/favicon.png',
   logo: '/logo.svg',
   legalDocuments: {
     privacyPolicy: fs.readFileSync(path.join(__dirname, 'legal', 'privacy-policy.md'), 'utf8'),
