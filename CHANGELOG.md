@@ -28,6 +28,7 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 - Add storage and playground within admin
 - Bump to shellui 0.4.1
 - Add favicon
+- Display the product name as Shellui (not ShellUI) in playground copy
 
 ## [0.2.0] - 2026-02-20
 

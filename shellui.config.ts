@@ -52,7 +52,7 @@ if (isBuild) {
 
 const config: ShellUIConfig = {
   port: 4000,
-  title: 'shellui',
+  title: 'Shellui',
   version: version,
   favicon: '/favicon.png',
   logo: '/logo.svg',

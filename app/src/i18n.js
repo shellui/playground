@@ -12,31 +12,31 @@ const resources = {
       aboutText: 'This is the about page. You can use this app with i18n and React Router.',
       pageThemesTitle: 'Themes',
       pageThemesDescription:
-        'Shell UI supports custom themes: colors, fonts, and radius. Change the theme from the sidebar settings to see this app and the shell adapt.',
+        'Shellui supports custom themes: colors, fonts, and radius. Change the theme from the sidebar settings to see this app and the shell adapt.',
       pageLanguagesTitle: 'Languages',
       pageLanguagesDescription:
-        'Shell UI can drive the app language. When you switch language in settings, the shell and this app update together via i18n.',
+        'Shellui can drive the app language. When you switch language in settings, the shell and this app update together via i18n.',
       pageSidebarTitle: 'Sidebar',
       pageSidebarDescription:
         'The shell uses a sidebar layout by default. You can collapse or expand it; the app content area resizes automatically.',
       pageCookiesTitle: 'Cookie consent',
       pageCookiesDescription:
-        'Shell UI can show a cookie consent banner and store preferences. Consent is configurable per host (e.g. analytics, Sentry).',
+        'Shellui can show a cookie consent banner and store preferences. Consent is configurable per host (e.g. analytics, Sentry).',
       pageNavigationTitle: 'Navigation',
       pageNavigationDescription:
         'Sidebar navigation supports groups, labels, external URLs, and open-in-modal. Each item can have an icon and optional position.',
       pageModalsTitle: 'Modals',
       pageModalsDescription:
-        'Shell UI can open some links in a modal (e.g. Settings). The modal is part of the shell; the app stays in the iframe.',
+        'Shellui can open some links in a modal (e.g. Settings). The modal is part of the shell; the app stays in the iframe.',
       pageModalTitle: 'Modal',
       pageModalDescription:
-        'Shell UI can open content in a modal overlay. The modal blocks interaction with the main content until dismissed (e.g. Settings).',
+        'Shellui can open content in a modal overlay. The modal blocks interaction with the main content until dismissed (e.g. Settings).',
       pageLayoutTitle: 'Layout',
       pageLayoutDescription:
-        'Shell UI supports different layout modes: sidebar (default, with collapsible nav), app bar, fullscreen (content only), or windows (taskbar and multi-window). Configure the layout in the shell to change how the app is presented.',
+        'Shellui supports different layout modes: sidebar (default, with collapsible nav), app bar, fullscreen (content only), or windows (taskbar and multi-window). Configure the layout in the shell to change how the app is presented.',
       pageModalDrawerTitle: 'Modal & Drawer',
       pageModalDrawerDescription:
-        'Shell UI can open content in a modal overlay (blocks interaction until dismissed) or in a drawer that slides in from the edge. Use modals for focused tasks like Settings; use drawers for extra content or actions without leaving the current context.',
+        'Shellui can open content in a modal overlay (blocks interaction until dismissed) or in a drawer that slides in from the edge. Use modals for focused tasks like Settings; use drawers for extra content or actions without leaving the current context.',
       pageDialogTitle: 'Dialog',
       pageDialogDescription:
         'Dialogs are focused conversations: confirmations, alerts, or forms. They capture focus and can return a result on dismiss.',
@@ -44,13 +44,13 @@ const resources = {
       pageToasterDescription:
         'Toast notifications appear briefly to confirm actions or show status. They stack and dismiss automatically or on user close.',
       // Home / Playground
-      playgroundTitle: 'ShellUI Playground',
-      playgroundTagline: 'See how easy it is to build an app inside ShellUI.',
+      playgroundTitle: 'Shellui Playground',
+      playgroundTagline: 'See how easy it is to build an app inside Shellui.',
       playgroundIntro:
-        'This playground is a live demo of ShellUI: layout, modals, drawers, dialogs, toasts, themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
+        'This playground is a live demo of Shellui: layout, modals, drawers, dialogs, toasts, themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
       playgroundWhatIs: 'What is this playground?',
       playgroundWhatIsBody:
-        'A small React app (this page) is embedded inside the ShellUI shell. The shell handles navigation, settings, themes, and language. Your app uses the ShellUI SDK to show toasts, open modals or drawers, and react to settings updates—all with a few lines of code.',
+        'A small React app (this page) is embedded inside the Shellui shell. The shell handles navigation, settings, themes, and language. Your app uses the Shellui SDK to show toasts, open modals or drawers, and react to settings updates—all with a few lines of code.',
       playgroundTrySections: 'Try the sections in the sidebar',
       playgroundTrySectionsBody:
         'Layout, Modal & Drawer, Dialog, Toaster, Themes, and Language show concrete examples and code. Change theme or language in Shell Settings (gear icon) and watch this app update.',
@@ -60,7 +60,7 @@ const resources = {
       tryIt: 'Try it',
       valuesFromShell: 'Values from Shell',
       valuesFromShellHint:
-        'These come from ShellUI settings. Open Settings (gear in sidebar) to change theme or language and see this app update.',
+        'These come from Shellui settings. Open Settings (gear in sidebar) to change theme or language and see this app update.',
       currentTheme: 'Current theme',
       currentLanguage: 'Current language',
       pageLayoutExperimental: 'The windows layout (taskbar + multi-window) is experimental.',
@@ -162,44 +162,44 @@ const resources = {
         'Ceci est la page À propos. Vous pouvez utiliser cette application avec i18n et React Router.',
       pageThemesTitle: 'Thèmes',
       pageThemesDescription:
-        'Shell UI prend en charge les thèmes personnalisés : couleurs, polices et rayon. Changez le thème dans les paramètres de la barre latérale pour voir la coque et l’app s’adapter.',
+        'Shellui prend en charge les thèmes personnalisés : couleurs, polices et rayon. Changez le thème dans les paramètres de la barre latérale pour voir la coque et l’app s’adapter.',
       pageLanguagesTitle: 'Langues',
       pageLanguagesDescription:
-        'Shell UI peut piloter la langue de l’app. Quand vous changez la langue dans les paramètres, la coque et cette app se mettent à jour ensemble via i18n.',
+        'Shellui peut piloter la langue de l’app. Quand vous changez la langue dans les paramètres, la coque et cette app se mettent à jour ensemble via i18n.',
       pageSidebarTitle: 'Barre latérale',
       pageSidebarDescription:
         'La coque utilise par défaut une mise en page avec barre latérale. Vous pouvez la replier ou l’ouvrir ; la zone de contenu de l’app se redimensionne automatiquement.',
       pageCookiesTitle: 'Consentement cookies',
       pageCookiesDescription:
-        'Shell UI peut afficher une bannière de consentement cookies et enregistrer les préférences. Le consentement est configurable par hôte (ex. analytics, Sentry).',
+        'Shellui peut afficher une bannière de consentement cookies et enregistrer les préférences. Le consentement est configurable par hôte (ex. analytics, Sentry).',
       pageNavigationTitle: 'Navigation',
       pageNavigationDescription:
         'La navigation de la barre latérale gère les groupes, libellés, URLs externes et ouverture en modal. Chaque élément peut avoir une icône et une position optionnelle.',
       pageModalsTitle: 'Fenêtres modales',
       pageModalsDescription:
-        'Shell UI peut ouvrir certains liens dans une fenêtre modale (ex. Paramètres). La modale fait partie de la coque ; l’app reste dans l’iframe.',
+        'Shellui peut ouvrir certains liens dans une fenêtre modale (ex. Paramètres). La modale fait partie de la coque ; l’app reste dans l’iframe.',
       pageModalTitle: 'Fenêtre modale',
       pageModalDescription:
-        'Shell UI peut ouvrir du contenu dans une fenêtre modale. La modale bloque l’interaction avec le contenu principal jusqu’à sa fermeture (ex. Paramètres).',
+        'Shellui peut ouvrir du contenu dans une fenêtre modale. La modale bloque l’interaction avec le contenu principal jusqu’à sa fermeture (ex. Paramètres).',
       pageLayoutTitle: 'Mise en page',
       pageLayoutDescription:
-        "Shell UI propose plusieurs modes de mise en page : barre latérale (par défaut, avec nav repliable), barre d'app, plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans la coque pour changer la présentation de l’app.",
+        "Shellui propose plusieurs modes de mise en page : barre latérale (par défaut, avec nav repliable), barre d'app, plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans la coque pour changer la présentation de l’app.",
       pageModalDrawerTitle: 'Fenêtre modale et tiroir',
       pageModalDrawerDescription:
-        'Shell UI peut ouvrir du contenu dans une fenêtre modale (bloque l’interaction jusqu’à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.',
+        'Shellui peut ouvrir du contenu dans une fenêtre modale (bloque l’interaction jusqu’à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.',
       pageDialogTitle: 'Dialogue',
       pageDialogDescription:
         'Les dialogues sont des échanges ciblés : confirmations, alertes ou formulaires. Ils capturent le focus et peuvent renvoyer un résultat à la fermeture.',
       pageToasterTitle: 'Notifications',
       pageToasterDescription:
         'Les toasts s’affichent brièvement pour confirmer une action ou un statut. Ils s’empilent et se ferment automatiquement ou par l’utilisateur.',
-      playgroundTitle: 'ShellUI Playground',
-      playgroundTagline: 'Découvrez à quel point il est simple de construire une app dans ShellUI.',
+      playgroundTitle: 'Shellui Playground',
+      playgroundTagline: 'Découvrez à quel point il est simple de construire une app dans Shellui.',
       playgroundIntro:
-        'Ce playground est une démo vivante de ShellUI : mise en page, modales, tiroirs, dialogues, toasts, thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.',
+        'Ce playground est une démo vivante de Shellui : mise en page, modales, tiroirs, dialogues, toasts, thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.',
       playgroundWhatIs: "C'est quoi ce playground ?",
       playgroundWhatIsBody:
-        'Une petite app React (cette page) est intégrée dans la coque ShellUI. La coque gère la navigation, les paramètres, les thèmes et la langue. Votre app utilise le SDK ShellUI pour afficher des toasts, ouvrir des modales ou des tiroirs, et réagir aux mises à jour des paramètres—le tout en quelques lignes.',
+        'Une petite app React (cette page) est intégrée dans la coque Shellui. La coque gère la navigation, les paramètres, les thèmes et la langue. Votre app utilise le SDK Shellui pour afficher des toasts, ouvrir des modales ou des tiroirs, et réagir aux mises à jour des paramètres—le tout en quelques lignes.',
       playgroundTrySections: 'Essayez les sections dans la barre latérale',
       playgroundTrySectionsBody:
         'Mise en page, Modale & tiroir, Dialogue, Notifications, Thèmes et Langue montrent des exemples concrets et du code. Changez le thème ou la langue dans les Paramètres de la coque (icône engrenage) et regardez cette app se mettre à jour.',
@@ -209,7 +209,7 @@ const resources = {
       tryIt: 'Essayez',
       valuesFromShell: 'Valeurs venant de la coque',
       valuesFromShellHint:
-        'Elles viennent des paramètres ShellUI. Ouvrez Paramètres (engrenage dans la barre) pour changer le thème ou la langue et voir cette app se mettre à jour.',
+        'Elles viennent des paramètres Shellui. Ouvrez Paramètres (engrenage dans la barre) pour changer le thème ou la langue et voir cette app se mettre à jour.',
       currentTheme: 'Thème actuel',
       currentLanguage: 'Langue actuelle',
       pageLayoutExperimental:
