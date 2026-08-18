@@ -93,6 +93,27 @@ const config: ShellUIConfig = {
       oauthProviders: ['github'],
     },
   },
+  storage: {
+    url: 'https://storage.shellui.com',
+    filesUrl: 'https://files.shellui.com',
+  },
+  administration: {
+    title: {
+      en: 'Playground',
+      fr: 'Playground',
+    },
+    navigation: [
+      {
+        label: {
+          en: 'Homepage',
+          fr: 'Accueil',
+        },
+        path: 'home',
+        url: 'https://playground.shellui.com',
+        icon: '/icons/home.svg',
+      },
+    ],
+  },
   // Enable specific languages: single language string or array of language codes
   // Examples:
   // language: 'en',           // Only English
@@ -183,6 +204,12 @@ const config: ShellUIConfig = {
       label: 'Homepage',
       path: '',
       url: `${appUrl.replace(/\/$/, '')}/#/`,
+      icon: '/icons/home.svg',
+    },
+    {
+      label: 'Files',
+      path: 'files',
+      url: `https://files.shellui.com`,
       icon: '/icons/home.svg',
     },
     // {

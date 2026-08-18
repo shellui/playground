@@ -21,11 +21,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [0.3.0] - 2026-08-18
+
+### 🛠 Improvements
+
+- Add storage and playground within admin
+- Bump to shellui 0.4.1
+
 ## [0.2.0] - 2026-02-20
 
 ### 🛠 Improvements
 
-- Bump ShellUI to 0.2.0
+- Bump Shellui to 0.2.0
 
 ### 🐛 Bug Fixes
 
@@ -35,4 +42,4 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ### ✨ Feature
 
-- First playground version with sidebar layout, English and French language support, sebastienbarbier theme, navigation items (Playground, Docs, ShellUI, Sebastienbarbier, Settings), and Sentry cookie consent
+- First playground version with sidebar layout, English and French language support, sebastienbarbier theme, navigation items (Playground, Docs, Shellui, Sebastienbarbier, Settings), and Sentry cookie consent
