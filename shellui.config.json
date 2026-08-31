@@ -20,7 +20,7 @@
   "backend": {
     "type": "shellui",
     "url": "https://id.shellui.com",
-    "companyId": 1,
+    "companyId": "${SHELLUI_COMPANY_ID:-1}",
     "adminUrl": "https://admin.shellui.com",
     "login": {
       "methods": ["oauth"],
