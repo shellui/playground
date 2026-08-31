@@ -1,0 +1,254 @@
+{
+  "$schema": "./node_modules/@shellui/core/schemas/shellui.config.schema.json",
+  "administration": {
+    "title": {
+      "en": "Playground",
+      "fr": "Playground"
+    },
+    "navigation": [
+      {
+        "label": {
+          "en": "Homepage",
+          "fr": "Accueil"
+        },
+        "path": "home",
+        "url": "https://playground.shellui.com",
+        "icon": "/icons/home.svg"
+      }
+    ]
+  },
+  "backend": {
+    "type": "shellui",
+    "url": "https://id.shellui.com",
+    "companyId": 1,
+    "adminUrl": "https://admin.shellui.com",
+    "login": {
+      "methods": ["oauth"],
+      "oauthProviders": ["github"]
+    }
+  },
+  "cookieConsent": {
+    "cookies": [
+      {
+        "name": "Sentry Error Reporting",
+        "host": "sentry.io",
+        "durationSeconds": 31536000,
+        "type": "third_party",
+        "category": "functional_performance",
+        "description": {
+          "en": "Helps us fix errors and improve stability.",
+          "fr": "Nous aide à corriger les erreurs et à améliorer la stabilité."
+        }
+      }
+    ]
+  },
+  "legalDocuments": {
+    "privacyPolicy": "# Privacy Policy\n\nLast updated: 2026-05-14\n\nThis Privacy Policy is sample markdown for the Shellui Playground. It shows how `legalDocuments.privacyPolicy` is rendered on public routes and in Settings.\n\n## Data We Collect\n\n- Account information (for example name and email).\n- Technical information (for example browser type and IP address).\n- Usage information needed to operate and improve the service.\n\n## How We Use Data\n\n- To provide and maintain the service.\n- To authenticate users and secure accounts.\n- To improve reliability, performance, and user experience.\n\n## Contact\n\nFor privacy questions or requests, contact your administrator.\n",
+    "termsOfService": "# Terms of Service\n\nLast updated: 2026-05-14\n\nThese Terms of Service are sample markdown for the Shellui Playground. They demonstrate how `legalDocuments.termsOfService` is published by the shell.\n\n## Acceptable Use\n\n- Use the service only for lawful purposes.\n- Do not attempt to disrupt or abuse the service.\n- Keep your account credentials secure.\n\n## Availability\n\nThe service is provided \"as is\" and may change or be interrupted from time to time.\n\n## Contact\n\nFor questions about these terms, contact your administrator.\n",
+    "legalNotice": "# Legal Notice\n\nLast updated: 2026-05-14\n\nThis Legal Notice is sample markdown for the Shellui Playground. It demonstrates how `legalDocuments.legalNotice` is exposed on `/legal/legal-notice`.\n\n## Publisher\n\nService publisher information is provided by your organization.\n\n## Hosting\n\nInfrastructure and hosting providers may be used to operate this service.\n\n## Applicable Law\n\nApplicable law and jurisdiction are defined by your organization.\n",
+    "dataProcessingAgreement": "# Data Processing Agreement\n\nLast updated: 2026-05-14\n\nThis Data Processing Agreement (DPA) is sample markdown for the Shellui Playground. It shows how `legalDocuments.dataProcessingAgreement` is rendered alongside other legal documents.\n\n## Scope\n\nThis DPA applies to personal data processed in connection with the service.\n\n## Processing Instructions\n\nThe processor will process personal data only on documented instructions from the controller, unless required by law.\n\n## Security Measures\n\nAppropriate technical and organizational measures are implemented to protect personal data against unauthorized access, loss, or alteration.\n\n## Contact\n\nFor DPA questions, contact your administrator.\n"
+  },
+  "navigation": [
+    {
+      "label": "Homepage",
+      "path": "",
+      "url": "http://localhost:5173/#/",
+      "icon": "/icons/home.svg"
+    },
+    {
+      "label": "Files",
+      "path": "files",
+      "url": "https://files.shellui.com",
+      "icon": "/icons/folder.svg",
+      "hideWhenLoggedOut": true,
+      "requiresAuth": true
+    },
+    {
+      "title": {
+        "en": "Features",
+        "fr": "Fonctionnalités"
+      },
+      "items": [
+        {
+          "label": {
+            "en": "Dialog",
+            "fr": "Dialogue"
+          },
+          "path": "dialog",
+          "url": "http://localhost:5173/#/dialog",
+          "icon": "/icons/dialog.svg"
+        },
+        {
+          "label": {
+            "en": "Toaster",
+            "fr": "Notifications"
+          },
+          "path": "toaster",
+          "url": "http://localhost:5173/#/toaster",
+          "icon": "/icons/toaster.svg"
+        },
+        {
+          "label": {
+            "en": "Modal & Drawer",
+            "fr": "Fenêtre modale et tiroir"
+          },
+          "path": "modal",
+          "url": "http://localhost:5173/#/modal",
+          "icon": "/icons/modal.svg"
+        },
+        {
+          "label": {
+            "en": "Layout",
+            "fr": "Mise en page"
+          },
+          "path": "layout",
+          "url": "http://localhost:5173/#/layout",
+          "icon": "/icons/layout.svg"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Preferences",
+        "fr": "Préférences"
+      },
+      "items": [
+        {
+          "label": {
+            "en": "Themes",
+            "fr": "Thèmes"
+          },
+          "path": "themes",
+          "url": "http://localhost:5173/#/themes",
+          "icon": "/icons/palette.svg"
+        },
+        {
+          "label": {
+            "en": "Language & region",
+            "fr": "Langue & région"
+          },
+          "path": "languages",
+          "url": "http://localhost:5173/#/languages",
+          "icon": "/icons/languages.svg"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "External Links",
+        "fr": "Liens externes"
+      },
+      "items": [
+        {
+          "label": "Website",
+          "path": "website",
+          "url": "http://localhost:8080/",
+          "icon": "/icons/globe.svg"
+        },
+        {
+          "label": {
+            "en": "Docs",
+            "fr": "Documentation"
+          },
+          "path": "docs",
+          "url": "https://docs.shellui.com",
+          "icon": "/icons/book-open.svg",
+          "position": "end"
+        }
+      ]
+    },
+    {
+      "label": "Playground",
+      "path": "playground",
+      "url": "/",
+      "icon": "/icons/play.svg",
+      "position": "end",
+      "settings": "http://localhost:5173/#/settings"
+    },
+    {
+      "label": {
+        "en": "Settings",
+        "fr": "Paramètres"
+      },
+      "path": "settings",
+      "url": "/__settings",
+      "icon": "/icons/settings.svg",
+      "openIn": "modal",
+      "position": "end",
+      "hiddenOnMobile": true
+    },
+    {
+      "label": {
+        "en": "Login",
+        "fr": "Connexion"
+      },
+      "path": "login",
+      "url": "/login",
+      "icon": "/icons/user.svg",
+      "openIn": "modal",
+      "position": "end"
+    }
+  ],
+  "port": 4000,
+  "title": "Shellui",
+  "version": "0.4.0-dev",
+  "favicon": "/favicon.png",
+  "appIcon": "/app-icon.svg",
+  "logo": "/logo.svg",
+  "language": ["en", "fr"],
+  "layout": "sidebar",
+  "activeTheme": "shellui",
+  "storage": {
+    "url": "https://storage.shellui.com",
+    "filesUrl": "https://files.shellui.com"
+  },
+  "themes": [
+    "shellui",
+    "claude",
+    "light-green",
+    "zen-inspired",
+    "astro-vista",
+    "shadcn",
+    "amber-minimal",
+    "amethyst-haze",
+    "bold-tech",
+    "bubblegum",
+    "caffeine",
+    "candyland",
+    "catppuccin",
+    "claymorphism",
+    "clean-slate",
+    "cosmic-night",
+    "cyberpunk",
+    "darkmatter",
+    "doom-64",
+    "elegant-luxury",
+    "graphite",
+    "kodama-grove",
+    "midnight-bloom",
+    "mocha-mousse",
+    "modern-minimal",
+    "mono",
+    "nature",
+    "neo-brutalism",
+    "northern-lights",
+    "notebook",
+    "ocean-breeze",
+    "pastel-dreams",
+    "perpetuity",
+    "quantum-rose",
+    "retro-arcade",
+    "sage-garden",
+    "soft-pop",
+    "solar-dusk",
+    "starry-night",
+    "sunset-horizon",
+    "supabase",
+    "t3-chat",
+    "tangerine",
+    "twitter",
+    "vercel",
+    "vintage-paper",
+    "violet-bloom"
+  ]
+}

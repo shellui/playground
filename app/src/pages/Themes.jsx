@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import shellui from '@shellui/sdk';
@@ -11,62 +11,192 @@ function cn(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+const ThemeSwitchSpinner = ({ className }) => (
+  <svg
+    data-theme-switch-spinner=""
+    className={cn('animate-spin', className)}
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+  </svg>
+);
+
+function previewRadius(radius, inset = 0) {
+  const base = radius?.trim() || '0.5rem';
+  if (inset <= 0) return base;
+  return `max(0px, calc(${base} - ${inset}px))`;
+}
+
+function MiniSwatch({ colors }) {
+  const radius = colors?.radius;
+  return (
+    <div
+      className="flex flex-1 flex-col gap-1 border p-1.5"
+      style={{
+        backgroundColor: colors?.background,
+        borderColor: colors?.border,
+        borderRadius: previewRadius(radius, 2),
+      }}
+    >
+      <div
+        className="h-3"
+        style={{ backgroundColor: colors?.primary, borderRadius: previewRadius(radius, 4) }}
+      />
+      <div className="flex gap-0.5">
+        <div
+          className="h-2 flex-1"
+          style={{ backgroundColor: colors?.secondary, borderRadius: previewRadius(radius, 4) }}
+        />
+        <div
+          className="h-2 flex-1"
+          style={{ backgroundColor: colors?.accent, borderRadius: previewRadius(radius, 4) }}
+        />
+        <div
+          className="h-2 flex-1"
+          style={{ backgroundColor: colors?.muted, borderRadius: previewRadius(radius, 4) }}
+        />
+      </div>
+    </div>
+  );
+}
+
 /**
  * Theme color preview component.
- * @param {{ theme: import('@shellui/sdk').Theme; isSelected: boolean; isDark: boolean }} props
+ * @param {{
+ *   theme: import('@shellui/sdk').SettingsAvailableTheme;
+ *   isSelected: boolean;
+ *   isDark: boolean;
+ *   isPending?: boolean;
+ *   layout: 'single' | 'few' | 'many';
+ * }} props
  */
-function ThemePreview({ theme, isSelected, isDark }) {
+function ThemePreview({ theme, isSelected, isDark, isPending = false, layout }) {
   const colors = isDark ? (theme.colors?.dark ?? {}) : (theme.colors?.light ?? {});
   const background = colors.background ?? (isDark ? '#0a0a0a' : '#ffffff');
+  const radius = colors.radius;
+
+  const pendingOverlay = (
+    <div
+      className={cn(
+        'absolute inset-0 z-10 flex items-center justify-center bg-background/55 backdrop-blur-[1px]',
+        'transition-opacity duration-300 ease-out',
+        isPending ? 'opacity-100' : 'opacity-0 pointer-events-none',
+      )}
+      style={{ borderRadius: previewRadius(radius) }}
+      aria-hidden={!isPending}
+    >
+      <ThemeSwitchSpinner className="size-5 text-primary" />
+      {isPending ? <span className="sr-only">Applying theme</span> : null}
+    </div>
+  );
+
+  if (layout === 'many') {
+    return (
+      <div
+        className={cn(
+          'relative overflow-hidden border-2',
+          isSelected
+            ? 'border-primary shadow-md'
+            : 'border-border hover:border-muted-foreground/40',
+        )}
+        style={{ borderRadius: previewRadius(radius) }}
+      >
+        {pendingOverlay}
+        <div className="flex gap-1 p-2">
+          <MiniSwatch colors={theme.colors?.light} />
+          <MiniSwatch colors={theme.colors?.dark} />
+        </div>
+        <div
+          className="border-t px-2 py-1.5"
+          style={{
+            backgroundColor: colors.background ?? background,
+            borderColor: colors.border,
+            color: colors.foreground,
+          }}
+        >
+          <p
+            className="truncate text-xs font-medium"
+            style={
+              theme.fontFamily
+                ? {
+                    fontFamily: theme.fontFamily,
+                    letterSpacing: theme.letterSpacing || 'normal',
+                    textShadow: theme.textShadow || 'none',
+                  }
+                : undefined
+            }
+          >
+            {theme.displayName ?? theme.name}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-lg border-2 transition-all',
+        'relative overflow-hidden border-2',
         isSelected ? 'border-primary shadow-lg' : 'border-border',
+        layout === 'single' && 'max-w-sm',
       )}
-      style={{ backgroundColor: background }}
+      style={{ backgroundColor: background, borderRadius: previewRadius(radius) }}
     >
-      <div className="p-3 space-y-2">
-        {/* Primary color */}
+      {pendingOverlay}
+      <div className={cn('space-y-2', layout === 'single' ? 'p-4' : 'p-3')}>
         <div
-          className="h-8 rounded-md"
-          style={{ backgroundColor: colors.primary }}
+          className={layout === 'single' ? 'h-10' : 'h-8'}
+          style={{ backgroundColor: colors.primary, borderRadius: previewRadius(radius, 2) }}
         />
-        {/* Secondary colors */}
         <div className="flex gap-1">
           <div
-            className="h-6 flex-1 rounded"
-            style={{ backgroundColor: colors.background }}
+            className="h-6 flex-1"
+            style={{
+              backgroundColor: colors.background,
+              borderRadius: previewRadius(radius, 4),
+            }}
           />
           <div
-            className="h-6 flex-1 rounded"
-            style={{ backgroundColor: colors.secondary }}
+            className="h-6 flex-1"
+            style={{
+              backgroundColor: colors.secondary,
+              borderRadius: previewRadius(radius, 4),
+            }}
           />
           <div
-            className="h-6 flex-1 rounded"
-            style={{ backgroundColor: colors.accent }}
+            className="h-6 flex-1"
+            style={{
+              backgroundColor: colors.accent,
+              borderRadius: previewRadius(radius, 4),
+            }}
           />
         </div>
-        {/* Accent colors */}
         <div className="flex gap-1">
           <div
-            className="h-4 flex-1 rounded"
-            style={{ backgroundColor: colors.muted }}
+            className="h-4 flex-1"
+            style={{ backgroundColor: colors.muted, borderRadius: previewRadius(radius, 4) }}
           />
           <div
-            className="h-4 flex-1 rounded"
-            style={{ backgroundColor: colors.border }}
+            className="h-4 flex-1"
+            style={{ backgroundColor: colors.border, borderRadius: previewRadius(radius, 4) }}
           />
         </div>
       </div>
-      {/* Theme name overlay */}
       <div
-        className="absolute bottom-0 left-0 right-0 backdrop-blur-sm px-2 py-1"
-        style={{ backgroundColor: background }}
+        className="px-2 py-1.5"
+        style={{ backgroundColor: background, color: colors.foreground }}
       >
         <p
-          className="text-xs font-medium text-center"
+          className={cn('font-medium text-center', layout === 'single' ? 'text-sm' : 'text-xs')}
           style={
             theme.fontFamily
               ? {
@@ -74,7 +204,7 @@ function ThemePreview({ theme, isSelected, isDark }) {
                   letterSpacing: theme.letterSpacing || 'normal',
                   textShadow: theme.textShadow || 'none',
                 }
-              : {}
+              : undefined
           }
         >
           {theme.displayName ?? theme.name}
@@ -107,7 +237,23 @@ export default function Themes() {
   const colorScheme = appearance?.colorScheme ?? 'system';
 
   const availableThemes = useMemo(() => getAvailableThemes(shellui.initialSettings ?? null), []);
+  const sortedThemes = useMemo(
+    () =>
+      [...availableThemes].sort((a, b) =>
+        (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name),
+      ),
+    [availableThemes],
+  );
   const currentThemeName = appearance?.name ?? 'default';
+
+  const [pendingThemeName, setPendingThemeName] = useState(null);
+  const [pendingColorScheme, setPendingColorScheme] = useState(null);
+  // Ref lock so rapid clicks in the same render cannot all pass the busy check.
+  const switchLockRef = useRef(false);
+  const themeSwitchBusy = pendingThemeName !== null || pendingColorScheme !== null;
+  const displayedColorScheme = pendingColorScheme ?? colorScheme;
+
+  const layout = sortedThemes.length <= 1 ? 'single' : sortedThemes.length <= 3 ? 'few' : 'many';
 
   // System preference for when colorScheme is "system" and appearance.mode isn't set
   const [systemPrefersDark, setSystemPrefersDark] = useState(
@@ -124,21 +270,90 @@ export default function Themes() {
 
   // When "system", use resolved mode (appearance.mode) or OS preference so preview matches current theme
   const resolvedDark = appearance?.mode != null ? appearance.mode === 'dark' : systemPrefersDark;
-  const isDarkForPreview = colorScheme === 'dark' || (colorScheme === 'system' && resolvedDark);
+  const isDarkForPreview =
+    displayedColorScheme === 'dark' || (displayedColorScheme === 'system' && resolvedDark);
 
-  const applyAppearance = (updates) => {
-    const currentSettings = shellui.initialSettings ?? {};
-    const nextAppearance = { ...(appearance ?? {}), ...updates };
-    shellui.sendMessageToParent({
-      type: 'SHELLUI_SETTINGS_UPDATED',
-      payload: {
-        settings: { ...currentSettings, appearance: nextAppearance },
-      },
-    });
-  };
+  const applyAppearance = useCallback(
+    (updates) => {
+      const currentSettings = shellui.initialSettings ?? {};
+      const nextAppearance = { ...(appearance ?? {}), ...updates };
+      shellui.sendMessageToParent({
+        type: 'SHELLUI_SETTINGS_UPDATED',
+        payload: {
+          settings: { ...currentSettings, appearance: nextAppearance },
+        },
+      });
+    },
+    [appearance],
+  );
+
+  // Double rAF + settle delay covers shell apply, trailing iframe coalesce, and echo.
+  const runAppearanceSwitch = useCallback(async (work) => {
+    try {
+      work();
+      await new Promise((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      });
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      return true;
+    } catch {
+      return false;
+    }
+  }, []);
+
+  const selectTheme = useCallback(
+    async (themeName) => {
+      if (switchLockRef.current) return;
+      if (themeName === currentThemeName) return;
+      switchLockRef.current = true;
+      setPendingThemeName(themeName);
+      try {
+        await runAppearanceSwitch(() => {
+          applyAppearance({ name: themeName });
+        });
+      } finally {
+        switchLockRef.current = false;
+        setPendingThemeName(null);
+      }
+    },
+    [currentThemeName, applyAppearance, runAppearanceSwitch],
+  );
+
+  const selectColorScheme = useCallback(
+    async (nextScheme) => {
+      if (switchLockRef.current) return;
+      if (nextScheme === colorScheme) return;
+      switchLockRef.current = true;
+      setPendingColorScheme(nextScheme);
+      try {
+        await runAppearanceSwitch(() => {
+          applyAppearance({ colorScheme: nextScheme });
+        });
+      } finally {
+        switchLockRef.current = false;
+        setPendingColorScheme(null);
+      }
+    },
+    [colorScheme, applyAppearance, runAppearanceSwitch],
+  );
+
+  // 2 columns on small screens; from md, auto-fill so cards stay ~12rem
+  // instead of stretching across a fixed column grid.
+  const gridClass =
+    layout === 'single'
+      ? 'grid max-w-sm grid-cols-1'
+      : layout === 'few'
+        ? 'grid gap-4 [grid-template-columns:repeat(auto-fill,minmax(min(100%,14rem),1fr))]'
+        : 'grid grid-cols-2 gap-3 md:[grid-template-columns:repeat(auto-fill,minmax(12rem,1fr))]';
+
+  const modeThemes = [
+    { value: 'light', labelKey: 'themeLight', Icon: Sun },
+    { value: 'dark', labelKey: 'themeDark', Icon: Moon },
+    { value: 'system', labelKey: 'themeSystem', Icon: Monitor },
+  ];
 
   return (
-    <div className="font-body text-foreground max-w-3xl">
+    <div className="font-body text-foreground max-w-5xl">
       <h1 className="font-heading text-2xl font-semibold text-foreground">
         {t('pageThemesTitle')}
       </h1>
@@ -153,49 +368,52 @@ export default function Themes() {
           {t('currentTheme')}: {appearance?.displayName ?? appearance?.name ?? t('themeDefault')}
         </p>
 
-        <h3 className="font-heading text-sm font-medium text-foreground mt-4 mb-2">
-          {t('colorSchemeLabel')}
-        </h3>
-        <p className="text-xs text-muted-foreground mb-2">
-          {t('currentColorScheme')}: {t(colorSchemeToKey(colorScheme))}
-        </p>
-        <div className="flex flex-wrap gap-2 mb-2">
-          <Button
-            variant={colorScheme === 'light' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => applyAppearance({ colorScheme: 'light' })}
-          >
-            <Sun
-              className="size-3.5 shrink-0 mr-1.5"
-              aria-hidden
-            />
-            {t('themeLight')}
-          </Button>
-          <Button
-            variant={colorScheme === 'dark' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => applyAppearance({ colorScheme: 'dark' })}
-          >
-            <Moon
-              className="size-3.5 shrink-0 mr-1.5"
-              aria-hidden
-            />
-            {t('themeDark')}
-          </Button>
-          <Button
-            variant={colorScheme === 'system' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => applyAppearance({ colorScheme: 'system' })}
-          >
-            <Monitor
-              className="size-3.5 shrink-0 mr-1.5"
-              aria-hidden
-            />
-            {t('themeSystem')}
-          </Button>
+        <div className="space-y-2 mt-4">
+          <div className="space-y-0.5">
+            <h3 className="font-heading text-sm font-medium text-foreground">
+              {t('colorSchemeLabel')}
+            </h3>
+            <p className="text-xs text-muted-foreground">
+              {t('currentColorScheme')}: {t(colorSchemeToKey(displayedColorScheme))}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {modeThemes.map(({ value, labelKey, Icon }) => {
+              const isSelected = displayedColorScheme === value;
+              const isPending = pendingColorScheme === value;
+              return (
+                <Button
+                  key={value}
+                  variant={isSelected ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => {
+                    void selectColorScheme(value);
+                  }}
+                  disabled={themeSwitchBusy}
+                  className={cn(
+                    'flex items-center gap-1.5 cursor-pointer disabled:cursor-wait disabled:pointer-events-none',
+                    'transition-opacity duration-300 ease-out',
+                    themeSwitchBusy && !isPending
+                      ? 'opacity-40 disabled:opacity-40'
+                      : 'opacity-100 disabled:opacity-100',
+                  )}
+                  aria-busy={isPending}
+                >
+                  {isPending ? (
+                    <ThemeSwitchSpinner className="size-3.5 shrink-0" />
+                  ) : (
+                    <Icon
+                      className="size-3.5 shrink-0"
+                      aria-hidden
+                    />
+                  )}
+                  {t(labelKey)}
+                </Button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Theme Selection (Color Scheme) */}
         <div className="space-y-2 mt-4">
           <div className="space-y-0.5">
             <label
@@ -206,25 +424,39 @@ export default function Themes() {
             </label>
             <p className="text-sm text-muted-foreground">{t('appearance.colorThemeDescription')}</p>
           </div>
-          <div className="mt-2 grid grid-cols-2 md:grid-cols-3 gap-4">
-            {availableThemes.map((theme) => {
+          <div className={cn('mt-2', gridClass)}>
+            {sortedThemes.map((theme) => {
               const isSelected = currentThemeName === theme.name;
+              const previewColors = isDarkForPreview
+                ? (theme.colors?.dark ?? {})
+                : (theme.colors?.light ?? {});
               return (
                 <button
                   key={theme.name}
+                  type="button"
                   onClick={() => {
-                    applyAppearance({ name: theme.name });
+                    void selectTheme(theme.name);
                   }}
+                  disabled={themeSwitchBusy}
                   className={cn(
-                    'text-left transition-all cursor-pointer',
-                    isSelected && 'ring-2 ring-primary ring-offset-2 rounded-lg',
+                    'relative min-w-0 text-left transition-[opacity,transform] duration-300 ease-out',
+                    themeSwitchBusy ? 'cursor-wait' : 'cursor-pointer',
+                    isSelected && 'ring-2 ring-primary ring-offset-2 ring-offset-background',
+                    themeSwitchBusy && pendingThemeName !== theme.name && 'opacity-40 scale-[0.99]',
+                    (!themeSwitchBusy || pendingThemeName === theme.name) &&
+                      'opacity-100 scale-100',
                   )}
+                  style={{ borderRadius: previewRadius(previewColors.radius) }}
                   aria-label={theme.displayName ?? theme.name}
+                  aria-pressed={isSelected}
+                  aria-busy={pendingThemeName === theme.name}
                 >
                   <ThemePreview
                     theme={theme}
-                    isSelected={isSelected}
+                    isSelected={isSelected || pendingThemeName === theme.name}
                     isDark={isDarkForPreview}
+                    isPending={pendingThemeName === theme.name}
+                    layout={layout}
                   />
                 </button>
               );
