@@ -2,7 +2,7 @@
   "name": "playground-app",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
