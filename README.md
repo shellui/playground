@@ -17,6 +17,8 @@ Open [http://localhost:4000](http://localhost:4000).
 pnpm build
 ```
 
+`pnpm build` loads [`.env.prod`](.env.prod) (via `DOTENV_CONFIG_PATH`) so navigation URLs in `shellui.config.json` resolve to production values (`${PLAYGROUND_APP_URL}`, `${WEBSITE_URL}`, …). Local `pnpm start` keeps the `${VAR:-default}` localhost defaults unless you set them in `.env`.
+
 The output is in `dist/` — deploy it to any static hosting provider.
 
 ## Project Structure

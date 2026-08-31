@@ -52,13 +52,13 @@
     {
       "label": "Homepage",
       "path": "",
-      "url": "http://localhost:5173/#/",
+      "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/",
       "icon": "/icons/home.svg"
     },
     {
       "label": "Files",
       "path": "files",
-      "url": "https://files.shellui.com",
+      "url": "${FILES_URL:-https://files.shellui.com}",
       "icon": "/icons/folder.svg",
       "hideWhenLoggedOut": true,
       "requiresAuth": true
@@ -75,7 +75,7 @@
             "fr": "Dialogue"
           },
           "path": "dialog",
-          "url": "http://localhost:5173/#/dialog",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/dialog",
           "icon": "/icons/dialog.svg"
         },
         {
@@ -84,7 +84,7 @@
             "fr": "Notifications"
           },
           "path": "toaster",
-          "url": "http://localhost:5173/#/toaster",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/toaster",
           "icon": "/icons/toaster.svg"
         },
         {
@@ -93,7 +93,7 @@
             "fr": "Fenêtre modale et tiroir"
           },
           "path": "modal",
-          "url": "http://localhost:5173/#/modal",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/modal",
           "icon": "/icons/modal.svg"
         },
         {
@@ -102,7 +102,7 @@
             "fr": "Mise en page"
           },
           "path": "layout",
-          "url": "http://localhost:5173/#/layout",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/layout",
           "icon": "/icons/layout.svg"
         }
       ]
@@ -119,7 +119,7 @@
             "fr": "Thèmes"
           },
           "path": "themes",
-          "url": "http://localhost:5173/#/themes",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/themes",
           "icon": "/icons/palette.svg"
         },
         {
@@ -128,7 +128,7 @@
             "fr": "Langue & région"
           },
           "path": "languages",
-          "url": "http://localhost:5173/#/languages",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/languages",
           "icon": "/icons/languages.svg"
         }
       ]
@@ -142,7 +142,7 @@
         {
           "label": "Website",
           "path": "website",
-          "url": "http://localhost:8080/",
+          "url": "${WEBSITE_URL:-http://localhost:8080/}",
           "icon": "/icons/globe.svg"
         },
         {
@@ -151,7 +151,7 @@
             "fr": "Documentation"
           },
           "path": "docs",
-          "url": "https://docs.shellui.com",
+          "url": "${DOCS_URL:-https://docs.shellui.com}",
           "icon": "/icons/book-open.svg",
           "position": "end"
         }
@@ -163,7 +163,7 @@
       "url": "/",
       "icon": "/icons/play.svg",
       "position": "end",
-      "settings": "http://localhost:5173/#/settings"
+      "settings": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/settings"
     },
     {
       "label": {
