@@ -45,7 +45,7 @@ export default function Home() {
               >
                 <Button
                   variant="outline"
-                  className="w-full justify-start h-auto py-3"
+                  className="w-full h-auto py-3"
                 >
                   {t(key)}
                 </Button>

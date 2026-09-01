@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig(({ mode }) => ({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
+  // Optional: keep the iframe app off the shell cache (`node_modules/.vite-shellui`).
+  cacheDir: 'node_modules/.vite-app',
   base: mode === 'production' ? '/app/' : '/',
   server: {
     port: 5173,
@@ -16,7 +19,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: '../dist/web/app',
-    emptyDirOutDir: true,
+    outDir: 'dist/web/app',
+    emptyOutDir: true,
   },
 }));

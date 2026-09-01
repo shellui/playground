@@ -21,6 +21,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [Unreleased]
+
+### 🚨 Changed
+
+- Merge the nested `app/` package into the playground root: one `package.json`, one pnpm lockfile. Use `pnpm start` (Shellui CLI) and `pnpm start:app` (Vite) locally; `pnpm build` still writes the GitHub Pages artifact to `dist/web/` (shell) and `dist/web/app/` (iframe app).
+- Use Tailwind v4 (`@tailwindcss/vite`) for the iframe app so it can share the package with the shell (Tailwind v3 at the project root broke `shellui build`).
+
+### 🐛 Bug Fixes
+
+- Give the Vite app its own cache (`node_modules/.vite-app`) so it does not overwrite the shell’s prebundled deps. Sharing `node_modules/.vite` broke Settings (`react-markdown` failed to load).
+
 ## [0.3.0] - 2026-08-24
 
 ### 🛠 Improvements
