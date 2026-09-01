@@ -1,6 +1,15 @@
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/Button';
+
+const shelluiSiteLink = (
+  <a
+    href="https://shellui.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-link"
+  />
+);
 
 const FEATURES = [
   { path: '/dialog', key: 'pageDialogTitle' },
@@ -21,7 +30,12 @@ export default function Home() {
           {t('playgroundTitle')}
         </h1>
         <p className="mt-2 text-lg text-muted-foreground">{t('playgroundTagline')}</p>
-        <p className="mt-4 text-foreground">{t('playgroundIntro')}</p>
+        <p className="mt-4 text-foreground">
+          <Trans
+            i18nKey="playgroundIntro"
+            components={{ shelluiLink: shelluiSiteLink }}
+          />
+        </p>
       </header>
 
       <section className="mb-8">

@@ -141,6 +141,26 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Inline content links: always readable as clickable against body text */
+a.inline-link {
+  color: var(--link, var(--primary));
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  text-decoration-color: color-mix(in oklab, var(--link, var(--primary)) 55%, transparent);
+}
+
+a.inline-link:hover {
+  text-decoration-color: var(--link, var(--primary));
+}
+
+a.inline-link:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 nav {
   padding: 1rem 2rem;
   border-bottom: 1px solid var(--border);

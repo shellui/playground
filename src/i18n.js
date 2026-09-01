@@ -47,7 +47,7 @@ const resources = {
       playgroundTitle: 'Shellui Playground',
       playgroundTagline: 'See how easy it is to build an app inside Shellui.',
       playgroundIntro:
-        'This playground is a live demo of Shellui: layout, modals, drawers, dialogs, toasts, themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
+        'This playground is a live demo of <shelluiLink>Shellui</shelluiLink>: layout, modals, drawers, dialogs, toasts, themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
       playgroundWhatIs: 'What is this playground?',
       playgroundWhatIsBody:
         'A small React app (this page) is embedded inside the Shellui shell. The shell handles navigation, settings, themes, and language. Your app uses the Shellui SDK to show toasts, open modals or drawers, and react to settings updates—all with a few lines of code.',
@@ -195,7 +195,7 @@ const resources = {
       playgroundTitle: 'Shellui Playground',
       playgroundTagline: 'Découvrez à quel point il est simple de construire une app dans Shellui.',
       playgroundIntro:
-        'Ce playground est une démo vivante de Shellui : mise en page, modales, tiroirs, dialogues, toasts, thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.',
+        'Ce playground est une démo vivante de <shelluiLink>Shellui</shelluiLink> : mise en page, modales, tiroirs, dialogues, toasts, thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.',
       playgroundWhatIs: "C'est quoi ce playground ?",
       playgroundWhatIsBody:
         'Une petite app React (cette page) est intégrée dans la coque Shellui. La coque gère la navigation, les paramètres, les thèmes et la langue. Votre app utilise le SDK Shellui pour afficher des toasts, ouvrir des modales ou des tiroirs, et réagir aux mises à jour des paramètres—le tout en quelques lignes.',
