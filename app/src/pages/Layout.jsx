@@ -7,7 +7,7 @@ import { Alert, AlertTitle } from '../components/ui/Alert';
 import { Button } from '../components/ui/Button';
 
 const LAYOUT_CONFIG_CODE = `// shellui.config.ts
-const config: ShellUIConfig = {
+const config: ShelluiConfig = {
   // 'sidebar' (default) | 'app-bar' | 'fullscreen' | 'windows'
   layout: "sidebar",
   // ...

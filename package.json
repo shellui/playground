@@ -1,7 +1,7 @@
 {
   "name": "shellui-playground",
   "version": "0.3.0",
-  "description": "A playground for ShellUI — demo deployed to GitHub Pages",
+  "description": "A playground for Shellui — demo deployed to GitHub Pages",
   "type": "module",
   "scripts": {
     "start": "shellui start",
@@ -14,7 +14,7 @@
   "lint-staged": {
     "*": "pnpm exec prettier --write --ignore-unknown"
   },
-  "author": "ShellUI",
+  "author": "Shellui",
   "license": "MIT",
   "repository": {
     "type": "git",
