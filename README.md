@@ -10,21 +10,22 @@ The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package
 pnpm install
 ```
 
-Run the shell and the iframe app (two terminals):
+One terminal starts the iframe app and the shell (`config.dev.run`). Stopping the app (or Ctrl+C) stops the shell:
 
 ```bash
-pnpm start        # Shellui CLI → http://localhost:4000
-pnpm start:app    # Vite app     → http://localhost:5173
+pnpm start        # vite + Shellui CLI → http://localhost:4000 (app at :5173)
 ```
 
 Open [http://localhost:4000](http://localhost:4000). Navigation loads the app from port 5173.
+
+To run only the Vite app: `pnpm start:app`. To run only the shell: `shellui start --shell-only`.
 
 ## Scripts
 
 | Script            | What it does                                                                     |
 | ----------------- | -------------------------------------------------------------------------------- |
-| `pnpm start`      | `shellui start` — shell dev server (config, nav, themes)                         |
-| `pnpm start:app`  | `vite` — embedded React app (SDK demo pages)                                     |
+| `pnpm start`      | `shellui start` — companion Vite app + shell (exits if the app dies)             |
+| `pnpm start:app`  | `vite` — embedded React app only (escape hatch)                                  |
 | `pnpm build`      | `shellui build` then `vite build` (production env from [`.env.prod`](.env.prod)) |
 | `pnpm preview`    | Vite preview of the app                                                          |
 | `pnpm serve:dist` | Serve the GitHub Pages artifact from `dist/web/` locally                         |
