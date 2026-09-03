@@ -174,8 +174,7 @@
       "url": "/__settings",
       "icon": "/icons/settings.svg",
       "openIn": "modal",
-      "position": "end",
-      "hiddenOnMobile": true
+      "position": "end"
     },
     {
       "label": {
@@ -192,6 +191,9 @@
   "dev": {
     "run": "vite",
     "url": "http://localhost:5173"
+  },
+  "hosting": {
+    "url": "https://shellui.app"
   },
   "port": 4000,
   "title": "Shellui",
