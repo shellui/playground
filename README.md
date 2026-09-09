@@ -20,15 +20,24 @@ Open [http://localhost:4000](http://localhost:4000). Navigation loads the app fr
 
 To run only the Vite app: `pnpm start:app`. To run only the shell: `shellui start --shell-only`.
 
+### Desktop (Tauri)
+
+```bash
+pnpm start:desktop   # shell + Vite + native window
+```
+
+Branding comes from root [`tauri.conf.json`](tauri.conf.json) (`productName`: **Playground**, icon: [`static/icon.png`](static/icon.png) padded to Apple’s dock grid). Requires a Shellui CLI that syncs root `tauri.conf.json` (0.5.0+).
+
 ## Scripts
 
-| Script            | What it does                                                                     |
-| ----------------- | -------------------------------------------------------------------------------- |
-| `pnpm start`      | `shellui start` — companion Vite app + shell (exits if the app dies)             |
-| `pnpm start:app`  | `vite` — embedded React app only (escape hatch)                                  |
-| `pnpm build`      | `shellui build` then `vite build` (production env from [`.env.prod`](.env.prod)) |
-| `pnpm preview`    | Vite preview of the app                                                          |
-| `pnpm serve:dist` | Serve the GitHub Pages artifact from `dist/web/` locally                         |
+| Script               | What it does                                                                     |
+| -------------------- | -------------------------------------------------------------------------------- |
+| `pnpm start`         | `shellui start` — companion Vite app + shell (exits if the app dies)             |
+| `pnpm start:app`     | `vite` — embedded React app only (escape hatch)                                  |
+| `pnpm start:desktop` | `shellui start --app` — native Tauri window (**Playground** + dock icon)         |
+| `pnpm build`         | `shellui build` then `vite build` (production env from [`.env.prod`](.env.prod)) |
+| `pnpm preview`       | Vite preview of the app                                                          |
+| `pnpm serve:dist`    | Serve the GitHub Pages artifact from `dist/web/` locally                         |
 
 `pnpm build` loads [`.env.prod`](.env.prod) (via `DOTENV_CONFIG_PATH`) so navigation URLs in `shellui.config.json` resolve to production values (`${PLAYGROUND_APP_URL}`, `${WEBSITE_URL}`, …). Local `pnpm start` keeps the `${VAR:-default}` localhost defaults unless you set them in `.env`.
 

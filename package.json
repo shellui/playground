@@ -6,7 +6,9 @@
   "scripts": {
     "start": "shellui start",
     "start:app": "vite",
+    "start:desktop": "shellui start --app",
     "build": "DOTENV_CONFIG_PATH=.env.prod shellui build && vite build",
+    "build:desktop": "DOTENV_CONFIG_PATH=.env.prod shellui build --app",
     "preview": "vite preview",
     "serve:dist": "node tools/serve/serve.js",
     "format": "pnpm exec prettier --write .",
@@ -42,6 +44,8 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.0",
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/cli": "^2.11.4",
     "@vitejs/plugin-react": "^4.3.4",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
