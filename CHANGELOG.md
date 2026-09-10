@@ -27,6 +27,7 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 - `pnpm start` runs the iframe Vite app and the shell together (`dev.run` in `shellui.config.json`). Ctrl+C or a Vite crash stops both. `pnpm start:app` remains as an escape hatch.
 - **Desktop (Tauri):** root `tauri.conf.json` sets the app name to **Playground** and uses a padded dock icon (`static/icon.png`, Apple ~824/1024 grid).
+- Layout page: categorized pickers (Sidebar, Top bar, Experimental) with theme-colored schematic previews for `sidebar`, `sidebar-inset`, `app-bar`, `app-bar-inset`, and `windows`.
 
 ### 🚨 Changed
 
