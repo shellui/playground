@@ -391,7 +391,8 @@ export default function Themes() {
                   }}
                   disabled={themeSwitchBusy}
                   className={cn(
-                    'flex items-center gap-1.5 cursor-pointer disabled:cursor-wait disabled:pointer-events-none',
+                    /* pointer-events-auto so disabled:cursor-wait is visible (base Button uses pointer-events-none) */
+                    'flex items-center gap-1.5 disabled:pointer-events-auto disabled:cursor-wait',
                     'transition-opacity duration-300 ease-out',
                     themeSwitchBusy && !isPending
                       ? 'opacity-40 disabled:opacity-40'
