@@ -56,14 +56,6 @@
       "icon": "/icons/home.svg"
     },
     {
-      "label": "Files",
-      "path": "files",
-      "url": "${FILES_URL:-https://files.shellui.com}",
-      "icon": "/icons/folder.svg",
-      "hideWhenLoggedOut": true,
-      "requiresAuth": true
-    },
-    {
       "title": {
         "en": "Features",
         "fr": "Fonctionnalités"
@@ -130,6 +122,23 @@
           "path": "languages",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/languages",
           "icon": "/icons/languages.svg"
+        }
+      ]
+    },
+
+    {
+      "title": {
+        "en": "Applications",
+        "fr": "Applications"
+      },
+      "items": [
+        {
+          "label": "Files",
+          "path": "files",
+          "url": "${FILES_URL:-https://files.shellui.com}",
+          "icon": "/icons/folder.svg",
+          "hideWhenLoggedOut": true,
+          "requiresAuth": true
         }
       ]
     },
