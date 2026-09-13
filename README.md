@@ -10,6 +10,8 @@ The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package
 pnpm install
 ```
 
+This playground expects the sibling [`shellui`](../shellui) monorepo (linked via `link:../shellui/packages/*`). After SDK changes in that repo, run `pnpm build:sdk`.
+
 One terminal starts the iframe app and the shell (`config.dev.run`). Stopping the app (or Ctrl+C) stops the shell:
 
 ```bash
@@ -36,6 +38,7 @@ Branding comes from root [`tauri.conf.json`](tauri.conf.json) (`productName`: **
 | `pnpm start:app`     | `vite` — embedded React app only (escape hatch)                                  |
 | `pnpm start:desktop` | `shellui start --app` — native Tauri window (**Playground** + dock icon)         |
 | `pnpm build`         | `shellui build` then `vite build` (production env from [`.env.prod`](.env.prod)) |
+| `pnpm build:sdk`     | Rebuild `@shellui/sdk` in the sibling `../shellui` monorepo                      |
 | `pnpm preview`       | Vite preview of the app                                                          |
 | `pnpm serve:dist`    | Serve the GitHub Pages artifact from `dist/web/` locally                         |
 

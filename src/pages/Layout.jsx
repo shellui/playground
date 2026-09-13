@@ -8,7 +8,7 @@ import { Alert, AlertTitle } from '../components/ui/Alert';
 
 const LAYOUT_CONFIG_CODE = `// shellui.config.ts
 const config: ShelluiConfig = {
-  // 'sidebar' (default) | 'sidebar-inset' | 'app-bar' | 'app-bar-inset' | 'fullscreen' | 'windows'
+  // 'sidebar' (default) | 'sidebar-inset' | 'app-bar' | 'app-bar-inset' | 'floating' | 'fullscreen' | 'windows'
   layout: "sidebar",
   // ...
 };`;
@@ -29,6 +29,10 @@ const LAYOUT_CATEGORIES = [
     ],
   },
   {
+    titleKey: 'layoutCategoryFloating',
+    items: [{ id: 'floating', labelKey: 'layoutFloating', hintKey: 'layoutFloatingHint' }],
+  },
+  {
     titleKey: 'layoutCategoryExperimental',
     items: [{ id: 'windows', labelKey: 'layoutWindows', hintKey: 'layoutWindowsHint' }],
     experimental: true,
@@ -42,6 +46,7 @@ function cn(...classes) {
 const layoutToKey = (layout) => {
   if (layout === 'fullscreen') return 'layoutFullscreen';
   if (layout === 'windows') return 'layoutWindows';
+  if (layout === 'floating') return 'layoutFloating';
   if (layout === 'app-bar') return 'layoutAppBar';
   if (layout === 'app-bar-inset') return 'layoutAppBarInset';
   if (layout === 'sidebar-inset') return 'layoutSidebarInset';

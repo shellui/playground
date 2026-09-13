@@ -21,7 +21,7 @@ function SidebarSchematic({ inset = false }) {
     <div className="flex h-full w-full overflow-hidden bg-primary">
       <div className="w-[22%] shrink-0" />
       <div className="min-h-0 min-w-0 flex-1 p-1.5 pl-1">
-        <div className="h-full w-full rounded-md bg-background" />
+        <div className="h-full w-full rounded-[4px] bg-background" />
       </div>
     </div>
   );
@@ -41,7 +41,7 @@ function AppBarSchematic({ inset = false }) {
     <div className="flex h-full w-full flex-col overflow-hidden bg-primary">
       <div className="h-[18%] shrink-0" />
       <div className="min-h-0 min-w-0 flex-1 p-1.5 pt-1">
-        <div className="h-full w-full rounded-md bg-background" />
+        <div className="h-full w-full rounded-[4px] bg-background" />
       </div>
     </div>
   );
@@ -61,8 +61,18 @@ function WindowsSchematic() {
   );
 }
 
+/** Full-bleed content with floating glass chrome (desktop sidebar silhouette). */
+function FloatingSchematic() {
+  return (
+    <div className="relative h-full w-full overflow-hidden bg-background">
+      <div className="absolute inset-y-1.5 left-1.5 w-[26%] rounded-[4px] bg-primary/85 shadow-sm" />
+    </div>
+  );
+}
+
 /**
  * Compact theme schematic: primary = chrome, background = content.
+ * Radius is hardcoded so previews stay subtle regardless of the active theme.
  * @param {{ layoutId: string; className?: string }} props
  */
 export default function LayoutPreview({ layoutId, className }) {
@@ -71,11 +81,15 @@ export default function LayoutPreview({ layoutId, className }) {
   else if (layoutId === 'sidebar-inset') schematic = <SidebarSchematic inset />;
   else if (layoutId === 'app-bar') schematic = <AppBarSchematic />;
   else if (layoutId === 'app-bar-inset') schematic = <AppBarSchematic inset />;
+  else if (layoutId === 'floating') schematic = <FloatingSchematic />;
   else if (layoutId === 'windows') schematic = <WindowsSchematic />;
 
   return (
     <div
-      className={cn('h-14 w-24 shrink-0 overflow-hidden rounded border border-border', className)}
+      className={cn(
+        'h-14 w-24 shrink-0 overflow-hidden rounded-[4px] border border-border',
+        className,
+      )}
       aria-hidden
     >
       {schematic}

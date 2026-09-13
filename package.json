@@ -9,6 +9,7 @@
     "start:desktop": "shellui start --app",
     "build": "DOTENV_CONFIG_PATH=.env.prod shellui build && vite build",
     "build:desktop": "DOTENV_CONFIG_PATH=.env.prod shellui build --app",
+    "build:sdk": "pnpm --dir ../shellui run build:sdk",
     "preview": "vite preview",
     "serve:dist": "node tools/serve/serve.js",
     "format": "pnpm exec prettier --write .",
@@ -31,9 +32,9 @@
     ]
   },
   "dependencies": {
-    "@shellui/cli": "0.5.0-beta.2",
-    "@shellui/core": "0.5.0-beta.2",
-    "@shellui/sdk": "0.5.0-beta.2",
+    "@shellui/cli": "0.5.0-beta.3",
+    "@shellui/core": "0.5.0-beta.3",
+    "@shellui/sdk": "0.5.0-beta.3",
     "i18next": "^24.2.0",
     "lucide-react": "^0.468.0",
     "prism-react-renderer": "^2.4.0",

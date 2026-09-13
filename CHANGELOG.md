@@ -27,10 +27,11 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 - `pnpm start` runs the iframe Vite app and the shell together (`dev.run` in `shellui.config.json`). Ctrl+C or a Vite crash stops both. `pnpm start:app` remains as an escape hatch.
 - **Desktop (Tauri):** root `tauri.conf.json` sets the app name to **Playground** and uses a padded dock icon (`static/icon.png`, Apple ~824/1024 grid).
-- Layout page: categorized pickers (Sidebar, Top bar, Experimental) with theme-colored schematic previews for `sidebar`, `sidebar-inset`, `app-bar`, `app-bar-inset`, and `windows`.
+- Layout page: categorized pickers (Sidebar, Top bar, Floating, Experimental) with theme-colored schematic previews for `sidebar`, `sidebar-inset`, `app-bar`, `app-bar-inset`, `floating`, and `windows`.
 
 ### 🚨 Changed
 
+- Depend on local sibling `@shellui/cli`, `@shellui/core`, and `@shellui/sdk` via `link:../shellui/packages/*` so the playground runs against the monorepo source (including the floating layout). Use `pnpm build:sdk` after SDK changes.
 - Merge the nested `app/` package into the playground root: one `package.json`, one pnpm lockfile. Use `pnpm start` (Shellui CLI) and `pnpm start:app` (Vite) locally; `pnpm build` still writes the GitHub Pages artifact to `dist/web/` (shell) and `dist/web/app/` (iframe app).
 - Use Tailwind v4 (`@tailwindcss/vite`) for the iframe app so it can share the package with the shell (Tailwind v3 at the project root broke `shellui build`).
 
