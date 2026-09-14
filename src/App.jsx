@@ -7,6 +7,7 @@ import Layout from './pages/Layout';
 import Modal from './pages/Modal';
 import Dialog from './pages/Dialog';
 import Toaster from './pages/Toaster';
+import Actions from './pages/Actions';
 
 /** Reset scroll when the hash route changes (in-app links or shell-driven hash replace). */
 function ScrollToTop() {
@@ -51,6 +52,10 @@ export default function App() {
         <Route
           path="/toaster"
           element={<Toaster />}
+        />
+        <Route
+          path="/actions"
+          element={<Actions />}
         />
       </Routes>
     </main>

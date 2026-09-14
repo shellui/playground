@@ -63,6 +63,15 @@
       "items": [
         {
           "label": {
+            "en": "Floating Actions",
+            "fr": "Actions flottantes"
+          },
+          "path": "actions",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/actions",
+          "icon": "/icons/actions.svg"
+        },
+        {
+          "label": {
             "en": "Dialog",
             "fr": "Dialogue"
           },
