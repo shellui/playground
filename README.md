@@ -22,7 +22,14 @@ Open [http://localhost:4000](http://localhost:4000). Navigation loads the app fr
 
 ### Floating Actions
 
-The **Floating Actions** sidebar page demos `shellui.actions.set` / `clear` (back, title, trailing overflow, primary FAB). That API ships with [shellui#41](https://github.com/shellui/shellui/issues/41) — check out the feature branch in the sibling `../shellui` repo, run `pnpm build:sdk`, then `pnpm start` here. Without the SDK export, the page shows an alert instead of crashing.
+The **Floating Actions** sidebar page demos `shellui.actions.set` / `clear` (back, title, trailing overflow, primary FAB). Register clicks with **`onClick` on each control** inside `set` (see [shellui#42](https://github.com/shellui/shellui/pull/42) / issue [#41](https://github.com/shellui/shellui/issues/41)).
+
+```bash
+cd ../shellui && git checkout cursor/floating-actions-sdk-100e && pnpm build:sdk
+cd ../playground && git checkout cursor/floating-actions-demo-75ab && pnpm start
+```
+
+Without the SDK export, the page shows an alert instead of crashing.
 
 To run only the Vite app: `pnpm start:app`. To run only the shell: `shellui start --shell-only`.
 

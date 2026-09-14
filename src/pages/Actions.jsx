@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
 import { Info, TriangleAlert } from 'lucide-react';
@@ -12,78 +12,30 @@ const hasActionsApi = () =>
 const SET_CODE = `import shellui from '@shellui/sdk';
 
 shellui.actions.set({
-  back: { id: 'back' },
+  back: { id: 'back', onClick: () => history.back() },
   title: 'Inbox',
   trailing: [
-    { id: 'share', label: 'Share', icon: 'share' },
-    { id: 'edit', label: 'Edit', icon: 'pencil' },
-    { id: 'archive', label: 'Archive', icon: 'archive' },
-    { id: 'delete', label: 'Delete', icon: 'trash' },
+    { id: 'edit', label: 'Edit', onClick: () => {} },
+    { id: 'share', label: 'Share', onClick: () => {} },
+    { id: 'archive', label: 'Archive', onClick: () => {} },
+    { id: 'delete', label: 'Delete', onClick: () => {} },
   ],
-  primary: { id: 'add', label: 'Add', icon: 'plus' },
+  primary: { id: 'compose', icon: 'plus', onClick: () => {} },
 });
 
-// Clicks post the action id back into this iframe (e.g. SHELLUI_ACTION).
-shellui.addMessageListener('SHELLUI_ACTION', (message) => {
-  const id = message?.payload?.id;
-  if (id) shellui.toast({ title: \`Clicked: \${id}\`, type: 'success' });
-});`;
+// Shell posts SHELLUI_ACTION { id }; the SDK invokes the matching onClick from the last set.
+// Callbacks stay registered until the next set() / clear().`;
 
 const UPDATE_CODE = `// On in-app route changes, re-set (or clear) — the shell does not guess SPA routes.
 shellui.actions.set({
-  back: { id: 'back' },
+  back: { id: 'back', onClick: () => history.back() },
   title: 'Message detail',
-  trailing: [{ id: 'reply', label: 'Reply', icon: 'reply' }],
+  trailing: [{ id: 'reply', label: 'Reply', onClick: () => {} }],
+  primary: { id: 'compose', icon: 'plus', onClick: () => {} },
 });`;
 
-const CLEAR_CODE = `// Clear when leaving the screen, or when the shell navigates away from this view.
+const CLEAR_CODE = `// Clear when leaving the screen. Shell navigation away also clears this view's actions.
 shellui.actions.clear();`;
-
-function extractActionId(message) {
-  const payload = message?.payload ?? message?.data ?? message;
-  if (typeof payload === 'string') return payload;
-  if (payload && typeof payload === 'object') {
-    return payload.id ?? payload.actionId ?? payload.action?.id ?? null;
-  }
-  return null;
-}
-
-/** Register for floating-action clicks across likely SDK shapes from shellui#41. */
-function subscribeActionClicks(onId) {
-  const cleanups = [];
-  const actions = shellui.actions;
-
-  if (typeof actions?.onAction === 'function') {
-    const result = actions.onAction(onId);
-    if (typeof result === 'function') cleanups.push(result);
-    else if (typeof actions.offAction === 'function') {
-      cleanups.push(() => actions.offAction(onId));
-    }
-  } else if (typeof actions?.on === 'function') {
-    const result = actions.on(onId);
-    if (typeof result === 'function') cleanups.push(result);
-  }
-
-  if (typeof shellui.addMessageListener === 'function') {
-    const handler = (message) => {
-      const id = extractActionId(message);
-      if (id) onId(id);
-    };
-    for (const type of ['SHELLUI_ACTION', 'shellui:action', 'SHELLUI_ACTIONS_CLICK']) {
-      cleanups.push(shellui.addMessageListener(type, handler));
-    }
-  }
-
-  return () => {
-    for (const cleanup of cleanups) {
-      try {
-        cleanup();
-      } catch {
-        /* ignore */
-      }
-    }
-  };
-}
 
 export default function Actions() {
   const { t } = useTranslation();
@@ -91,14 +43,8 @@ export default function Actions() {
   const [lastClick, setLastClick] = useState(null);
   const [clickLog, setClickLog] = useState([]);
 
-  useEffect(() => {
-    setAvailable(hasActionsApi());
-  }, []);
-
-  useEffect(() => {
-    if (!hasActionsApi()) return undefined;
-
-    const handleClick = (id) => {
+  const logClick = useCallback(
+    (id) => {
       setLastClick(id);
       setClickLog((prev) => [{ id, at: Date.now() }, ...prev].slice(0, 8));
       if (typeof shellui.toast === 'function') {
@@ -107,46 +53,61 @@ export default function Actions() {
           type: 'success',
         });
       }
-    };
+    },
+    [t],
+  );
 
-    const unsubscribe = subscribeActionClicks(handleClick);
+  const control = useCallback(
+    (id, extras = {}) => ({
+      id,
+      ...extras,
+      onClick: () => logClick(id),
+    }),
+    [logClick],
+  );
 
-    // Sensible default chrome while this demo page is active.
+  useEffect(() => {
+    setAvailable(hasActionsApi());
+  }, []);
+
+  useEffect(() => {
+    if (!hasActionsApi()) return undefined;
+
     shellui.actions.set({
-      back: { id: 'back' },
+      back: control('back'),
       title: t('actionsDefaultTitle'),
-      primary: { id: 'add', label: t('actionsPrimaryAdd'), icon: 'plus' },
+      primary: control('add', { label: t('actionsPrimaryAdd'), icon: 'plus' }),
     });
 
     return () => {
-      unsubscribe();
       try {
         shellui.actions.clear();
       } catch {
         /* ignore */
       }
     };
-  }, [t]);
+  }, [control, t]);
 
   const setBackAndTitle = () => {
     if (!hasActionsApi()) return;
     shellui.actions.set({
-      back: { id: 'back' },
+      back: control('back'),
       title: t('actionsTitleInbox'),
     });
   };
 
   const setTrailing = () => {
     if (!hasActionsApi()) return;
+    // Five trailing → ≤3 visible; remainder in ··· overflow menu.
     shellui.actions.set({
-      back: { id: 'back' },
+      back: control('back'),
       title: t('actionsTitleInbox'),
       trailing: [
-        { id: 'share', label: t('actionsTrailingShare'), icon: 'share' },
-        { id: 'edit', label: t('actionsTrailingEdit'), icon: 'pencil' },
-        { id: 'archive', label: t('actionsTrailingArchive'), icon: 'archive' },
-        { id: 'delete', label: t('actionsTrailingDelete'), icon: 'trash' },
-        { id: 'star', label: t('actionsTrailingStar'), icon: 'star' },
+        control('share', { label: t('actionsTrailingShare') }),
+        control('edit', { label: t('actionsTrailingEdit') }),
+        control('archive', { label: t('actionsTrailingArchive') }),
+        control('delete', { label: t('actionsTrailingDelete') }),
+        control('star', { label: t('actionsTrailingStar') }),
       ],
     });
   };
@@ -154,19 +115,19 @@ export default function Actions() {
   const setPrimary = () => {
     if (!hasActionsApi()) return;
     shellui.actions.set({
-      back: { id: 'back' },
+      back: control('back'),
       title: t('actionsTitleInbox'),
-      primary: { id: 'add', label: t('actionsPrimaryAdd'), icon: 'plus' },
+      primary: control('add', { label: t('actionsPrimaryAdd'), icon: 'plus' }),
     });
   };
 
   const updateActions = () => {
     if (!hasActionsApi()) return;
     shellui.actions.set({
-      back: { id: 'back' },
+      back: control('back'),
       title: t('actionsTitleDetail'),
-      trailing: [{ id: 'reply', label: t('actionsTrailingReply'), icon: 'reply' }],
-      primary: { id: 'compose', label: t('actionsPrimaryCompose'), icon: 'plus' },
+      trailing: [control('reply', { label: t('actionsTrailingReply') })],
+      primary: control('compose', { label: t('actionsPrimaryCompose'), icon: 'plus' }),
     });
   };
 

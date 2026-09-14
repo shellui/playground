@@ -51,7 +51,7 @@ const resources = {
         'Chrome is optional and reserves safe padding. Re-set actions on your own in-app route changes — the shell does not guess SPA routes. Clear on unmount; shell navigation away also clears that view’s actions.',
       pageActionsMissingTitle: 'SDK actions API not available',
       pageActionsMissing:
-        'This demo needs shellui.actions from shellui#41. Link a sibling checkout of that feature branch and run pnpm build:sdk, then restart pnpm start.',
+        'This demo needs shellui.actions from shellui#42. Sibling checkout: branch cursor/floating-actions-sdk-100e, run pnpm build:sdk, then restart pnpm start.',
       exampleTitleActionsTry: 'Set floating actions',
       exampleTitleActionsUpdate: 'Update on in-app navigation',
       exampleTitleActionsClear: 'Clear actions',
@@ -244,7 +244,7 @@ const resources = {
         'Le chrome est optionnel et réserve un padding sécurisé. Re-déclarez les actions à chaque changement de route interne — la coque ne déduit pas les routes SPA. Effacez au démontage ; quitter la vue via la navigation shell efface aussi les actions.',
       pageActionsMissingTitle: 'API actions du SDK indisponible',
       pageActionsMissing:
-        'Cette démo nécessite shellui.actions (shellui#41). Liez un checkout frère de cette branche, lancez pnpm build:sdk, puis relancez pnpm start.',
+        'Cette démo nécessite shellui.actions (shellui#42). Checkout frère : branche cursor/floating-actions-sdk-100e, puis pnpm build:sdk et relancez pnpm start.',
       exampleTitleActionsTry: 'Définir les actions flottantes',
       exampleTitleActionsUpdate: 'Mettre à jour à la navigation interne',
       exampleTitleActionsClear: 'Effacer les actions',
