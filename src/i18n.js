@@ -43,7 +43,7 @@ const resources = {
       pageToasterTitle: 'Toaster',
       pageToasterDescription:
         'Toast notifications appear briefly to confirm actions or show status. They stack and dismiss automatically or on user close.',
-      pageActionsTitle: 'Floating Actions',
+      pageActionsTitle: 'Action buttons',
       pageActionsDescription:
         'Optional floating chrome owned by Shellui: back, title, trailing buttons, and a bottom primary FAB. Apps declare intent with the SDK; the shell renders chrome above the iframe and posts clicks back.',
       pageActionsLifecycleTitle: 'Lifecycle',
@@ -52,15 +52,22 @@ const resources = {
       pageActionsMissingTitle: 'SDK actions API not available',
       pageActionsMissing:
         'This demo needs shellui.actions from shellui#42. Sibling checkout: branch cursor/floating-actions-sdk-100e, run pnpm build:sdk, then restart pnpm start.',
-      exampleTitleActionsTry: 'Set floating actions',
-      exampleTitleActionsUpdate: 'Update on in-app navigation',
-      exampleTitleActionsClear: 'Clear actions',
-      actionsSetBackTitle: 'Set back + title',
-      actionsSetTrailing: 'Set trailing (overflow)',
-      actionsSetPrimary: 'Set primary FAB',
-      actionsUpdate: 'Update actions',
-      actionsClear: 'Clear actions',
-      actionsDefaultTitle: 'Floating Actions',
+      actionsInboxHeading: 'Inbox',
+      actionsInboxHint:
+        'Chrome shows the Inbox title and trailing actions (no back). Open a message to navigate in-app — the detail screen re-sets chrome with a back button, a different title, and a refresh control.',
+      actionsMessageTitle: 'Message {{n}}',
+      actionsMessagePreview: 'Tap to open detail and try back + refresh…',
+      actionsOpenDetail: 'Open',
+      actionsDetailDescription:
+        'This screen re-declared chrome actions for the detail route. Use the shell back control (or the button below) to return to Inbox.',
+      actionsDetailChromeTitle: 'Try the chrome',
+      actionsDetailChromeHint:
+        'Back returns to Inbox. Refresh spins with animate: "icon-rotate" for 2 seconds while disabled.',
+      actionsDetailRefreshing: 'Refreshing… the chrome refresh icon should be spinning.',
+      actionsBackToInbox: 'Back to Inbox',
+      actionsTryRefresh: 'Trigger refresh',
+      actionsClearChrome: 'Clear actions',
+      actionsReactivateChrome: 'Re-activate actions',
       actionsTitleInbox: 'Inbox',
       actionsTitleDetail: 'Message detail',
       actionsTrailingShare: 'Share',
@@ -69,24 +76,23 @@ const resources = {
       actionsTrailingDelete: 'Delete',
       actionsTrailingStar: 'Star',
       actionsTrailingReply: 'Reply',
+      actionsTrailingRefresh: 'Refresh',
       actionsPrimaryAdd: 'Add',
       actionsPrimaryCompose: 'Compose',
-      actionsLastClickEmpty: 'Click a floating action in the shell chrome to see its id here.',
+      actionsLastClickEmpty: 'Click an action button in the shell chrome to see its id here.',
       actionsLastClick: 'Last click: {{id}}',
       actionsClickToast: 'Action: {{id}}',
-      actionsUpdateHint:
-        'Use “Update actions” to simulate navigating to a detail screen — title and trailing change without leaving this page.',
       // Home / Playground
       playgroundTitle: 'Shellui Playground',
       playgroundTagline: 'See how easy it is to build an app inside Shellui.',
       playgroundIntro:
-        'This playground is a live demo of <shelluiLink>Shellui</shelluiLink>: layout, modals, drawers, dialogs, toasts, floating actions, themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
+        'This playground is a live demo of <shelluiLink>Shellui</shelluiLink>: layout, modals, drawers, dialogs, toasts, action buttons, themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
       playgroundWhatIs: 'What is this playground?',
       playgroundWhatIsBody:
         'A small React app (this page) is embedded inside the Shellui shell. The shell handles navigation, settings, themes, and language. Your app uses the Shellui SDK to show toasts, open modals or drawers, and react to settings updates—all with a few lines of code.',
       playgroundTrySections: 'Try the sections in the sidebar',
       playgroundTrySectionsBody:
-        'Floating Actions, Layout, Modal & Drawer, Dialog, Toaster, Themes, and Language show concrete examples and code. Change theme or language in Shell Settings (gear icon) and watch this app update.',
+        'Action buttons, Layout, Modal & Drawer, Dialog, Toaster, Themes, and Language show concrete examples and code. Change theme or language in Shell Settings (gear icon) and watch this app update.',
       playgroundCodeOnGitHub: 'This application is available on GitHub',
       playgroundHostedOnGitHubPages: ' and currently hosted as a GitHub Page.',
       codeSample: 'Code sample',
@@ -236,7 +242,7 @@ const resources = {
       pageToasterTitle: 'Notifications',
       pageToasterDescription:
         'Les toasts s’affichent brièvement pour confirmer une action ou un statut. Ils s’empilent et se ferment automatiquement ou par l’utilisateur.',
-      pageActionsTitle: 'Actions flottantes',
+      pageActionsTitle: "Boutons d'action",
       pageActionsDescription:
         'Chrome flottant optionnel géré par Shellui : retour, titre, boutons secondaires et FAB principal en bas. Les apps déclarent l’intention via le SDK ; la coque affiche le chrome au-dessus de l’iframe et renvoie les clics.',
       pageActionsLifecycleTitle: 'Cycle de vie',
@@ -245,15 +251,22 @@ const resources = {
       pageActionsMissingTitle: 'API actions du SDK indisponible',
       pageActionsMissing:
         'Cette démo nécessite shellui.actions (shellui#42). Checkout frère : branche cursor/floating-actions-sdk-100e, puis pnpm build:sdk et relancez pnpm start.',
-      exampleTitleActionsTry: 'Définir les actions flottantes',
-      exampleTitleActionsUpdate: 'Mettre à jour à la navigation interne',
-      exampleTitleActionsClear: 'Effacer les actions',
-      actionsSetBackTitle: 'Retour + titre',
-      actionsSetTrailing: 'Secondaires (overflow)',
-      actionsSetPrimary: 'FAB principal',
-      actionsUpdate: 'Mettre à jour',
-      actionsClear: 'Effacer',
-      actionsDefaultTitle: 'Actions flottantes',
+      actionsInboxHeading: 'Boîte de réception',
+      actionsInboxHint:
+        'Le chrome affiche le titre Boîte de réception et des actions secondaires (pas de retour). Ouvrez un message pour naviguer dans l’app — l’écran détail redéfinit le chrome avec un bouton retour, un autre titre et un contrôle Actualiser.',
+      actionsMessageTitle: 'Message {{n}}',
+      actionsMessagePreview: 'Ouvrir le détail pour tester retour + actualiser…',
+      actionsOpenDetail: 'Ouvrir',
+      actionsDetailDescription:
+        'Cet écran a redéclaré les actions chrome pour la route détail. Utilisez le retour de la coque (ou le bouton ci-dessous) pour revenir à la boîte de réception.',
+      actionsDetailChromeTitle: 'Essayer le chrome',
+      actionsDetailChromeHint:
+        'Retour ramène à la boîte de réception. Actualiser tourne avec animate: "icon-rotate" pendant 2 secondes tout en étant désactivé.',
+      actionsDetailRefreshing: 'Actualisation… l’icône Actualiser du chrome devrait tourner.',
+      actionsBackToInbox: 'Retour à la boîte',
+      actionsTryRefresh: 'Lancer l’actualisation',
+      actionsClearChrome: 'Effacer les actions',
+      actionsReactivateChrome: 'Réactiver les actions',
       actionsTitleInbox: 'Boîte de réception',
       actionsTitleDetail: 'Détail du message',
       actionsTrailingShare: 'Partager',
@@ -262,24 +275,23 @@ const resources = {
       actionsTrailingDelete: 'Supprimer',
       actionsTrailingStar: 'Favori',
       actionsTrailingReply: 'Répondre',
+      actionsTrailingRefresh: 'Actualiser',
       actionsPrimaryAdd: 'Ajouter',
       actionsPrimaryCompose: 'Composer',
       actionsLastClickEmpty:
-        'Cliquez une action flottante dans le chrome de la coque pour voir son id ici.',
+        "Cliquez un bouton d'action dans le chrome de la coque pour voir son id ici.",
       actionsLastClick: 'Dernier clic : {{id}}',
       actionsClickToast: 'Action : {{id}}',
-      actionsUpdateHint:
-        '« Mettre à jour » simule l’ouverture d’un détail — titre et secondaires changent sans quitter la page.',
       playgroundTitle: 'Shellui Playground',
       playgroundTagline: 'Découvrez à quel point il est simple de construire une app dans Shellui.',
       playgroundIntro:
-        'Ce playground est une démo vivante de <shelluiLink>Shellui</shelluiLink> : mise en page, modales, tiroirs, dialogues, toasts, actions flottantes, thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.',
+        "Ce playground est une démo vivante de <shelluiLink>Shellui</shelluiLink> : mise en page, modales, tiroirs, dialogues, toasts, boutons d'action, thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.",
       playgroundWhatIs: "C'est quoi ce playground ?",
       playgroundWhatIsBody:
         'Une petite app React (cette page) est intégrée dans la coque Shellui. La coque gère la navigation, les paramètres, les thèmes et la langue. Votre app utilise le SDK Shellui pour afficher des toasts, ouvrir des modales ou des tiroirs, et réagir aux mises à jour des paramètres—le tout en quelques lignes.',
       playgroundTrySections: 'Essayez les sections dans la barre latérale',
       playgroundTrySectionsBody:
-        'Actions flottantes, Mise en page, Modale & tiroir, Dialogue, Notifications, Thèmes et Langue montrent des exemples concrets et du code. Changez le thème ou la langue dans les Paramètres de la coque (icône engrenage) et regardez cette app se mettre à jour.',
+        "Boutons d'action, Mise en page, Modale & tiroir, Dialogue, Notifications, Thèmes et Langue montrent des exemples concrets et du code. Changez le thème ou la langue dans les Paramètres de la coque (icône engrenage) et regardez cette app se mettre à jour.",
       playgroundCodeOnGitHub: 'Cette application est disponible sur GitHub',
       playgroundHostedOnGitHubPages: ' et est actuellement hébergée en tant que GitHub Page.',
       codeSample: 'Exemple de code',
