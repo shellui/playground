@@ -63,15 +63,6 @@
       "items": [
         {
           "label": {
-            "en": "Action buttons",
-            "fr": "Boutons d'action"
-          },
-          "path": "actions",
-          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/actions",
-          "icon": "/icons/actions.svg"
-        },
-        {
-          "label": {
             "en": "Dialog",
             "fr": "Dialogue"
           },
@@ -87,6 +78,15 @@
           "path": "toaster",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/toaster",
           "icon": "/icons/toaster.svg"
+        },
+        {
+          "label": {
+            "en": "Action buttons",
+            "fr": "Boutons d'action"
+          },
+          "path": "actions",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/actions",
+          "icon": "/icons/actions.svg"
         },
         {
           "label": {
