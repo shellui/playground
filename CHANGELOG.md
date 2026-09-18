@@ -23,6 +23,10 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ## [Unreleased]
 
+### 🔒 Security
+
+- Opt in to `safeForAuthToken: true` on every companion navigation item so iframe apps keep receiving the session access token after Shellui 0.5.x H-08 ([shellui#68](https://github.com/shellui/shellui/pull/68)). This demo trusts all playground companion URLs.
+
 ### ✨ Feature
 
 - Floating Actions demo page (`/#/actions`): `shellui.actions.set` / `clear` with per-control `onClick`, live triggers, and click log. Requires the SDK from [shellui#42](https://github.com/shellui/shellui/pull/42) ([#41](https://github.com/shellui/shellui/issues/41)); feature-detects and shows an alert when `shellui.actions` is missing.

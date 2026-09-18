@@ -13,6 +13,7 @@
         },
         "path": "home",
         "url": "https://playground.shellui.com",
+        "safeForAuthToken": true,
         "icon": "/icons/home.svg"
       }
     ]
@@ -53,6 +54,7 @@
       "label": "Homepage",
       "path": "",
       "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/",
+      "safeForAuthToken": true,
       "icon": "/icons/home.svg"
     },
     {
@@ -68,6 +70,7 @@
           },
           "path": "dialog",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/dialog",
+          "safeForAuthToken": true,
           "icon": "/icons/dialog.svg"
         },
         {
@@ -77,6 +80,7 @@
           },
           "path": "toaster",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/toaster",
+          "safeForAuthToken": true,
           "icon": "/icons/toaster.svg"
         },
         {
@@ -86,6 +90,7 @@
           },
           "path": "actions",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/actions",
+          "safeForAuthToken": true,
           "icon": "/icons/actions.svg"
         },
         {
@@ -95,6 +100,7 @@
           },
           "path": "modal",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/modal",
+          "safeForAuthToken": true,
           "icon": "/icons/modal.svg"
         },
         {
@@ -104,6 +110,7 @@
           },
           "path": "layout",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/layout",
+          "safeForAuthToken": true,
           "icon": "/icons/layout.svg"
         }
       ]
@@ -121,6 +128,7 @@
           },
           "path": "themes",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/themes",
+          "safeForAuthToken": true,
           "icon": "/icons/palette.svg"
         },
         {
@@ -130,6 +138,7 @@
           },
           "path": "languages",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/languages",
+          "safeForAuthToken": true,
           "icon": "/icons/languages.svg"
         }
       ]
@@ -145,6 +154,7 @@
           "label": "Files",
           "path": "files",
           "url": "${FILES_URL:-https://files.shellui.com}",
+          "safeForAuthToken": true,
           "icon": "/icons/folder.svg",
           "hideWhenLoggedOut": true,
           "requiresAuth": true
@@ -161,6 +171,7 @@
           "label": "Website",
           "path": "website",
           "url": "${WEBSITE_URL:-http://localhost:8080/}",
+          "safeForAuthToken": true,
           "icon": "/icons/globe.svg"
         },
         {
@@ -170,6 +181,7 @@
           },
           "path": "docs",
           "url": "${DOCS_URL:-https://docs.shellui.com}",
+          "safeForAuthToken": true,
           "icon": "/icons/book-open.svg",
           "position": "end"
         }
@@ -181,7 +193,8 @@
       "url": "/",
       "icon": "/icons/play.svg",
       "position": "end",
-      "settings": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/settings"
+      "settings": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/settings",
+      "safeForAuthToken": true
     },
     {
       "label": {
