@@ -29,7 +29,7 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ### 🛠 Improvements
 
-- Bump to Shellui [0.5.1](https://github.com/shellui/shellui/releases/tag/v0.5.1) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Playground `0.3.1` tracks the security/auth hardening release; run `pnpm install` after npm publish to refresh the lockfile.
+- Bump to Shellui [0.5.1](https://github.com/shellui/shellui/releases/tag/v0.5.1) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Playground `0.3.1` tracks the security/auth hardening release.
 
 ### ✨ Feature
 
