@@ -43,6 +43,46 @@ const resources = {
       pageToasterTitle: 'Toaster',
       pageToasterDescription:
         'Toast notifications appear briefly to confirm actions or show status. They stack and dismiss automatically or on user close.',
+      pageChatTitle: 'Chat',
+      pageChatDescription:
+        "Talk to on-device models through Shellui's unified AI SDK (`shellui.ai`). Apps never call Ollama or WebGPU directly — the shell owns providers; this page uses whatever default model is ready in Settings → AI.",
+      pageChatMissingTitle: 'SDK AI API not available',
+      pageChatMissing:
+        'This demo needs shellui.ai from shellui#48. After that PR merges, bump @shellui/cli, @shellui/core, and @shellui/sdk, then restart pnpm start. Until then the UI stays available with an empty state.',
+      pageChatUnavailableTitle: 'No ready model',
+      pageChatUnavailable:
+        'Open Settings → AI to enable providers, start Ollama (or install a browser catalog model when supported), and pick a default. Chat uses the shell’s ready model only.',
+      chatConversations: 'Conversations',
+      chatNewConversation: 'New chat',
+      chatNoConversations: 'No conversations yet.',
+      chatDeleteConversation: 'Delete conversation',
+      chatEmptyTitle: 'Start a conversation',
+      chatEmptyReady: 'Send a prompt below. Replies stream when promptStreaming is available.',
+      chatEmptyUnavailable:
+        'Configure a ready model in Settings → AI, then refresh status to enable the composer.',
+      chatPromptLabel: 'Prompt',
+      chatPromptPlaceholder: 'Ask something… (Enter to send, Shift+Enter for newline)',
+      chatPromptDisabled: 'Waiting for a ready model…',
+      chatSend: 'Send',
+      chatSending: 'Sending…',
+      chatThinking: 'Thinking…',
+      chatEmptyReply: '(Empty reply)',
+      chatErrorReply: 'Error: {{message}}',
+      chatUsingStreaming: 'Using session.promptStreaming()',
+      chatUsingOneshot: 'Using session.prompt()',
+      chatRefreshStatus: 'Refresh status',
+      chatAvailabilityMissing: 'AI SDK missing',
+      chatAvailabilityChecking: 'Checking…',
+      chatAvailability_available: 'Available',
+      chatAvailability_downloadable: 'Downloadable',
+      chatAvailability_downloading: 'Downloading',
+      chatAvailability_unavailable: 'Unavailable',
+      exampleTitleChatAvailability: 'Check availability',
+      exampleChatAvailabilityHint:
+        'Always probe availability before create(). Provider setup lives in the shell, not in your app.',
+      exampleTitleChatPrompt: 'One-shot prompt',
+      exampleTitleChatStreaming: 'Streaming prompt',
+      exampleTitleChatListModels: 'List models & status',
       pageActionsTitle: 'Action buttons',
       pageActionsDescription:
         'Optional floating chrome owned by Shellui: back, title, trailing buttons, and a bottom primary FAB. Apps declare intent with the SDK; the shell renders chrome above the iframe and posts clicks back.',
@@ -86,13 +126,13 @@ const resources = {
       playgroundTitle: 'Shellui Playground',
       playgroundTagline: 'See how easy it is to build an app inside Shellui.',
       playgroundIntro:
-        'This playground is a live demo of <shelluiLink>Shellui</shelluiLink>: layout, modals, drawers, dialogs, toasts, action buttons, themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
+        'This playground is a live demo of <shelluiLink>Shellui</shelluiLink>: layout, modals, drawers, dialogs, toasts, action buttons, chat (unified AI), themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
       playgroundWhatIs: 'What is this playground?',
       playgroundWhatIsBody:
-        'A small React app (this page) is embedded inside the Shellui shell. The shell handles navigation, settings, themes, and language. Your app uses the Shellui SDK to show toasts, open modals or drawers, and react to settings updates—all with a few lines of code.',
+        'A small React app (this page) is embedded inside the Shellui shell. The shell handles navigation, settings, themes, and language. Your app uses the Shellui SDK to show toasts, open modals or drawers, chat via shellui.ai, and react to settings updates—all with a few lines of code.',
       playgroundTrySections: 'Try the sections in the sidebar',
       playgroundTrySectionsBody:
-        'Action buttons, Layout, Modal & Drawer, Dialog, Toaster, Themes, and Language show concrete examples and code. Change theme or language in Shell Settings (gear icon) and watch this app update.',
+        'Action buttons, Chat, Layout, Modal & Drawer, Dialog, Toaster, Themes, and Language show concrete examples and code. Change theme or language in Shell Settings (gear icon) and watch this app update.',
       playgroundCodeOnGitHub: 'This application is available on GitHub',
       playgroundHostedOnGitHubPages: ' and currently hosted as a GitHub Page.',
       codeSample: 'Code sample',
@@ -242,6 +282,47 @@ const resources = {
       pageToasterTitle: 'Notifications',
       pageToasterDescription:
         'Les toasts s’affichent brièvement pour confirmer une action ou un statut. Ils s’empilent et se ferment automatiquement ou par l’utilisateur.',
+      pageChatTitle: 'Chat',
+      pageChatDescription:
+        'Parlez aux modèles on-device via le SDK AI unifié de Shellui (`shellui.ai`). Les apps n’appellent jamais Ollama ni WebGPU directement — la coque gère les fournisseurs ; cette page utilise le modèle par défaut prêt dans Paramètres → AI.',
+      pageChatMissingTitle: 'API AI du SDK indisponible',
+      pageChatMissing:
+        'Cette démo nécessite shellui.ai (shellui#48). Après fusion de la PR, mettez à jour @shellui/cli, @shellui/core et @shellui/sdk, puis relancez pnpm start. En attendant, l’UI reste utilisable avec un état vide.',
+      pageChatUnavailableTitle: 'Aucun modèle prêt',
+      pageChatUnavailable:
+        'Ouvrez Paramètres → AI pour activer les fournisseurs, démarrer Ollama (ou installer un modèle navigateur quand c’est pris en charge), et choisir un défaut. Le chat n’utilise que le modèle prêt de la coque.',
+      chatConversations: 'Conversations',
+      chatNewConversation: 'Nouveau chat',
+      chatNoConversations: 'Aucune conversation pour l’instant.',
+      chatDeleteConversation: 'Supprimer la conversation',
+      chatEmptyTitle: 'Démarrer une conversation',
+      chatEmptyReady:
+        'Envoyez un prompt ci-dessous. Les réponses streameront si promptStreaming est disponible.',
+      chatEmptyUnavailable:
+        'Configurez un modèle prêt dans Paramètres → AI, puis actualisez le statut pour activer la saisie.',
+      chatPromptLabel: 'Prompt',
+      chatPromptPlaceholder: 'Posez une question… (Entrée pour envoyer, Maj+Entrée pour une ligne)',
+      chatPromptDisabled: 'En attente d’un modèle prêt…',
+      chatSend: 'Envoyer',
+      chatSending: 'Envoi…',
+      chatThinking: 'Réflexion…',
+      chatEmptyReply: '(Réponse vide)',
+      chatErrorReply: 'Erreur : {{message}}',
+      chatUsingStreaming: 'Via session.promptStreaming()',
+      chatUsingOneshot: 'Via session.prompt()',
+      chatRefreshStatus: 'Actualiser le statut',
+      chatAvailabilityMissing: 'SDK AI manquant',
+      chatAvailabilityChecking: 'Vérification…',
+      chatAvailability_available: 'Disponible',
+      chatAvailability_downloadable: 'Téléchargeable',
+      chatAvailability_downloading: 'Téléchargement',
+      chatAvailability_unavailable: 'Indisponible',
+      exampleTitleChatAvailability: 'Vérifier la disponibilité',
+      exampleChatAvailabilityHint:
+        'Toujours sonder availability() avant create(). La config des fournisseurs est dans la coque, pas dans votre app.',
+      exampleTitleChatPrompt: 'Prompt ponctuel',
+      exampleTitleChatStreaming: 'Prompt en streaming',
+      exampleTitleChatListModels: 'Lister les modèles et le statut',
       pageActionsTitle: "Boutons d'action",
       pageActionsDescription:
         'Chrome flottant optionnel géré par Shellui : retour, titre, boutons secondaires et FAB principal en bas. Les apps déclarent l’intention via le SDK ; la coque affiche le chrome au-dessus de l’iframe et renvoie les clics.',
@@ -285,13 +366,13 @@ const resources = {
       playgroundTitle: 'Shellui Playground',
       playgroundTagline: 'Découvrez à quel point il est simple de construire une app dans Shellui.',
       playgroundIntro:
-        "Ce playground est une démo vivante de <shelluiLink>Shellui</shelluiLink> : mise en page, modales, tiroirs, dialogues, toasts, boutons d'action, thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.",
+        "Ce playground est une démo vivante de <shelluiLink>Shellui</shelluiLink> : mise en page, modales, tiroirs, dialogues, toasts, boutons d'action, chat (AI unifié), thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.",
       playgroundWhatIs: "C'est quoi ce playground ?",
       playgroundWhatIsBody:
-        'Une petite app React (cette page) est intégrée dans la coque Shellui. La coque gère la navigation, les paramètres, les thèmes et la langue. Votre app utilise le SDK Shellui pour afficher des toasts, ouvrir des modales ou des tiroirs, et réagir aux mises à jour des paramètres—le tout en quelques lignes.',
+        'Une petite app React (cette page) est intégrée dans la coque Shellui. La coque gère la navigation, les paramètres, les thèmes et la langue. Votre app utilise le SDK Shellui pour afficher des toasts, ouvrir des modales ou des tiroirs, discuter via shellui.ai, et réagir aux mises à jour des paramètres—le tout en quelques lignes.',
       playgroundTrySections: 'Essayez les sections dans la barre latérale',
       playgroundTrySectionsBody:
-        "Boutons d'action, Mise en page, Modale & tiroir, Dialogue, Notifications, Thèmes et Langue montrent des exemples concrets et du code. Changez le thème ou la langue dans les Paramètres de la coque (icône engrenage) et regardez cette app se mettre à jour.",
+        "Boutons d'action, Chat, Mise en page, Modale & tiroir, Dialogue, Notifications, Thèmes et Langue montrent des exemples concrets et du code. Changez le thème ou la langue dans les Paramètres de la coque (icône engrenage) et regardez cette app se mettre à jour.",
       playgroundCodeOnGitHub: 'Cette application est disponible sur GitHub',
       playgroundHostedOnGitHubPages: ' et est actuellement hébergée en tant que GitHub Page.',
       codeSample: 'Exemple de code',
