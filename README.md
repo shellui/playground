@@ -1,8 +1,8 @@
 # Shellui Playground
 
-A demo of **Shellui**, the microfrontend orchestration framework, deployed to GitHub Pages.
+A demo of **Shellui 0.5.1**, the microfrontend orchestration framework, deployed to GitHub Pages.
 
-The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package** — a single `pnpm install`.
+The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package** — a single `pnpm install` (npm `@shellui/*` ^0.5.1).
 
 ## Quick Start
 
@@ -39,7 +39,7 @@ To run only the Vite app: `pnpm start:app`. To run only the shell: `shellui star
 pnpm start:desktop   # shell + Vite + native window
 ```
 
-Branding comes from root [`tauri.conf.json`](tauri.conf.json) (`productName`: **Playground**, icon: [`static/icon.png`](static/icon.png) padded to Apple’s dock grid). Requires a Shellui CLI that syncs root `tauri.conf.json` (0.5.0+).
+Branding comes from root [`tauri.conf.json`](tauri.conf.json) (`productName`: **Playground**, icon: [`static/icon.png`](static/icon.png) padded to Apple’s dock grid). Requires a Shellui CLI that syncs root `tauri.conf.json` (0.5.1+).
 
 ## Scripts
 

@@ -21,11 +21,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
-## [Unreleased]
+## [0.4.0] - 2026-09-18
 
 ### 🔒 Security
 
 - Opt in to `safeForAuthToken: true` on every companion navigation item so iframe apps keep receiving the session access token after Shellui 0.5.x H-08 ([shellui#68](https://github.com/shellui/shellui/pull/68)). This demo trusts all playground companion URLs.
+
+### 🛠 Improvements
+
+- Bump to Shellui [0.5.1](https://github.com/shellui/shellui/releases/tag/v0.5.1) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`).
 
 ### ✨ Feature
 
