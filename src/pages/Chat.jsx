@@ -332,7 +332,7 @@ export default function Chat() {
 
         setStreamHint(usedStreaming ? 'streaming' : 'oneshot');
       } catch (err) {
-        destroySession();
+        void destroySession();
         const message = err instanceof Error ? err.message : String(err);
         setSendError(message);
         updateConversation(conversation.id, (c) => ({
