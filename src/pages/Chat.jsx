@@ -87,6 +87,8 @@ export default function Chat() {
   const threadRef = useRef(null);
   const sessionRef = useRef(null);
   const abortRef = useRef(false);
+  /** AbortSignal passed to languageModel.create when the SDK honors it. */
+  const promptAbortRef = useRef(null);
   /** Bumped on Stop so a finishing send cannot overwrite a newer turn. */
   const sendGenRef = useRef(0);
   /** Serializes async SDK destroys so a delayed shell destroy cannot race a new session. */
@@ -128,7 +130,14 @@ export default function Chat() {
   const cancelInFlight = useCallback(() => {
     abortRef.current = true;
     sendGenRef.current += 1;
+    try {
+      promptAbortRef.current?.abort();
+    } catch {
+      /* ignore */
+    }
+    promptAbortRef.current = null;
     const session = sessionRef.current;
+    // Prefer session.abort() when the SDK wires op:'abort'; else destroy interrupts the shell.
     if (session && typeof session.abort === 'function') {
       try {
         session.abort();
@@ -290,6 +299,8 @@ export default function Chat() {
       abortRef.current = false;
       const sendGen = ++sendGenRef.current;
       const isCurrent = () => sendGen === sendGenRef.current;
+      const promptAbort = new AbortController();
+      promptAbortRef.current = promptAbort;
 
       const conversation = ensureActiveConversation();
       const userMessage = {
@@ -330,6 +341,7 @@ export default function Chat() {
         if (!session) {
           session = await shellui.ai.languageModel.create({
             initialPrompts: toInitialPrompts(priorMessages),
+            signal: promptAbort.signal,
           });
           if (!isCurrent()) {
             if (session && typeof session.destroy === 'function') {
@@ -413,6 +425,9 @@ export default function Chat() {
           ),
         }));
       } finally {
+        if (promptAbortRef.current === promptAbort) {
+          promptAbortRef.current = null;
+        }
         if (isCurrent()) setSending(false);
       }
     },
