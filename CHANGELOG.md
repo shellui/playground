@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [Unreleased]
+
+### 🐛 Bug Fixes
+
+- Postbuild auth route HTML (`login/`, `login/callback/`) with depth-correct asset paths so OAuth callback on GitHub Pages no longer 404s `./assets/` at `/login/assets/` (until `@shellui/cli` 0.5.2 ships the upstream fix).
+
 ## [0.4.0] - 2026-09-18
 
 ### 🔒 Security
@@ -46,7 +52,6 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ### 🐛 Bug Fixes
 
-- Postbuild auth route HTML (`login/`, `login/callback/`) with depth-correct asset paths so OAuth callback on GitHub Pages no longer 404s `./assets/` at `/login/assets/` (until `@shellui/cli` 0.5.2 ships the upstream fix).
 - Give the Vite app its own cache (`node_modules/.vite-app`) so it does not overwrite the shell’s prebundled deps. Sharing `node_modules/.vite` broke Settings (`react-markdown` failed to load).
 
 ## [0.3.0] - 2026-08-24
