@@ -87,6 +87,8 @@ export default function Chat() {
   const threadRef = useRef(null);
   const sessionRef = useRef(null);
   const abortRef = useRef(false);
+  /** Bumped on Stop so a finishing send cannot overwrite a newer turn. */
+  const sendGenRef = useRef(0);
   /** Serializes async SDK destroys so a delayed shell destroy cannot race a new session. */
   const destroyChainRef = useRef(Promise.resolve());
 
@@ -122,6 +124,22 @@ export default function Chat() {
     destroyChainRef.current = next.catch(() => {});
     await next;
   }, []);
+
+  const cancelInFlight = useCallback(() => {
+    abortRef.current = true;
+    sendGenRef.current += 1;
+    const session = sessionRef.current;
+    if (session && typeof session.abort === 'function') {
+      try {
+        session.abort();
+      } catch {
+        /* ignore */
+      }
+    }
+    void destroySession();
+    setSending(false);
+    setStreamHint(null);
+  }, [destroySession]);
 
   const refreshAiStatus = useCallback(async () => {
     setChecking(true);
@@ -188,9 +206,8 @@ export default function Chat() {
 
   const startNewConversation = useCallback(() => {
     // Chain destroy without blocking the UI; handleSend awaits the chain before create.
-    void destroySession();
+    cancelInFlight();
     setSendError(null);
-    setStreamHint(null);
     const created = {
       id: createId('chat'),
       title: t('chatNewConversation'),
@@ -201,29 +218,28 @@ export default function Chat() {
       conversations: [created, ...prev.conversations],
       activeId: created.id,
     }));
-  }, [destroySession, persist, t]);
+  }, [cancelInFlight, persist, t]);
 
   const selectConversation = useCallback(
     (id) => {
       if (id === activeId) return;
-      void destroySession();
+      cancelInFlight();
       setSendError(null);
-      setStreamHint(null);
       persist((prev) => ({ ...prev, activeId: id }));
     },
-    [activeId, destroySession, persist],
+    [activeId, cancelInFlight, persist],
   );
 
   const deleteConversation = useCallback(
     (id) => {
-      void destroySession();
+      cancelInFlight();
       persist((prev) => {
         const remaining = prev.conversations.filter((c) => c.id !== id);
         const nextActive = prev.activeId === id ? (remaining[0]?.id ?? null) : prev.activeId;
         return { conversations: remaining, activeId: nextActive };
       });
     },
-    [destroySession, persist],
+    [cancelInFlight, persist],
   );
 
   const updateConversation = useCallback(
@@ -238,6 +254,30 @@ export default function Chat() {
 
   const ready = sdkPresent && availability === 'available';
 
+  const markAssistantStopped = useCallback(
+    (conversationId, assistantId) => {
+      updateConversation(conversationId, (c) => ({
+        ...c,
+        updatedAt: Date.now(),
+        messages: c.messages.map((m) =>
+          m.id === assistantId && !m.content.trim() ? { ...m, content: t('chatStopped') } : m,
+        ),
+      }));
+    },
+    [t, updateConversation],
+  );
+
+  const handleStop = useCallback(() => {
+    if (!sending) return;
+    if (active) {
+      const last = active.messages[active.messages.length - 1];
+      if (last?.role === 'assistant') {
+        markAssistantStopped(active.id, last.id);
+      }
+    }
+    cancelInFlight();
+  }, [active, cancelInFlight, markAssistantStopped, sending]);
+
   const handleSend = useCallback(
     async (event) => {
       event?.preventDefault?.();
@@ -248,6 +288,8 @@ export default function Chat() {
       setStreamHint(null);
       setSending(true);
       abortRef.current = false;
+      const sendGen = ++sendGenRef.current;
+      const isCurrent = () => sendGen === sendGenRef.current;
 
       const conversation = ensureActiveConversation();
       const userMessage = {
@@ -281,13 +323,25 @@ export default function Chat() {
 
       let session = sessionRef.current;
       try {
-        // Wait for any in-flight session.destroy() from conversation switches.
+        // Wait for any in-flight session.destroy() from conversation switches / Stop.
         await destroyChainRef.current;
+        if (!isCurrent()) return;
         session = sessionRef.current;
         if (!session) {
           session = await shellui.ai.languageModel.create({
             initialPrompts: toInitialPrompts(priorMessages),
           });
+          if (!isCurrent()) {
+            if (session && typeof session.destroy === 'function') {
+              try {
+                const result = session.destroy();
+                if (result != null && typeof result.then === 'function') await result;
+              } catch {
+                /* ignore */
+              }
+            }
+            return;
+          }
           sessionRef.current = session;
         }
 
@@ -298,7 +352,7 @@ export default function Chat() {
           usedStreaming = true;
           setStreamHint('streaming');
           for await (const chunk of session.promptStreaming(prompt)) {
-            if (abortRef.current) break;
+            if (!isCurrent() || abortRef.current) break;
             fullText += chunk;
             const snapshot = fullText;
             updateConversation(conversation.id, (c) => ({
@@ -312,6 +366,10 @@ export default function Chat() {
         } else {
           setStreamHint('oneshot');
           fullText = await session.prompt(prompt);
+          if (!isCurrent() || abortRef.current) {
+            if (!fullText.trim()) markAssistantStopped(conversation.id, assistantId);
+            return;
+          }
           updateConversation(conversation.id, (c) => ({
             ...c,
             updatedAt: Date.now(),
@@ -321,17 +379,25 @@ export default function Chat() {
           }));
         }
 
-        if (!fullText.trim()) {
+        if (!isCurrent()) return;
+
+        if (abortRef.current) {
+          if (!fullText.trim()) markAssistantStopped(conversation.id, assistantId);
+        } else if (!fullText.trim()) {
           updateConversation(conversation.id, (c) => ({
             ...c,
             messages: c.messages.map((m) =>
               m.id === assistantId ? { ...m, content: t('chatEmptyReply') } : m,
             ),
           }));
+        } else {
+          setStreamHint(usedStreaming ? 'streaming' : 'oneshot');
         }
-
-        setStreamHint(usedStreaming ? 'streaming' : 'oneshot');
       } catch (err) {
+        if (!isCurrent() || abortRef.current) {
+          markAssistantStopped(conversation.id, assistantId);
+          return;
+        }
         void destroySession();
         const message = err instanceof Error ? err.message : String(err);
         setSendError(message);
@@ -347,10 +413,19 @@ export default function Chat() {
           ),
         }));
       } finally {
-        setSending(false);
+        if (isCurrent()) setSending(false);
       }
     },
-    [destroySession, ensureActiveConversation, input, ready, sending, t, updateConversation],
+    [
+      destroySession,
+      ensureActiveConversation,
+      input,
+      markAssistantStopped,
+      ready,
+      sending,
+      t,
+      updateConversation,
+    ],
   );
 
   const defaultModelLabel =
@@ -551,19 +626,30 @@ export default function Chat() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    handleSend();
+                    if (!sending) handleSend();
                   }
                 }}
                 disabled={!ready || sending}
                 placeholder={ready ? t('chatPromptPlaceholder') : t('chatPromptDisabled')}
                 className="flex-1 min-h-[64px] resize-y rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
               />
-              <Button
-                type="submit"
-                disabled={!ready || sending || !input.trim()}
-              >
-                {sending ? t('chatSending') : t('chatSend')}
-              </Button>
+              {sending ? (
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="border-destructive/40 text-destructive hover:bg-destructive/10 hover:text-destructive"
+                  onClick={handleStop}
+                >
+                  {t('chatStop')}
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={!ready || !input.trim()}
+                >
+                  {t('chatSend')}
+                </Button>
+              )}
             </div>
           </form>
         </div>
