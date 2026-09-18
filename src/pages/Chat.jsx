@@ -87,6 +87,8 @@ export default function Chat() {
   const threadRef = useRef(null);
   const sessionRef = useRef(null);
   const abortRef = useRef(false);
+  /** Serializes async SDK destroys so a delayed shell destroy cannot race a new session. */
+  const destroyChainRef = useRef(Promise.resolve());
 
   const conversations = store.conversations;
   const activeId = store.activeId;
@@ -100,16 +102,25 @@ export default function Chat() {
     });
   }, []);
 
-  const destroySession = useCallback(() => {
+  const destroySession = useCallback(async () => {
     const session = sessionRef.current;
     sessionRef.current = null;
-    if (session && typeof session.destroy === 'function') {
+
+    const doDestroy = async () => {
+      if (!session || typeof session.destroy !== 'function') return;
       try {
-        session.destroy();
+        const result = session.destroy();
+        if (result != null && typeof result.then === 'function') {
+          await result;
+        }
       } catch {
         /* ignore */
       }
-    }
+    };
+
+    const next = destroyChainRef.current.then(() => doDestroy());
+    destroyChainRef.current = next.catch(() => {});
+    await next;
   }, []);
 
   const refreshAiStatus = useCallback(async () => {
@@ -150,7 +161,7 @@ export default function Chat() {
     refreshAiStatus();
     return () => {
       abortRef.current = true;
-      destroySession();
+      void destroySession();
     };
   }, [refreshAiStatus, destroySession]);
 
@@ -176,7 +187,8 @@ export default function Chat() {
   }, [active, persist, t]);
 
   const startNewConversation = useCallback(() => {
-    destroySession();
+    // Chain destroy without blocking the UI; handleSend awaits the chain before create.
+    void destroySession();
     setSendError(null);
     setStreamHint(null);
     const created = {
@@ -194,7 +206,7 @@ export default function Chat() {
   const selectConversation = useCallback(
     (id) => {
       if (id === activeId) return;
-      destroySession();
+      void destroySession();
       setSendError(null);
       setStreamHint(null);
       persist((prev) => ({ ...prev, activeId: id }));
@@ -204,7 +216,7 @@ export default function Chat() {
 
   const deleteConversation = useCallback(
     (id) => {
-      destroySession();
+      void destroySession();
       persist((prev) => {
         const remaining = prev.conversations.filter((c) => c.id !== id);
         const nextActive = prev.activeId === id ? (remaining[0]?.id ?? null) : prev.activeId;
@@ -269,6 +281,9 @@ export default function Chat() {
 
       let session = sessionRef.current;
       try {
+        // Wait for any in-flight session.destroy() from conversation switches.
+        await destroyChainRef.current;
+        session = sessionRef.current;
         if (!session) {
           session = await shellui.ai.languageModel.create({
             initialPrompts: toInitialPrompts(priorMessages),
