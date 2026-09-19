@@ -23,6 +23,11 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ## [Unreleased]
 
+### ✨ Feature
+
+- Chat demo page (`/#/chat`): conversation list, streaming prompts via `shellui.ai` (LanguageModel Prompt API), code samples, and graceful empty states when AI is unavailable. Feature-detects `shellui.ai` (requires [shellui#48](https://github.com/shellui/shellui/pull/48)); stays on published `@shellui/sdk@0.5.2` until that lands.
+- Chat: in-chat ready-model selector (`create({ model })`), live sync when Settings default model changes (`SHELLUI_SETTINGS` / `SHELLUI_SETTINGS_UPDATED`), and markdown rendering for assistant replies (`react-markdown` + `remark-gfm`).
+
 ### 🛠 Improvements
 
 - Bump to Shellui [0.5.2](https://github.com/shellui/shellui/releases/tag/v0.5.2) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Includes upstream fix for OAuth login/callback static HTML on nested routes (replaces playground PR #4 hotfix).
