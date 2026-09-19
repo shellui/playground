@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
 import { Bot, Info, MessageSquarePlus, Trash2, TriangleAlert } from 'lucide-react';
 import CodeBlock from '../components/CodeBlock';
+import MarkdownMessage from '../components/MarkdownMessage';
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/Alert';
 import { Button } from '../components/ui/Button';
 import { createId, loadChatStore, saveChatStore, titleFromPrompt } from '../lib/chatStore';
@@ -20,7 +21,9 @@ if (availability !== 'available') {
 
 const PROMPT_CODE = `import shellui from '@shellui/sdk';
 
-const session = await shellui.ai.languageModel.create();
+const session = await shellui.ai.languageModel.create({
+  model: 'ollama:llama3.2', // optional; defaults to Settings → AI
+});
 const text = await session.prompt('Summarize this…');
 session.destroy();`;
 
@@ -36,7 +39,15 @@ const LIST_MODELS_CODE = `import shellui from '@shellui/sdk';
 
 const models = await shellui.ai.listModels();
 const status = await shellui.ai.getStatus();
-// status.defaultModelId, status.ollama.reachable, …`;
+// status.defaultModelId, status.ollama.reachable, …
+
+// Settings pushes (same pattern as ThemeContext):
+shellui.addMessageListener('SHELLUI_SETTINGS_UPDATED', (message) => {
+  const defaultModelId = message?.payload?.settings?.ai?.defaultModelId;
+  // refresh Chat’s model list / selection
+});`;
+
+const STATUS_POLL_MS = 30_000;
 
 /** Feature-detect unified AI SDK (shellui#48). */
 function hasAiApi() {
@@ -44,6 +55,46 @@ function hasAiApi() {
     typeof shellui?.ai?.languageModel?.availability === 'function' &&
     typeof shellui?.ai?.languageModel?.create === 'function'
   );
+}
+
+/**
+ * @param {unknown} message
+ * @returns {string | null | undefined} undefined = no ai settings in payload
+ */
+function defaultModelIdFromSettingsMessage(message) {
+  const payload = message?.payload;
+  if (!payload || typeof payload !== 'object') return undefined;
+  const settings = payload.settings ?? (payload.ai != null ? payload : null);
+  if (!settings || typeof settings !== 'object') return undefined;
+  if (!('ai' in settings) || settings.ai == null) return undefined;
+  const id = settings.ai.defaultModelId;
+  if (id == null || id === '') return null;
+  return String(id);
+}
+
+/**
+ * @param {{ models?: Array<{ id?: string, status?: string }>, defaultModelId?: string | null } | null} status
+ * @returns {Array<{ id: string, status?: string }>}
+ */
+function readyModelsFromStatus(status) {
+  const models = Array.isArray(status?.models) ? status.models : [];
+  return models.filter((m) => m?.id && m.status === 'ready');
+}
+
+/**
+ * Resolve which model id the selector should show.
+ * Prefer shell default when ready; else first ready model.
+ * @param {{ models?: Array<{ id?: string, status?: string }>, defaultModelId?: string | null } | null} status
+ * @param {string | null} settingsDefaultId
+ */
+function resolveDefaultModelId(status, settingsDefaultId) {
+  const ready = readyModelsFromStatus(status);
+  const readyIds = new Set(ready.map((m) => m.id));
+  const candidates = [settingsDefaultId, status?.defaultModelId ?? null, ready[0]?.id ?? null];
+  for (const id of candidates) {
+    if (id && readyIds.has(id)) return id;
+  }
+  return ready[0]?.id ?? null;
 }
 
 function openShellAiSettings() {
@@ -84,8 +135,20 @@ export default function Chat() {
   const [streamHint, setStreamHint] = useState(null);
   const [sendError, setSendError] = useState(null);
 
+  /** Model id for the next create(); null until status loads. */
+  const [selectedModelId, setSelectedModelId] = useState(null);
+  /**
+   * When true, Settings defaultModelId changes do not overwrite the selector.
+   * Cleared if the picked model leaves the ready list.
+   */
+  const [userPickedModel, setUserPickedModel] = useState(false);
+  /** Latest Settings → AI default (from SHELLUI_SETTINGS* payloads). */
+  const settingsDefaultRef = useRef(shellui.initialSettings?.ai?.defaultModelId ?? null);
+
   const threadRef = useRef(null);
   const sessionRef = useRef(null);
+  /** Model id the live session was created with (null if none). */
+  const sessionModelRef = useRef(null);
   const abortRef = useRef(false);
   /** AbortSignal passed to languageModel.create when the SDK honors it. */
   const promptAbortRef = useRef(null);
@@ -93,10 +156,19 @@ export default function Chat() {
   const sendGenRef = useRef(0);
   /** Serializes async SDK destroys so a delayed shell destroy cannot race a new session. */
   const destroyChainRef = useRef(Promise.resolve());
+  const selectedModelIdRef = useRef(selectedModelId);
+  const userPickedModelRef = useRef(userPickedModel);
+  const statusRef = useRef(status);
+
+  selectedModelIdRef.current = selectedModelId;
+  userPickedModelRef.current = userPickedModel;
+  statusRef.current = status;
 
   const conversations = store.conversations;
   const activeId = store.activeId;
   const active = conversations.find((c) => c.id === activeId) ?? conversations[0] ?? null;
+
+  const readyModels = useMemo(() => readyModelsFromStatus(status), [status]);
 
   const persist = useCallback((updater) => {
     setStore((prev) => {
@@ -109,6 +181,7 @@ export default function Chat() {
   const destroySession = useCallback(async () => {
     const session = sessionRef.current;
     sessionRef.current = null;
+    sessionModelRef.current = null;
 
     const doDestroy = async () => {
       if (!session || typeof session.destroy !== 'function') return;
@@ -150,6 +223,23 @@ export default function Chat() {
     setStreamHint(null);
   }, [destroySession]);
 
+  const applyModelSelection = useCallback((snapshot, settingsDefaultId) => {
+    const resolved = resolveDefaultModelId(snapshot, settingsDefaultId);
+    const readyIds = new Set(readyModelsFromStatus(snapshot).map((m) => m.id));
+    const current = selectedModelIdRef.current;
+    const picked = userPickedModelRef.current;
+
+    if (picked && current && readyIds.has(current)) {
+      return;
+    }
+
+    if (picked && current && !readyIds.has(current)) {
+      setUserPickedModel(false);
+    }
+
+    setSelectedModelId((prev) => (prev === resolved ? prev : resolved));
+  }, []);
+
   const refreshAiStatus = useCallback(async () => {
     setChecking(true);
     setStatusError(null);
@@ -158,6 +248,7 @@ export default function Chat() {
     if (!present) {
       setAvailability(null);
       setStatus(null);
+      setSelectedModelId(null);
       setChecking(false);
       return;
     }
@@ -170,11 +261,15 @@ export default function Chat() {
         setStatus(snapshot);
       } else if (typeof shellui.ai.listModels === 'function') {
         const models = await shellui.ai.listModels();
-        snapshot = { models, defaultModelId: null };
+        snapshot = {
+          models,
+          defaultModelId: settingsDefaultRef.current,
+        };
         setStatus(snapshot);
       } else {
         setStatus(null);
       }
+      applyModelSelection(snapshot, settingsDefaultRef.current);
     } catch (err) {
       setAvailability('unavailable');
       setStatus(null);
@@ -182,7 +277,7 @@ export default function Chat() {
     } finally {
       setChecking(false);
     }
-  }, []);
+  }, [applyModelSelection]);
 
   useEffect(() => {
     refreshAiStatus();
@@ -191,6 +286,64 @@ export default function Chat() {
       void destroySession();
     };
   }, [refreshAiStatus, destroySession]);
+
+  // Prefer Settings message listeners; refresh on focus/visibility; light poll as backup.
+  useEffect(() => {
+    const onSettings = (message) => {
+      const fromSettings = defaultModelIdFromSettingsMessage(message);
+      if (fromSettings !== undefined) {
+        settingsDefaultRef.current = fromSettings;
+        if (!userPickedModelRef.current) {
+          setSelectedModelId((prev) => {
+            const readyIds = new Set(readyModelsFromStatus(statusRef.current).map((m) => m.id));
+            // Optimistic update when we already know the model is ready; full refresh follows.
+            if (fromSettings && (readyIds.size === 0 || readyIds.has(fromSettings))) {
+              return fromSettings;
+            }
+            return prev;
+          });
+        }
+      }
+      void refreshAiStatus();
+    };
+
+    const onVisible = () => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
+      void refreshAiStatus();
+    };
+
+    const cleanupUpdated =
+      typeof shellui.addMessageListener === 'function'
+        ? shellui.addMessageListener('SHELLUI_SETTINGS_UPDATED', onSettings)
+        : () => {};
+    const cleanupSettings =
+      typeof shellui.addMessageListener === 'function'
+        ? shellui.addMessageListener('SHELLUI_SETTINGS', onSettings)
+        : () => {};
+
+    window.addEventListener('focus', onVisible);
+    document.addEventListener('visibilitychange', onVisible);
+    const pollId = window.setInterval(() => {
+      if (typeof document !== 'undefined' && document.visibilityState === 'hidden') return;
+      void refreshAiStatus();
+    }, STATUS_POLL_MS);
+
+    return () => {
+      cleanupUpdated();
+      cleanupSettings();
+      window.removeEventListener('focus', onVisible);
+      document.removeEventListener('visibilitychange', onVisible);
+      window.clearInterval(pollId);
+    };
+  }, [refreshAiStatus]);
+
+  // Mid-conversation model change: tear down the session so the next send recreates with the new model.
+  useEffect(() => {
+    if (!selectedModelId) return;
+    if (sessionModelRef.current && sessionModelRef.current !== selectedModelId) {
+      cancelInFlight();
+    }
+  }, [selectedModelId, cancelInFlight]);
 
   useEffect(() => {
     const el = threadRef.current;
@@ -260,6 +413,12 @@ export default function Chat() {
     },
     [persist],
   );
+
+  const handleModelChange = useCallback((event) => {
+    const next = event.target.value || null;
+    setUserPickedModel(true);
+    setSelectedModelId(next);
+  }, []);
 
   const ready = sdkPresent && availability === 'available';
 
@@ -332,17 +491,47 @@ export default function Chat() {
       }));
       setInput('');
 
+      const modelForTurn = selectedModelIdRef.current;
+
       let session = sessionRef.current;
       try {
-        // Wait for any in-flight session.destroy() from conversation switches / Stop.
+        // Wait for any in-flight session.destroy() from conversation switches / Stop / model change.
         await destroyChainRef.current;
         if (!isCurrent()) return;
         session = sessionRef.current;
-        if (!session) {
-          session = await shellui.ai.languageModel.create({
+
+        const needsNewSession =
+          !session || (modelForTurn && sessionModelRef.current !== modelForTurn);
+
+        if (needsNewSession) {
+          if (session) {
+            sessionRef.current = null;
+            sessionModelRef.current = null;
+            const stale = session;
+            destroyChainRef.current = destroyChainRef.current
+              .then(async () => {
+                if (typeof stale.destroy !== 'function') return;
+                try {
+                  const result = stale.destroy();
+                  if (result != null && typeof result.then === 'function') await result;
+                } catch {
+                  /* ignore */
+                }
+              })
+              .catch(() => {});
+            await destroyChainRef.current;
+            if (!isCurrent()) return;
+          }
+
+          const createOptions = {
             initialPrompts: toInitialPrompts(priorMessages),
             signal: promptAbort.signal,
-          });
+          };
+          if (modelForTurn) {
+            createOptions.model = modelForTurn;
+          }
+
+          session = await shellui.ai.languageModel.create(createOptions);
           if (!isCurrent()) {
             if (session && typeof session.destroy === 'function') {
               try {
@@ -355,6 +544,7 @@ export default function Chat() {
             return;
           }
           sessionRef.current = session;
+          sessionModelRef.current = modelForTurn;
         }
 
         let fullText = '';
@@ -443,8 +633,7 @@ export default function Chat() {
     ],
   );
 
-  const defaultModelLabel =
-    status?.defaultModelId || status?.models?.find((m) => m.status === 'ready')?.id || null;
+  const displayModelLabel = selectedModelId || status?.defaultModelId || null;
 
   const availabilityLabel = !sdkPresent
     ? t('chatAvailabilityMissing')
@@ -476,7 +665,7 @@ export default function Chat() {
             title={statusError || undefined}
           >
             {availabilityLabel}
-            {ready && defaultModelLabel ? ` · ${defaultModelLabel}` : ''}
+            {ready && displayModelLabel ? ` · ${displayModelLabel}` : ''}
           </span>
           <Button
             variant="outline"
@@ -604,13 +793,23 @@ export default function Chat() {
               >
                 <div
                   className={[
-                    'max-w-[85%] rounded-lg px-3 py-2 text-sm whitespace-pre-wrap break-words',
+                    'max-w-[85%] rounded-lg px-3 py-2 text-sm break-words',
                     m.role === 'user'
-                      ? 'bg-primary text-primary-foreground'
+                      ? 'bg-primary text-primary-foreground whitespace-pre-wrap'
                       : 'bg-muted text-foreground',
                   ].join(' ')}
                 >
-                  {m.content || (sending && m.role === 'assistant' ? t('chatThinking') : '')}
+                  {m.role === 'assistant' ? (
+                    m.content ? (
+                      <MarkdownMessage content={m.content} />
+                    ) : sending ? (
+                      t('chatThinking')
+                    ) : (
+                      ''
+                    )
+                  ) : (
+                    m.content
+                  )}
                 </div>
               </div>
             ))}
@@ -626,6 +825,37 @@ export default function Chat() {
                 {streamHint === 'streaming' ? t('chatUsingStreaming') : t('chatUsingOneshot')}
               </p>
             )}
+            <div className="flex flex-wrap items-center gap-2">
+              <label
+                className="text-xs font-medium text-muted-foreground shrink-0"
+                htmlFor="chat-model"
+              >
+                {t('chatModelLabel')}
+              </label>
+              <select
+                id="chat-model"
+                value={selectedModelId ?? ''}
+                onChange={handleModelChange}
+                disabled={!ready || sending || readyModels.length === 0}
+                className="min-w-0 flex-1 max-w-xs h-8 rounded-md border border-input bg-background px-2 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-50"
+              >
+                {readyModels.length === 0 ? (
+                  <option value="">{t('chatModelNone')}</option>
+                ) : (
+                  readyModels.map((m) => (
+                    <option
+                      key={m.id}
+                      value={m.id}
+                    >
+                      {m.id}
+                      {m.id === (status?.defaultModelId || settingsDefaultRef.current)
+                        ? ` (${t('chatModelDefault')})`
+                        : ''}
+                    </option>
+                  ))
+                )}
+              </select>
+            </div>
             <div className="flex gap-2 items-end">
               <label
                 className="sr-only"
