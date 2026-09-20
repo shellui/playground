@@ -197,11 +197,6 @@ main {
   padding: 2rem;
 }
 
-/* Full-bleed pages (Chat) fill the iframe for wide screenshots. */
-main.page-flush {
-  padding: 0;
-}
-
 /* Scarce Shellui honey gold — kickers and marks only, never blobs. */
 .text-honey {
   color: var(--honey, #c4a35a);

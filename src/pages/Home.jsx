@@ -1,6 +1,6 @@
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { ArrowRight, LayoutPanelLeft, MessageSquare, Palette, Settings } from 'lucide-react';
+import { ArrowRight, LayoutPanelLeft, Palette, Settings } from 'lucide-react';
 import { openShellSettings } from '../lib/openShellSettings';
 
 const shelluiSiteLink = (
@@ -13,12 +13,6 @@ const shelluiSiteLink = (
 );
 
 const SCENES = [
-  {
-    to: '/chat',
-    icon: MessageSquare,
-    titleKey: 'playgroundSceneChatTitle',
-    bodyKey: 'playgroundSceneChatBody',
-  },
   {
     to: '/themes',
     icon: Palette,

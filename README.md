@@ -1,8 +1,8 @@
 # Shellui Playground
 
-A **Shellui 0.5.2** showcase: Chat, Themes, Layout, and Settings as screenshot-ready scenes, plus SDK recipes (dialogs, toasts, actions, modals).
+A **Shellui 0.5** showcase: Themes, Layout, and Settings as screenshot-ready scenes, plus SDK recipes (dialogs, toasts, actions, modals).
 
-The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package** — a single `pnpm install` (npm `@shellui/*` ^0.5.2).
+The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package** — a single `pnpm install`.
 
 ## Quick Start
 
