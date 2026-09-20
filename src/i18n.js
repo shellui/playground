@@ -12,7 +12,7 @@ const resources = {
       aboutText: 'This is the about page. You can use this app with i18n and React Router.',
       pageThemesTitle: 'Themes',
       pageThemesDescription:
-        'Shellui supports custom themes: colors, fonts, and radius. Change the theme from the sidebar settings to see this app and the shell adapt.',
+        'Colors, fonts, and radius — pick a theme and the shell and iframe follow.',
       pageLanguagesTitle: 'Languages',
       pageLanguagesDescription:
         'Shellui can drive the app language. When you switch language in settings, the shell and this app update together via i18n.',
@@ -33,7 +33,7 @@ const resources = {
         'Shellui can open content in a modal overlay. The modal blocks interaction with the main content until dismissed (e.g. Settings).',
       pageLayoutTitle: 'Layout',
       pageLayoutDescription:
-        'Shellui supports different layout modes: sidebar and sidebar-inset, app bar and app-bar-inset, floating (glass chrome over full-bleed content), fullscreen (content only), or windows (taskbar and multi-window). Configure the layout in the shell to change how the app is presented.',
+        'Sidebar, app bar, floating, or windows. Switch live for this session; persist from Settings or shellui.config.',
       pageModalDrawerTitle: 'Modal & Drawer',
       pageModalDrawerDescription:
         'Shellui can open content in a modal overlay (blocks interaction until dismissed) or in a drawer that slides in from the edge. Use modals for focused tasks like Settings; use drawers for extra content or actions without leaving the current context.',
@@ -45,7 +45,7 @@ const resources = {
         'Toast notifications appear briefly to confirm actions or show status. They stack and dismiss automatically or on user close.',
       pageChatTitle: 'Chat',
       pageChatDescription:
-        "Talk to on-device models through Shellui's unified AI SDK (`shellui.ai`). Apps never call Ollama or WebGPU directly — the shell owns providers; this page uses whatever default model is ready in Settings → AI.",
+        'On-device models through `shellui.ai`. The shell owns providers; Chat uses whatever is ready in Settings → AI.',
       pageChatMissingTitle: 'SDK AI API not available',
       pageChatMissing:
         'This demo needs shellui.ai from shellui#48. After that PR merges, bump @shellui/cli, @shellui/core, and @shellui/sdk, then restart pnpm start. Until then the UI stays available with an empty state.',
@@ -88,6 +88,20 @@ const resources = {
       exampleTitleChatPrompt: 'One-shot prompt',
       exampleTitleChatStreaming: 'Streaming prompt',
       exampleTitleChatListModels: 'List models & status',
+      chatSeedShellTitle: 'Chrome you skip',
+      chatSeedShellUser: 'What does Shellui give an app that I should not rebuild?',
+      chatSeedShellAssistant:
+        "**The product around your iframe.**\n\nYour UI stays the product. The shell already owns:\n\n- **Layout** — sidebar, app bar, floating, or windows\n- **Appearance** — themes and light/dark, pushed into the iframe\n- **Settings & language** — one panel, both chrome and app\n- **On-device AI** — `shellui.ai`, never a raw Ollama URL\n\n```js\nconst session = await shellui.ai.languageModel.create();\nconst text = await session.prompt('Summarize this…');\nsession.destroy();\n```\n\nTalk to whatever model is ready in Settings → AI. This thread is a sample so the pane is never empty.",
+      chatSeedThemeTitle: 'Match the shell',
+      chatSeedThemeUser: 'How does this iframe follow Settings → Appearance?',
+      chatSeedThemeAssistant:
+        'Listen for `SHELLUI_SETTINGS` and apply `appearance` as-is.\n\nThis playground’s **Themes** page is that pattern: pick a theme here, and the shell and iframe move together. No custom design tokens to invent — Shellui sends colors, fonts, and radius.',
+      chatSeedLayoutTitle: 'Seven layouts',
+      chatSeedLayoutUser: 'Can I try layouts without editing the config file?',
+      chatSeedLayoutAssistant:
+        'Yes — the **Layout** page sends `SHELLUI_SETTINGS_UPDATED` with a new `layout` value for this session.\n\nStart from `sidebar` (this playground’s default). Inset and floating are the shots that usually read best.',
+      showCode: 'Show code',
+      hideCode: 'Hide code',
       pageActionsTitle: 'Action buttons',
       pageActionsDescription:
         'Optional floating chrome owned by Shellui: back, title, trailing buttons, and a bottom primary FAB. Apps declare intent with the SDK; the shell renders chrome above the iframe and posts clicks back.',
@@ -128,16 +142,23 @@ const resources = {
       actionsLastClick: 'Last click: {{id}}',
       actionsClickToast: 'Action: {{id}}',
       // Home / Playground
-      playgroundTitle: 'Shellui Playground',
-      playgroundTagline: 'See how easy it is to build an app inside Shellui.',
-      playgroundIntro:
-        'This playground is a live demo of <shelluiLink>Shellui</shelluiLink>: layout, modals, drawers, dialogs, toasts, action buttons, chat (unified AI), themes, and language. Each section shows code samples and buttons you can try. Your app runs in an iframe; the shell provides the chrome and APIs.',
-      playgroundWhatIs: 'What is this playground?',
+      playgroundKicker: 'Shellui 0.5',
+      playgroundTitle: 'Your app, inside the shell',
+      playgroundTagline:
+        'Layout, themes, settings, and on-device AI — already there, so the product stays the product.',
+      playgroundScenesLabel: 'Screenshot scenes',
+      playgroundOpen: 'Open',
+      playgroundSceneChatTitle: 'Chat',
+      playgroundSceneChatBody: 'A real thread: sidebar, models, markdown — via shellui.ai.',
+      playgroundSceneThemesTitle: 'Themes',
+      playgroundSceneThemesBody: 'Pick a theme. Shell and iframe move together.',
+      playgroundSceneLayoutTitle: 'Layout',
+      playgroundSceneLayoutBody: 'Sidebar, app bar, floating, windows — switch live.',
+      playgroundSceneSettingsTitle: 'Settings',
+      playgroundSceneSettingsBody: 'The shell panel: appearance, language, AI providers.',
+      playgroundWhatIs: 'What is this?',
       playgroundWhatIsBody:
-        'A small React app (this page) is embedded inside the Shellui shell. The shell handles navigation, settings, themes, and language. Your app uses the Shellui SDK to show toasts, open modals or drawers, chat via shellui.ai, and react to settings updates—all with a few lines of code.',
-      playgroundTrySections: 'Try the sections in the sidebar',
-      playgroundTrySectionsBody:
-        'Action buttons, Chat, Layout, Modal & Drawer, Dialog, Toaster, Themes, and Language show concrete examples and code. Change theme or language in Shell Settings (gear icon) and watch this app update.',
+        'A small React app embedded in <shelluiLink>Shellui</shelluiLink>. The shell owns navigation, settings, themes, and language. The iframe uses the SDK for toasts, dialogs, layouts, and on-device chat. SDK recipes live in the sidebar, below the showcase.',
       playgroundCodeOnGitHub: 'This application is available on GitHub',
       playgroundHostedOnGitHubPages: ' and currently hosted as a GitHub Page.',
       codeSample: 'Code sample',
@@ -256,7 +277,7 @@ const resources = {
         'Ceci est la page À propos. Vous pouvez utiliser cette application avec i18n et React Router.',
       pageThemesTitle: 'Thèmes',
       pageThemesDescription:
-        'Shellui prend en charge les thèmes personnalisés : couleurs, polices et rayon. Changez le thème dans les paramètres de la barre latérale pour voir la coque et l’app s’adapter.',
+        'Couleurs, polices et rayon — choisissez un thème, coque et iframe suivent.',
       pageLanguagesTitle: 'Langues',
       pageLanguagesDescription:
         'Shellui peut piloter la langue de l’app. Quand vous changez la langue dans les paramètres, la coque et cette app se mettent à jour ensemble via i18n.',
@@ -277,7 +298,7 @@ const resources = {
         'Shellui peut ouvrir du contenu dans une fenêtre modale. La modale bloque l’interaction avec le contenu principal jusqu’à sa fermeture (ex. Paramètres).',
       pageLayoutTitle: 'Mise en page',
       pageLayoutDescription:
-        "Shellui propose plusieurs modes de mise en page : barre latérale et barre latérale inset, barre d'app et barre d'app inset, flottante (chrome en verre sur contenu plein écran), plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans la coque pour changer la présentation de l’app.",
+        'Barre latérale, barre d’app, flottant ou fenêtres. Changez en direct pour cette session ; persistez depuis Paramètres ou shellui.config.',
       pageModalDrawerTitle: 'Fenêtre modale et tiroir',
       pageModalDrawerDescription:
         'Shellui peut ouvrir du contenu dans une fenêtre modale (bloque l’interaction jusqu’à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.',
@@ -289,7 +310,7 @@ const resources = {
         'Les toasts s’affichent brièvement pour confirmer une action ou un statut. Ils s’empilent et se ferment automatiquement ou par l’utilisateur.',
       pageChatTitle: 'Chat',
       pageChatDescription:
-        'Parlez aux modèles on-device via le SDK AI unifié de Shellui (`shellui.ai`). Les apps n’appellent jamais Ollama ni WebGPU directement — la coque gère les fournisseurs ; cette page utilise le modèle par défaut prêt dans Paramètres → AI.',
+        'Modèles on-device via `shellui.ai`. La coque gère les fournisseurs ; le chat utilise ce qui est prêt dans Paramètres → AI.',
       pageChatMissingTitle: 'API AI du SDK indisponible',
       pageChatMissing:
         'Cette démo nécessite shellui.ai (shellui#48). Après fusion de la PR, mettez à jour @shellui/cli, @shellui/core et @shellui/sdk, puis relancez pnpm start. En attendant, l’UI reste utilisable avec un état vide.',
@@ -333,6 +354,20 @@ const resources = {
       exampleTitleChatPrompt: 'Prompt ponctuel',
       exampleTitleChatStreaming: 'Prompt en streaming',
       exampleTitleChatListModels: 'Lister les modèles et le statut',
+      chatSeedShellTitle: 'Le chrome déjà là',
+      chatSeedShellUser: 'Que donne Shellui à une app que je ne devrais pas reconstruire ?',
+      chatSeedShellAssistant:
+        "**Le produit autour de votre iframe.**\n\nVotre UI reste le produit. La coque gère déjà :\n\n- **Mise en page** — barre latérale, barre d’app, flottant ou fenêtres\n- **Apparence** — thèmes et clair/sombre, poussés dans l’iframe\n- **Paramètres et langue** — un panneau, chrome et app ensemble\n- **IA on-device** — `shellui.ai`, jamais une URL Ollama brute\n\n```js\nconst session = await shellui.ai.languageModel.create();\nconst text = await session.prompt('Résume ceci…');\nsession.destroy();\n```\n\nParlez au modèle prêt dans Paramètres → AI. Ce fil est un exemple pour que le volet ne soit jamais vide.",
+      chatSeedThemeTitle: 'Suivre la coque',
+      chatSeedThemeUser: 'Comment cette iframe suit-elle Paramètres → Apparence ?',
+      chatSeedThemeAssistant:
+        'Écoutez `SHELLUI_SETTINGS` et appliquez `appearance` tel quel.\n\nLa page **Thèmes** de ce playground est ce motif : choisissez un thème ici, et la coque et l’iframe bougent ensemble. Pas de tokens à inventer — Shellui envoie couleurs, polices et rayon.',
+      chatSeedLayoutTitle: 'Sept mises en page',
+      chatSeedLayoutUser: 'Puis-je essayer les mises en page sans éditer le fichier de config ?',
+      chatSeedLayoutAssistant:
+        'Oui — la page **Mise en page** envoie `SHELLUI_SETTINGS_UPDATED` avec une nouvelle valeur `layout` pour cette session.\n\nPartez de `sidebar` (défaut de ce playground). Inset et flottant sont en général les plus photogéniques.',
+      showCode: 'Afficher le code',
+      hideCode: 'Masquer le code',
       pageActionsTitle: "Boutons d'action",
       pageActionsDescription:
         'Chrome flottant optionnel géré par Shellui : retour, titre, boutons secondaires et FAB principal en bas. Les apps déclarent l’intention via le SDK ; la coque affiche le chrome au-dessus de l’iframe et renvoie les clics.',
@@ -373,16 +408,23 @@ const resources = {
         "Cliquez un bouton d'action dans le chrome de la coque pour voir son id ici.",
       actionsLastClick: 'Dernier clic : {{id}}',
       actionsClickToast: 'Action : {{id}}',
-      playgroundTitle: 'Shellui Playground',
-      playgroundTagline: 'Découvrez à quel point il est simple de construire une app dans Shellui.',
-      playgroundIntro:
-        "Ce playground est une démo vivante de <shelluiLink>Shellui</shelluiLink> : mise en page, modales, tiroirs, dialogues, toasts, boutons d'action, chat (AI unifié), thèmes et langue. Chaque section affiche des extraits de code et des boutons à essayer. Votre app tourne dans une iframe ; la coque fournit l’interface et les APIs.",
-      playgroundWhatIs: "C'est quoi ce playground ?",
+      playgroundKicker: 'Shellui 0.5',
+      playgroundTitle: 'Votre app, dans la coque',
+      playgroundTagline:
+        'Mise en page, thèmes, paramètres et IA on-device — déjà là, pour que le produit reste le produit.',
+      playgroundScenesLabel: 'Scènes à capturer',
+      playgroundOpen: 'Ouvrir',
+      playgroundSceneChatTitle: 'Chat',
+      playgroundSceneChatBody: 'Un vrai fil : liste, modèles, markdown — via shellui.ai.',
+      playgroundSceneThemesTitle: 'Thèmes',
+      playgroundSceneThemesBody: 'Choisissez un thème. Coque et iframe bougent ensemble.',
+      playgroundSceneLayoutTitle: 'Mise en page',
+      playgroundSceneLayoutBody: 'Barre latérale, barre d’app, flottant, fenêtres — en direct.',
+      playgroundSceneSettingsTitle: 'Paramètres',
+      playgroundSceneSettingsBody: 'Le panneau de la coque : apparence, langue, fournisseurs AI.',
+      playgroundWhatIs: 'C’est quoi ?',
       playgroundWhatIsBody:
-        'Une petite app React (cette page) est intégrée dans la coque Shellui. La coque gère la navigation, les paramètres, les thèmes et la langue. Votre app utilise le SDK Shellui pour afficher des toasts, ouvrir des modales ou des tiroirs, discuter via shellui.ai, et réagir aux mises à jour des paramètres—le tout en quelques lignes.',
-      playgroundTrySections: 'Essayez les sections dans la barre latérale',
-      playgroundTrySectionsBody:
-        "Boutons d'action, Chat, Mise en page, Modale & tiroir, Dialogue, Notifications, Thèmes et Langue montrent des exemples concrets et du code. Changez le thème ou la langue dans les Paramètres de la coque (icône engrenage) et regardez cette app se mettre à jour.",
+        'Une petite app React dans <shelluiLink>Shellui</shelluiLink>. La coque gère la navigation, les paramètres, les thèmes et la langue. L’iframe utilise le SDK pour les toasts, dialogues, mises en page et le chat on-device. Les recettes SDK sont dans la barre, sous la vitrine.',
       playgroundCodeOnGitHub: 'Cette application est disponible sur GitHub',
       playgroundHostedOnGitHubPages: ' et est actuellement hébergée en tant que GitHub Page.',
       codeSample: 'Exemple de code',

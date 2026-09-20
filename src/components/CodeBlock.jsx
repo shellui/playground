@@ -4,11 +4,16 @@ import { Highlight, themes } from 'prism-react-renderer';
 /**
  * Renders a code sample with syntax highlighting. Label from i18n (e.g. "Code sample").
  */
-export default function CodeBlock({ labelKey = 'codeSample', code, language = 'javascript' }) {
+export default function CodeBlock({
+  labelKey = 'codeSample',
+  code,
+  language = 'javascript',
+  className = 'mt-6',
+}) {
   const { t } = useTranslation();
 
   return (
-    <section className="mt-6">
+    <section className={className}>
       <h3 className="font-heading text-sm font-medium text-muted-foreground uppercase tracking-wide mb-2">
         {t(labelKey)}
       </h3>

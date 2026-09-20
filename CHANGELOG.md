@@ -30,6 +30,9 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ### 🛠 Improvements
 
+- Frame the playground as a **Shellui 0.5 showcase**: Homepage landing with scene cards (Chat, Themes, Layout, Settings), nav grouped as Showcase / SDK recipes / Preferences, recipe pages with interactive demos first and code behind “Show code”, and a seeded Chat thread for screenshots.
+- Align playground version messaging with Shellui 0.5.2 (`package.json`, `shellui.config.json`, README).
+
 - Bump to Shellui [0.5.2](https://github.com/shellui/shellui/releases/tag/v0.5.2) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Includes upstream fix for OAuth login/callback static HTML on nested routes (replaces playground PR #4 hotfix).
 
 ## [0.4.0] - 2026-09-18

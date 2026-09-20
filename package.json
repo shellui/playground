@@ -1,7 +1,7 @@
 {
   "name": "shellui-playground",
-  "version": "0.4.0",
-  "description": "A playground for Shellui — demo deployed to GitHub Pages",
+  "version": "0.5.2",
+  "description": "A Shellui 0.5 showcase — demo deployed to GitHub Pages",
   "type": "module",
   "scripts": {
     "start": "shellui start",

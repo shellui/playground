@@ -22,8 +22,13 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  const flush = pathname === '/chat';
+
   return (
-    <main className="font-body text-foreground">
+    <main
+      className={['font-body text-foreground', flush ? 'page-flush' : ''].filter(Boolean).join(' ')}
+    >
       <ScrollToTop />
       <Routes>
         <Route

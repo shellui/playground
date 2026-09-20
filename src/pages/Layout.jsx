@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
 import { TriangleAlert } from 'lucide-react';
-import CodeBlock from '../components/CodeBlock';
+import PageHeader from '../components/PageHeader';
+import ShowCode from '../components/ShowCode';
 import LayoutPreview from '../components/LayoutPreview';
 import { Alert, AlertTitle } from '../components/ui/Alert';
 
@@ -69,20 +70,20 @@ export default function Layout() {
 
   return (
     <div className="font-body text-foreground max-w-4xl">
-      <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t('pageLayoutTitle')}
-      </h1>
-      <p className="mt-2 text-foreground">{t('pageLayoutDescription')}</p>
-      <p className="mt-2 text-sm text-muted-foreground">{t('pageLayoutConfigNote')}</p>
+      <PageHeader
+        title={t('pageLayoutTitle')}
+        description={t('pageLayoutDescription')}
+      >
+        <p className="mt-2 text-sm text-muted-foreground">
+          {t('currentLayout')}:{' '}
+          <span className="text-foreground font-medium">{t(layoutToKey(currentLayout))}</span>
+        </p>
+      </PageHeader>
 
-      <p className="mt-6 text-sm text-muted-foreground">
-        {t('currentLayout')}: {t(layoutToKey(currentLayout))}
-      </p>
-
-      <div className="mt-4 space-y-8">
+      <div className="space-y-7">
         {LAYOUT_CATEGORIES.map((category) => (
           <section key={category.titleKey}>
-            <h2 className="font-heading text-lg font-medium text-foreground mb-3">
+            <h2 className="font-heading text-sm font-semibold tracking-tight text-foreground mb-2.5">
               {t(category.titleKey)}
             </h2>
             {category.experimental ? (
@@ -101,9 +102,9 @@ export default function Layout() {
                     onClick={() => applyLayout(item.id)}
                     aria-pressed={isSelected}
                     className={cn(
-                      'flex items-center gap-3 rounded-lg border-2 p-2.5 text-left transition-colors',
+                      'flex items-center gap-4 rounded-lg border p-3 text-left transition-colors',
                       isSelected
-                        ? 'border-primary shadow-md'
+                        ? 'border-primary bg-muted/30 shadow-sm'
                         : 'border-border hover:border-muted-foreground/40',
                     )}
                   >
@@ -122,16 +123,16 @@ export default function Layout() {
         ))}
       </div>
 
-      <section className="mt-8">
-        <h2 className="font-heading text-lg font-medium text-foreground mb-1">
-          {t('exampleTitleLayoutConfig')}
-        </h2>
-        <p className="text-xs text-muted-foreground mb-3">{t('layoutFullscreenNote')}</p>
-        <CodeBlock
-          code={LAYOUT_CONFIG_CODE}
-          language="typescript"
-        />
-      </section>
+      <ShowCode
+        samples={[
+          {
+            title: t('exampleTitleLayoutConfig'),
+            hint: t('pageLayoutConfigNote'),
+            code: LAYOUT_CONFIG_CODE,
+            language: 'typescript',
+          },
+        ]}
+      />
     </div>
   );
 }

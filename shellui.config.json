@@ -51,16 +51,66 @@
   },
   "navigation": [
     {
-      "label": "Homepage",
-      "path": "",
-      "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/",
-      "safeForAuthToken": true,
-      "icon": "/icons/home.svg"
+      "title": {
+        "en": "Showcase",
+        "fr": "Vitrine"
+      },
+      "items": [
+        {
+          "label": {
+            "en": "Homepage",
+            "fr": "Accueil"
+          },
+          "path": "",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/",
+          "safeForAuthToken": true,
+          "icon": "/icons/home.svg"
+        },
+        {
+          "label": {
+            "en": "Chat",
+            "fr": "Chat"
+          },
+          "path": "chat",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/chat",
+          "safeForAuthToken": true,
+          "icon": "/icons/chat.svg"
+        },
+        {
+          "label": {
+            "en": "Themes",
+            "fr": "Thèmes"
+          },
+          "path": "themes",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/themes",
+          "safeForAuthToken": true,
+          "icon": "/icons/palette.svg"
+        },
+        {
+          "label": {
+            "en": "Layout",
+            "fr": "Mise en page"
+          },
+          "path": "layout",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/layout",
+          "safeForAuthToken": true,
+          "icon": "/icons/layout.svg"
+        },
+        {
+          "label": "Files",
+          "path": "files",
+          "url": "${FILES_URL:-https://files.shellui.com}",
+          "safeForAuthToken": true,
+          "icon": "/icons/folder.svg",
+          "hideWhenLoggedOut": true,
+          "requiresAuth": true
+        }
+      ]
     },
     {
       "title": {
-        "en": "Features",
-        "fr": "Fonctionnalités"
+        "en": "SDK recipes",
+        "fr": "Recettes SDK"
       },
       "items": [
         {
@@ -95,16 +145,6 @@
         },
         {
           "label": {
-            "en": "Chat",
-            "fr": "Chat"
-          },
-          "path": "chat",
-          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/chat",
-          "safeForAuthToken": true,
-          "icon": "/icons/chat.svg"
-        },
-        {
-          "label": {
             "en": "Modal & Drawer",
             "fr": "Fenêtre modale et tiroir"
           },
@@ -112,16 +152,6 @@
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/modal",
           "safeForAuthToken": true,
           "icon": "/icons/modal.svg"
-        },
-        {
-          "label": {
-            "en": "Layout",
-            "fr": "Mise en page"
-          },
-          "path": "layout",
-          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/layout",
-          "safeForAuthToken": true,
-          "icon": "/icons/layout.svg"
         }
       ]
     },
@@ -131,16 +161,6 @@
         "fr": "Préférences"
       },
       "items": [
-        {
-          "label": {
-            "en": "Themes",
-            "fr": "Thèmes"
-          },
-          "path": "themes",
-          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/themes",
-          "safeForAuthToken": true,
-          "icon": "/icons/palette.svg"
-        },
         {
           "label": {
             "en": "Language & region",
@@ -153,28 +173,10 @@
         }
       ]
     },
-
     {
       "title": {
-        "en": "Applications",
-        "fr": "Applications"
-      },
-      "items": [
-        {
-          "label": "Files",
-          "path": "files",
-          "url": "${FILES_URL:-https://files.shellui.com}",
-          "safeForAuthToken": true,
-          "icon": "/icons/folder.svg",
-          "hideWhenLoggedOut": true,
-          "requiresAuth": true
-        }
-      ]
-    },
-    {
-      "title": {
-        "en": "External Links",
-        "fr": "Liens externes"
+        "en": "External",
+        "fr": "Liens"
       },
       "items": [
         {
@@ -196,15 +198,6 @@
           "position": "end"
         }
       ]
-    },
-    {
-      "label": "Playground",
-      "path": "playground",
-      "url": "/",
-      "icon": "/icons/play.svg",
-      "position": "end",
-      "settings": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/settings",
-      "safeForAuthToken": true
     },
     {
       "label": {
@@ -238,7 +231,7 @@
   },
   "port": 4000,
   "title": "Shellui",
-  "version": "0.4.0-dev",
+  "version": "0.5.2-dev",
   "favicon": "/favicon.png",
   "appIcon": "/app-icon.svg",
   "logo": "/logo.svg",

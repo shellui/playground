@@ -1,8 +1,8 @@
 # Shellui Playground
 
-A demo of **Shellui 0.5.1**, the microfrontend orchestration framework, deployed to GitHub Pages.
+A **Shellui 0.5.2** showcase: Chat, Themes, Layout, and Settings as screenshot-ready scenes, plus SDK recipes (dialogs, toasts, actions, modals).
 
-The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package** — a single `pnpm install` (npm `@shellui/*` ^0.5.1).
+The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package** — a single `pnpm install` (npm `@shellui/*` ^0.5.2).
 
 ## Quick Start
 

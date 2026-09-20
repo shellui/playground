@@ -1,12 +1,19 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
-import { Bot, Info, MessageSquarePlus, Trash2, TriangleAlert } from 'lucide-react';
-import CodeBlock from '../components/CodeBlock';
+import { Bot, MessageSquarePlus, Trash2 } from 'lucide-react';
 import MarkdownMessage from '../components/MarkdownMessage';
-import { Alert, AlertDescription, AlertTitle } from '../components/ui/Alert';
+import ShowCode from '../components/ShowCode';
 import { Button } from '../components/ui/Button';
-import { createId, loadChatStore, saveChatStore, titleFromPrompt } from '../lib/chatStore';
+import { buildSeededStore } from '../lib/chatSeed';
+import {
+  createId,
+  hasStoredChat,
+  loadChatStore,
+  saveChatStore,
+  titleFromPrompt,
+} from '../lib/chatStore';
+import { openShellSettings } from '../lib/openShellSettings';
 
 const AVAILABILITY_CODE = `import shellui from '@shellui/sdk';
 
@@ -97,20 +104,6 @@ function resolveDefaultModelId(status, settingsDefaultId) {
   return ready[0]?.id ?? null;
 }
 
-function openShellAiSettings() {
-  try {
-    if (typeof shellui.openModal === 'function') {
-      shellui.openModal('/__settings');
-      return;
-    }
-    if (typeof shellui.navigate === 'function') {
-      shellui.navigate('/__settings');
-    }
-  } catch {
-    /* ignore */
-  }
-}
-
 /**
  * @param {import('../lib/chatStore').ChatMessage[]} messages
  * @returns {Array<{ role: 'user' | 'assistant', content: string }>}
@@ -129,7 +122,13 @@ export default function Chat() {
   const [statusError, setStatusError] = useState(null);
   const [checking, setChecking] = useState(true);
 
-  const [store, setStore] = useState(() => loadChatStore());
+  const [store, setStore] = useState(() => {
+    const loaded = loadChatStore();
+    if (loaded.conversations.length > 0 || hasStoredChat()) return loaded;
+    const seeded = buildSeededStore(t);
+    saveChatStore(seeded);
+    return seeded;
+  });
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
   const [streamHint, setStreamHint] = useState(null);
@@ -645,82 +644,26 @@ export default function Chat() {
           })
         : t('chatAvailability_unavailable');
 
+  const needsSetup = !sdkPresent || (!checking && availability !== 'available');
+
   return (
-    <div className="font-body text-foreground max-w-5xl">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h1 className="font-heading text-2xl font-semibold text-foreground">
-            {t('pageChatTitle')}
-          </h1>
-          <p className="mt-2 text-foreground max-w-2xl">{t('pageChatDescription')}</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <span
-            className={[
-              'inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-medium',
-              ready
-                ? 'border-border bg-muted/60 text-foreground'
-                : 'border-border bg-muted/40 text-muted-foreground',
-            ].join(' ')}
-            title={statusError || undefined}
-          >
-            {availabilityLabel}
-            {ready && displayModelLabel ? ` · ${displayModelLabel}` : ''}
-          </span>
-          <Button
-            variant="outline"
-            size="sm"
-            type="button"
-            onClick={refreshAiStatus}
-            disabled={checking}
-          >
-            {t('chatRefreshStatus')}
-          </Button>
-        </div>
-      </div>
-
-      {!sdkPresent && (
-        <Alert
-          variant="destructive"
-          className="mt-4"
-        >
-          <TriangleAlert />
-          <AlertTitle>{t('pageChatMissingTitle')}</AlertTitle>
-          <AlertDescription>{t('pageChatMissing')}</AlertDescription>
-        </Alert>
-      )}
-
-      {sdkPresent && !checking && availability !== 'available' && (
-        <Alert className="mt-4">
-          <Info />
-          <AlertTitle>{t('pageChatUnavailableTitle')}</AlertTitle>
-          <AlertDescription>
-            <p>{t('pageChatUnavailable')}</p>
-            <div className="mt-3">
-              <Button
-                variant="outline"
-                size="sm"
-                type="button"
-                onClick={openShellAiSettings}
-              >
-                {t('openSettings')}
-              </Button>
+    <div className="font-body text-foreground flex min-h-[100vh] flex-col">
+      <div className="flex min-h-[100vh] flex-1 flex-col md:flex-row">
+        <aside className="flex w-full shrink-0 flex-col border-b border-border bg-muted/30 md:w-60 md:border-b-0 md:border-r">
+          <div className="flex items-center justify-between gap-2 px-3 py-2.5 border-b border-border">
+            <div className="min-w-0">
+              <h1 className="font-heading text-sm font-semibold tracking-tight text-foreground truncate">
+                {t('pageChatTitle')}
+              </h1>
+              <p className="text-[11px] leading-tight text-muted-foreground truncate">
+                {t('pageChatDescription')}
+              </p>
             </div>
-          </AlertDescription>
-        </Alert>
-      )}
-
-      <section className="mt-6 grid grid-cols-1 md:grid-cols-[220px_minmax(0,1fr)] gap-4 min-h-[420px]">
-        <aside className="flex flex-col border border-border rounded-lg overflow-hidden bg-muted/20">
-          <div className="flex items-center justify-between gap-2 border-b border-border px-3 py-2">
-            <h2 className="font-heading text-sm font-medium text-foreground">
-              {t('chatConversations')}
-            </h2>
             <Button
               variant="ghost"
               size="icon"
               type="button"
-              className="h-8 w-8"
+              className="h-8 w-8 shrink-0"
               onClick={startNewConversation}
               aria-label={t('chatNewConversation')}
               title={t('chatNewConversation')}
@@ -728,7 +671,7 @@ export default function Chat() {
               <MessageSquarePlus className="size-4" />
             </Button>
           </div>
-          <ul className="flex-1 overflow-y-auto list-none m-0 p-1 space-y-0.5 max-h-56 md:max-h-none">
+          <ul className="flex-1 overflow-y-auto list-none m-0 p-1.5 space-y-0.5 max-h-40 md:max-h-none">
             {conversations.length === 0 && (
               <li className="px-2 py-3 text-sm text-muted-foreground">
                 {t('chatNoConversations')}
@@ -740,14 +683,14 @@ export default function Chat() {
                 <li key={c.id}>
                   <div
                     className={[
-                      'group flex items-center gap-1 rounded-md',
+                      'group flex items-center gap-0.5 rounded-md',
                       selected ? 'bg-accent text-accent-foreground' : '',
                     ].join(' ')}
                   >
                     <button
                       type="button"
                       className={[
-                        'flex-1 min-w-0 text-left px-2 py-2 text-sm truncate rounded-md',
+                        'flex-1 min-w-0 text-left px-2.5 py-2 text-sm truncate rounded-md',
                         selected ? 'text-accent-foreground' : 'text-foreground hover:bg-accent/60',
                       ].join(' ')}
                       onClick={() => selectConversation(c.id)}
@@ -770,10 +713,55 @@ export default function Chat() {
           </ul>
         </aside>
 
-        <div className="flex flex-col border border-border rounded-lg overflow-hidden min-h-[420px]">
+        <section className="flex min-h-0 min-w-0 flex-1 flex-col">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-2">
+            <h2 className="font-heading text-sm font-medium text-foreground truncate min-w-0">
+              {active?.title || t('chatNewConversation')}
+            </h2>
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                className={[
+                  'inline-flex items-center rounded-md border px-2 py-0.5 text-[11px] font-medium',
+                  ready
+                    ? 'border-border bg-muted/60 text-foreground'
+                    : 'border-border bg-muted/40 text-muted-foreground',
+                ].join(' ')}
+                title={statusError || undefined}
+              >
+                {availabilityLabel}
+                {ready && displayModelLabel ? ` · ${displayModelLabel}` : ''}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                type="button"
+                onClick={refreshAiStatus}
+                disabled={checking}
+              >
+                {t('chatRefreshStatus')}
+              </Button>
+            </div>
+          </div>
+
+          {needsSetup && (
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-muted/20 px-4 py-2 text-xs text-muted-foreground">
+              <p className="min-w-0 flex-1">
+                {!sdkPresent ? t('pageChatMissing') : t('pageChatUnavailable')}
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                type="button"
+                onClick={openShellSettings}
+              >
+                {t('openSettings')}
+              </Button>
+            </div>
+          )}
+
           <div
             ref={threadRef}
-            className="flex-1 overflow-y-auto p-4 space-y-3 bg-background"
+            className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-background"
           >
             {(!active || active.messages.length === 0) && (
               <div className="h-full min-h-[240px] flex flex-col items-center justify-center text-center px-4">
@@ -793,7 +781,7 @@ export default function Chat() {
               >
                 <div
                   className={[
-                    'max-w-[85%] rounded-lg px-3 py-2 text-sm break-words',
+                    'max-w-[min(40rem,85%)] rounded-lg px-3 py-2 text-sm break-words',
                     m.role === 'user'
                       ? 'bg-primary text-primary-foreground whitespace-pre-wrap'
                       : 'bg-muted text-foreground',
@@ -897,39 +885,24 @@ export default function Chat() {
               )}
             </div>
           </form>
-        </div>
-      </section>
+        </section>
+      </div>
 
-      <section className="mt-10 space-y-8">
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleChatAvailability')}
-          </h2>
-          <p className="text-sm text-muted-foreground mb-2">{t('exampleChatAvailabilityHint')}</p>
-          <CodeBlock code={AVAILABILITY_CODE} />
-        </div>
-
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleChatPrompt')}
-          </h2>
-          <CodeBlock code={PROMPT_CODE} />
-        </div>
-
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleChatStreaming')}
-          </h2>
-          <CodeBlock code={STREAM_CODE} />
-        </div>
-
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleChatListModels')}
-          </h2>
-          <CodeBlock code={LIST_MODELS_CODE} />
-        </div>
-      </section>
+      <div className="px-6 pb-8 pt-4">
+        <ShowCode
+          className=""
+          samples={[
+            {
+              title: t('exampleTitleChatAvailability'),
+              hint: t('exampleChatAvailabilityHint'),
+              code: AVAILABILITY_CODE,
+            },
+            { title: t('exampleTitleChatPrompt'), code: PROMPT_CODE },
+            { title: t('exampleTitleChatStreaming'), code: STREAM_CODE },
+            { title: t('exampleTitleChatListModels'), code: LIST_MODELS_CODE },
+          ]}
+        />
+      </div>
     </div>
   );
 }

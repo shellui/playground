@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'shellui-playground-chat-v1';
+const STORAGE_KEY = 'shellui-playground-chat-v2';
 
 /**
  * @typedef {{ id: string, role: 'user' | 'assistant', content: string, createdAt: number }} ChatMessage
@@ -9,6 +9,15 @@ const STORAGE_KEY = 'shellui-playground-chat-v1';
 /** @returns {ChatStore} */
 export function emptyChatStore() {
   return { conversations: [], activeId: null };
+}
+
+/** True when a chat store was persisted (including an empty one after the user cleared seeds). */
+export function hasStoredChat() {
+  try {
+    return localStorage.getItem(STORAGE_KEY) != null;
+  } catch {
+    return false;
+  }
 }
 
 /** @returns {ChatStore} */

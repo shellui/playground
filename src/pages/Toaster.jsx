@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
-import CodeBlock from '../components/CodeBlock';
+import PageHeader from '../components/PageHeader';
+import ShowCode from '../components/ShowCode';
 import { Button } from '../components/ui/Button';
 
 const SUCCESS_CODE = `import shellui from '@shellui/sdk';
@@ -75,17 +76,15 @@ export default function Toaster() {
 
   return (
     <div className="font-body text-foreground max-w-3xl">
-      <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t('pageToasterTitle')}
-      </h1>
-      <p className="mt-2 text-foreground">{t('pageToasterDescription')}</p>
+      <PageHeader
+        title={t('pageToasterTitle')}
+        description={t('pageToasterDescription')}
+      />
 
-      <section className="mt-6 space-y-8">
+      <section className="rounded-lg border border-border p-4 space-y-5">
         <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleToastSuccess')}
-          </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
+          <h2 className="font-heading text-sm font-semibold text-foreground mb-2">{t('tryIt')}</h2>
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               variant="default"
               size="sm"
@@ -99,15 +98,6 @@ export default function Toaster() {
             >
               {t('toastSuccess')}
             </Button>
-          </div>
-          <CodeBlock code={SUCCESS_CODE} />
-        </div>
-
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleToastError')}
-          </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
               variant="destructive"
               size="sm"
@@ -121,15 +111,6 @@ export default function Toaster() {
             >
               {t('toastError')}
             </Button>
-          </div>
-          <CodeBlock code={ERROR_CODE} />
-        </div>
-
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleToastAction')}
-          </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
               variant="outline"
               size="sm"
@@ -145,15 +126,6 @@ export default function Toaster() {
             >
               {t('toastWithAction')}
             </Button>
-          </div>
-          <CodeBlock code={ACTION_CODE} />
-        </div>
-
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleToastLoadThenSuccess')}
-          </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
             <Button
               variant="secondary"
               size="sm"
@@ -178,14 +150,13 @@ export default function Toaster() {
               {t('toastLoadThenSuccess')}
             </Button>
           </div>
-          <CodeBlock code={LOAD_THEN_SUCCESS_CODE} />
         </div>
 
         <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
+          <h2 className="font-heading text-sm font-semibold text-foreground mb-2">
             {t('exampleTitleToastPosition')}
           </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
+          <div className="flex flex-wrap items-center gap-2">
             {POSITIONS.map((position) => {
               const key = `toastPosition${position
                 .split('-')
@@ -209,9 +180,18 @@ export default function Toaster() {
               );
             })}
           </div>
-          <CodeBlock code={POSITION_CODE} />
         </div>
       </section>
+
+      <ShowCode
+        samples={[
+          { title: t('exampleTitleToastSuccess'), code: SUCCESS_CODE },
+          { title: t('exampleTitleToastError'), code: ERROR_CODE },
+          { title: t('exampleTitleToastAction'), code: ACTION_CODE },
+          { title: t('exampleTitleToastLoadThenSuccess'), code: LOAD_THEN_SUCCESS_CODE },
+          { title: t('exampleTitleToastPosition'), code: POSITION_CODE },
+        ]}
+      />
     </div>
   );
 }
