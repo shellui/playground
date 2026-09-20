@@ -22,14 +22,23 @@ Open [http://localhost:4000](http://localhost:4000). Navigation loads the app fr
 
 ### Floating Actions
 
-The **Floating Actions** sidebar page demos `shellui.actions.set` / `clear` (back, title, trailing overflow, primary FAB). Register clicks with **`onClick` on each control** inside `set` (see [shellui#42](https://github.com/shellui/shellui/pull/42) / issue [#41](https://github.com/shellui/shellui/issues/41)).
+The **Action buttons** sidebar page demos `shellui.actions.set` / `clear` (back, title, trailing overflow, primary FAB) with **`onClick` on each control**. Shipped in `@shellui/sdk` 0.5.2+ ([shellui#42](https://github.com/shellui/shellui/pull/42)).
 
 ```bash
-cd ../shellui && git checkout cursor/floating-actions-sdk-100e && pnpm build:sdk
-cd ../playground && git checkout cursor/floating-actions-demo-75ab && pnpm start
+pnpm install
+pnpm start
 ```
 
-Without the SDK export, the page shows an alert instead of crashing.
+Open **Features → Action buttons**. To develop against a sibling monorepo checkout instead of the published package, use `link:../shellui/packages/*` and run `pnpm build:sdk` there before `pnpm start` — an unbuilt `dist/` leaves the iframe blank.
+
+### Blank iframe?
+
+Usually one of:
+
+1. **`shellui.init()` waiting forever** for `SHELLUI_SETTINGS` (about:blank postMessage race). This app caps that wait (~2.5s) and still paints.
+2. **Linked sibling SDK not built** — `pnpm --dir ../shellui run build:sdk`, then restart.
+3. **Shared Vite cache** — delete `node_modules/.vite` and `node_modules/.vite-app`, restart `pnpm start`.
+4. Open the iframe alone (`http://localhost:5173/#/`) and check the browser console for the real error.
 
 To run only the Vite app: `pnpm start:app`. To run only the shell: `shellui start --shell-only`.
 
