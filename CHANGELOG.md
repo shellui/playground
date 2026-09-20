@@ -23,6 +23,10 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ## [Unreleased]
 
+### 🐛 Bug Fixes
+
+- Avoid a permanent blank companion iframe when `shellui.init()` never resolves (SDK 0.5.2 waits forever for `SHELLUI_SETTINGS`). Bootstrap now times out the handshake (~2.5s) and still paints; hard failures show an on-page error instead of a white screen.
+
 ### 🛠 Improvements
 
 - Bump to Shellui [0.5.2](https://github.com/shellui/shellui/releases/tag/v0.5.2) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Includes upstream fix for OAuth login/callback static HTML on nested routes (replaces playground PR #4 hotfix).
