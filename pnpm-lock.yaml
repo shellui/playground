@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@shellui/cli':
-        specifier: ^0.5.2
-        version: 0.5.2(@types/babel__core@7.20.5)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.51.2)(yaml@2.9.1)
+        specifier: 0.5.4-alpha.1
+        version: 0.5.4-alpha.1(@types/babel__core@7.20.5)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.51.2)(yaml@2.9.1)
       '@shellui/core':
-        specifier: ^0.5.2
-        version: 0.5.2(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 0.5.4-alpha.1
+        version: 0.5.4-alpha.1(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@shellui/sdk':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: 0.5.4-alpha.1
+        version: 0.5.4-alpha.1
       i18next:
         specifier: ^24.2.3
         version: 24.2.3
@@ -1700,18 +1700,18 @@ packages:
     resolution: {integrity: sha512-p4xxEo/ayiMZG9tygr09YjqYAd52uq8Qi0EVoRRgUe70nQda0HVPVW519JLq0G+Th/5O5sKME9y1layLU3xlPg==}
     engines: {node: '>=18'}
 
-  '@shellui/cli@0.5.2':
-    resolution: {integrity: sha512-Tqa4b6sLec+KfBteElx11W7SGgmjBnkI/Hz1o20h4KAzBcNkFq466w569lzjCUmqdWQrVWeEqt/cCI3IN95BZA==}
+  '@shellui/cli@0.5.4-alpha.1':
+    resolution: {integrity: sha512-dWNqE2Kilxv+3wy87sF7BiMm+v71Lj6GO75PwOlDhCBbVJyv0u0KDecOBv86p57u5nK/OmN/axWvRBD+A7IvdA==}
     hasBin: true
 
-  '@shellui/core@0.5.2':
-    resolution: {integrity: sha512-00NTSwkclPjk1ucMPhQclibseffG2+3OKmW27X/gggxZr906fKRIahXCk4Rh/P94Mz8239tRpTdJq9SCIV3z2g==}
+  '@shellui/core@0.5.4-alpha.1':
+    resolution: {integrity: sha512-NXYFu/ZzE/T/IWVXjMKT11o8Gm2wappre9bBO9pvUqgaWsQAVjSZXvveKrb6u/FPZg5ftBSTN+/4iCRFU03nBA==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
 
-  '@shellui/sdk@0.5.2':
-    resolution: {integrity: sha512-mRQLPNZaSKMJawE2jkekMciBTM0eDpooC2L0PyXXkjpKsk2UdvuX4H+nD5BY7MVYf4cMHi2M5Nqj2N6SEedKCA==}
+  '@shellui/sdk@0.5.4-alpha.1':
+    resolution: {integrity: sha512-+8R5tO7Gwi2KKVrh6GgkrXGUKoeAVLo7ErLmhWz5xfC4TeaSdYpIZShp2dpJMrSWrV6eDqTcEUQXnlCr1rQjFQ==}
 
   '@supabase/auth-js@2.116.0':
     resolution: {integrity: sha512-Cmosty12gyKGK9N3bQb+lMmuAFev5nmUzaR1AsmZHqKOAGzqX1VQzmp49CNPwOx/pw0H9Qqk4rs9yhwTlKpfDg==}
@@ -2775,8 +2775,8 @@ packages:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
 
-  lru-cache@11.5.2:
-    resolution: {integrity: sha512-4pfM1Ff0x50o0tQwb5ucw/RzNyD0/YJME6IVcStalZuMWxdt3sR3huStTtxz4PUmvZfRguvDejasvQ2kifR11g==}
+  lru-cache@11.5.3:
+    resolution: {integrity: sha512-U4N8FgzmWxc8k1VH8Kr6lQg18U7Fjvby6wXHVRX/ZZ7IwWbRMgrRbP0Wrb5q5NVinryp4SQampHKdvtecItxUg==}
     engines: {node: 20 || >=22}
 
   lru-cache@5.1.1:
@@ -3155,8 +3155,8 @@ packages:
   regjsgen@0.8.0:
     resolution: {integrity: sha512-RvwtGe3d7LvWiDQXeQw8p5asZUmfU1G/l6WbUXeHta7Y2PEIvBTwH6E2EfmYUK8pxcxEdEmaomqyp0vZZ7C+3Q==}
 
-  regjsparser@0.13.2:
-    resolution: {integrity: sha512-NgRBy2Nx/bE+9F27nVHnqcN5HjyLmecqsqx2PJHu3/IEtADD4WuxuXIVExD5PoSDFVrl78dOonfcOe5O+5nbzQ==}
+  regjsparser@0.13.3:
+    resolution: {integrity: sha512-ycwFAS14Jw4mppvmK4GR/J6u3WpWpjkEApehuHtLc/8VpPNpDMbQ4WjqwplXifGeyKOzHSFLmSPqzksDQE2Sfg==}
     hasBin: true
 
   remark-gfm@4.0.1:
@@ -3623,8 +3623,8 @@ packages:
     resolution: {integrity: sha512-K4jVyjnBdgvc86Y6BkaLZEN933SwYOuBFkdmBu9ZfkcAbdVbpITnDmjvZ/aQjRXQrv5EPkTnD1s39GiiqbngCw==}
     engines: {node: '>= 0.4'}
 
-  which-typed-array@1.1.23:
-    resolution: {integrity: sha512-JMh8aK+1B/0bk/YNupICmH5MgCq6yNLKYQUfsZtSDLLCCmxUkHjUY+oOlIa90lO7lHN1woAfpenLdlKpXy9o+A==}
+  which-typed-array@1.1.24:
+    resolution: {integrity: sha512-wk4Mf4pR5mRP7eYuuTBCIQ9d0ud2Fv2jRLQpfgnRjbOxAFHmjKFValgTpitVKzJJS8ajnYQV2Du1SZ8j6b/EUQ==}
     engines: {node: '>= 0.4'}
 
   which@2.0.2:
@@ -5165,10 +5165,10 @@ snapshots:
       '@sentry/browser-utils': 10.75.0
       '@sentry/core': 10.75.0
 
-  '@shellui/cli@0.5.2(@types/babel__core@7.20.5)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.51.2)(yaml@2.9.1)':
+  '@shellui/cli@0.5.4-alpha.1(@types/babel__core@7.20.5)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.51.2)(yaml@2.9.1)':
     dependencies:
       '@clack/prompts': 1.8.1
-      '@shellui/core': 0.5.2(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@shellui/core': 0.5.4-alpha.1(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tailwindcss/postcss': 4.3.3
       '@vitejs/plugin-react': 5.2.0(vite@7.3.1(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.1))
       ajv: 8.20.0
@@ -5202,7 +5202,7 @@ snapshots:
       - typescript
       - yaml
 
-  '@shellui/core@0.5.2(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@shellui/core@0.5.4-alpha.1(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@radix-ui/react-alert-dialog': 1.1.23(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-collapsible': 1.1.20(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -5213,7 +5213,7 @@ snapshots:
       '@radix-ui/react-tabs': 1.1.21(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-tooltip': 1.2.16(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sentry/react': 10.75.0(react@18.3.1)
-      '@shellui/sdk': 0.5.2
+      '@shellui/sdk': 0.5.4-alpha.1
       '@supabase/supabase-js': 2.116.0
       class-variance-authority: 0.7.1
       clsx: 2.1.1
@@ -5243,7 +5243,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@shellui/sdk@0.5.2':
+  '@shellui/sdk@0.5.4-alpha.1':
     dependencies:
       roarr: 7.21.7
 
@@ -5806,7 +5806,7 @@ snapshots:
       typed-array-byte-offset: 1.0.5
       typed-array-length: 1.0.8
       unbox-primitive: 1.1.0
-      which-typed-array: 1.1.23
+      which-typed-array: 1.1.24
 
   es-define-property@1.0.1: {}
 
@@ -6238,7 +6238,7 @@ snapshots:
 
   is-typed-array@1.1.15:
     dependencies:
-      which-typed-array: 1.1.23
+      which-typed-array: 1.1.24
 
   is-weakmap@2.0.2: {}
 
@@ -6368,7 +6368,7 @@ snapshots:
     dependencies:
       js-tokens: 4.0.0
 
-  lru-cache@11.5.2: {}
+  lru-cache@11.5.3: {}
 
   lru-cache@5.1.1:
     dependencies:
@@ -6790,7 +6790,7 @@ snapshots:
 
   path-scurry@2.0.2:
     dependencies:
-      lru-cache: 11.5.2
+      lru-cache: 11.5.3
       minipass: 7.1.3
 
   picocolors@1.1.1: {}
@@ -6946,13 +6946,13 @@ snapshots:
       regenerate: 1.4.2
       regenerate-unicode-properties: 10.2.2
       regjsgen: 0.8.0
-      regjsparser: 0.13.2
+      regjsparser: 0.13.3
       unicode-match-property-ecmascript: 2.0.0
       unicode-match-property-value-ecmascript: 2.2.1
 
   regjsgen@0.8.0: {}
 
-  regjsparser@0.13.2:
+  regjsparser@0.13.3:
     dependencies:
       jsesc: 3.1.0
 
@@ -7488,7 +7488,7 @@ snapshots:
       isarray: 2.0.5
       which-boxed-primitive: 1.1.1
       which-collection: 1.0.2
-      which-typed-array: 1.1.23
+      which-typed-array: 1.1.24
 
   which-collection@1.0.2:
     dependencies:
@@ -7497,7 +7497,7 @@ snapshots:
       is-weakmap: 2.0.2
       is-weakset: 2.0.4
 
-  which-typed-array@1.1.23:
+  which-typed-array@1.1.24:
     dependencies:
       available-typed-arrays: 1.0.7
       call-bind: 1.0.9

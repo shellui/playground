@@ -28,6 +28,10 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 - Chat demo page (`/#/chat`): conversation list, streaming prompts via `shellui.ai` (LanguageModel Prompt API), code samples, and graceful empty states when AI is unavailable. Feature-detects `shellui.ai` (requires [shellui#48](https://github.com/shellui/shellui/pull/48)); stays on published `@shellui/sdk@0.5.2` until that lands.
 - Chat: in-chat ready-model selector (`create({ model })`), live sync when Settings default model changes (`SHELLUI_SETTINGS` / `SHELLUI_SETTINGS_UPDATED`), and markdown rendering for assistant replies (`react-markdown` + `remark-gfm`).
 
+### 🐛 Bug Fixes
+
+- **Shell handshake:** bootstrap shows a visible error if `shellui.init()` fails; Vite HMR follows `--host` without hard-pinning `localhost`. Depends on local linked Shellui packages for the request-driven iframe handshake fix.
+
 ### 🛠 Improvements
 
 - Frame the playground as a **Shellui 0.5 showcase**: Homepage landing with scene cards (Chat, Themes, Layout, Settings), nav grouped as Showcase / SDK recipes / Preferences, recipe pages with interactive demos first and code behind “Show code”, and a seeded Chat thread for screenshots.
