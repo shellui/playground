@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@shellui/cli':
-        specifier: ^0.5.2
-        version: 0.5.2(@types/babel__core@7.20.5)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.51.2)(yaml@2.9.1)
+        specifier: ^0.5.3
+        version: 0.5.3(@types/babel__core@7.20.5)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.51.2)(yaml@2.9.1)
       '@shellui/core':
-        specifier: ^0.5.2
-        version: 0.5.2(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.5.3
+        version: 0.5.3(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@shellui/sdk':
-        specifier: ^0.5.2
-        version: 0.5.2
+        specifier: ^0.5.3
+        version: 0.5.3
       i18next:
         specifier: ^24.2.3
         version: 24.2.3
@@ -1694,18 +1694,18 @@ packages:
     resolution: {integrity: sha512-p4xxEo/ayiMZG9tygr09YjqYAd52uq8Qi0EVoRRgUe70nQda0HVPVW519JLq0G+Th/5O5sKME9y1layLU3xlPg==}
     engines: {node: '>=18'}
 
-  '@shellui/cli@0.5.2':
-    resolution: {integrity: sha512-Tqa4b6sLec+KfBteElx11W7SGgmjBnkI/Hz1o20h4KAzBcNkFq466w569lzjCUmqdWQrVWeEqt/cCI3IN95BZA==}
+  '@shellui/cli@0.5.3':
+    resolution: {integrity: sha512-94geG25fLObZCcS4AV14j7GIEGOK5xoM/j3c6RlNlfxpfRS28Arg1ZuhxIA6kFPQ3xQUMouY+lHLXgPy5nHxfQ==}
     hasBin: true
 
-  '@shellui/core@0.5.2':
-    resolution: {integrity: sha512-00NTSwkclPjk1ucMPhQclibseffG2+3OKmW27X/gggxZr906fKRIahXCk4Rh/P94Mz8239tRpTdJq9SCIV3z2g==}
+  '@shellui/core@0.5.3':
+    resolution: {integrity: sha512-44oJ1ezdZT5yLwLDrxBOIlsjLkIrlXcf2n5gBb0GNYgdRUj3UaM0iVu4lP3RQoTT5Bi7nYy/3rKJvVfG5PRClw==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
 
-  '@shellui/sdk@0.5.2':
-    resolution: {integrity: sha512-mRQLPNZaSKMJawE2jkekMciBTM0eDpooC2L0PyXXkjpKsk2UdvuX4H+nD5BY7MVYf4cMHi2M5Nqj2N6SEedKCA==}
+  '@shellui/sdk@0.5.3':
+    resolution: {integrity: sha512-ESlqhe7Z3/HcxNHF5J1CnD8sawGXzeUYbxSMiCrZ3EJ2nHjxZV+TyLkL4zzPXZxMEWmVzeaz1Xcaqu12h7/r6g==}
 
   '@supabase/auth-js@2.116.0':
     resolution: {integrity: sha512-Cmosty12gyKGK9N3bQb+lMmuAFev5nmUzaR1AsmZHqKOAGzqX1VQzmp49CNPwOx/pw0H9Qqk4rs9yhwTlKpfDg==}
@@ -5104,10 +5104,10 @@ snapshots:
       '@sentry/browser-utils': 10.75.0
       '@sentry/core': 10.75.0
 
-  '@shellui/cli@0.5.2(@types/babel__core@7.20.5)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.51.2)(yaml@2.9.1)':
+  '@shellui/cli@0.5.3(@types/babel__core@7.20.5)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(terser@5.51.2)(yaml@2.9.1)':
     dependencies:
       '@clack/prompts': 1.8.1
-      '@shellui/core': 0.5.2(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@shellui/core': 0.5.3(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tailwindcss/postcss': 4.3.3
       '@vitejs/plugin-react': 5.2.0(vite@7.3.1(jiti@2.7.0)(lightningcss@1.32.0)(terser@5.51.2)(tsx@4.23.13)(yaml@2.9.1))
       ajv: 8.20.0
@@ -5141,7 +5141,7 @@ snapshots:
       - typescript
       - yaml
 
-  '@shellui/core@0.5.2(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@shellui/core@0.5.3(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@radix-ui/react-alert-dialog': 1.1.23(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-collapsible': 1.1.20(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -5152,7 +5152,7 @@ snapshots:
       '@radix-ui/react-tabs': 1.1.21(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-tooltip': 1.2.16(@types/react@19.3.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@sentry/react': 10.75.0(react@18.3.1)
-      '@shellui/sdk': 0.5.2
+      '@shellui/sdk': 0.5.3
       '@supabase/supabase-js': 2.116.0
       class-variance-authority: 0.7.1
       clsx: 2.1.1
@@ -5182,7 +5182,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@shellui/sdk@0.5.2':
+  '@shellui/sdk@0.5.3':
     dependencies:
       roarr: 7.21.7
 
