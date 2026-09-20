@@ -651,14 +651,9 @@ export default function Chat() {
       <div className="flex min-h-[100vh] flex-1 flex-col md:flex-row">
         <aside className="flex w-full shrink-0 flex-col border-b border-border bg-muted/30 md:w-60 md:border-b-0 md:border-r">
           <div className="flex items-center justify-between gap-2 px-3 py-2.5 border-b border-border">
-            <div className="min-w-0">
-              <h1 className="font-heading text-sm font-semibold tracking-tight text-foreground truncate">
-                {t('pageChatTitle')}
-              </h1>
-              <p className="text-[11px] leading-tight text-muted-foreground truncate">
-                {t('pageChatDescription')}
-              </p>
-            </div>
+            <h1 className="font-heading text-sm font-semibold tracking-tight text-foreground truncate">
+              {t('pageChatTitle')}
+            </h1>
             <Button
               variant="ghost"
               size="icon"
@@ -740,24 +735,18 @@ export default function Chat() {
               >
                 {t('chatRefreshStatus')}
               </Button>
+              {needsSetup && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  type="button"
+                  onClick={openShellSettings}
+                >
+                  {t('openSettings')}
+                </Button>
+              )}
             </div>
           </div>
-
-          {needsSetup && (
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border bg-muted/20 px-4 py-2 text-xs text-muted-foreground">
-              <p className="min-w-0 flex-1">
-                {!sdkPresent ? t('pageChatMissing') : t('pageChatUnavailable')}
-              </p>
-              <Button
-                variant="outline"
-                size="sm"
-                type="button"
-                onClick={openShellSettings}
-              >
-                {t('openSettings')}
-              </Button>
-            </div>
-          )}
 
           <div
             ref={threadRef}

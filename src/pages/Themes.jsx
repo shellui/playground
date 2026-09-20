@@ -237,7 +237,11 @@ export default function Themes() {
   const appearance = useTheme();
   const colorScheme = appearance?.colorScheme ?? 'system';
 
-  const availableThemes = useMemo(() => getAvailableThemes(shellui.initialSettings ?? null), []);
+  const availableThemes = useMemo(() => {
+    const fromAppearance = appearance?.availableThemes;
+    if (Array.isArray(fromAppearance) && fromAppearance.length > 0) return fromAppearance;
+    return getAvailableThemes(shellui.initialSettings ?? null);
+  }, [appearance]);
   const sortedThemes = useMemo(
     () =>
       [...availableThemes].sort((a, b) =>
@@ -425,44 +429,50 @@ export default function Themes() {
             </label>
             <p className="text-sm text-muted-foreground">{t('appearance.colorThemeDescription')}</p>
           </div>
-          <div className={cn('mt-2', gridClass)}>
-            {sortedThemes.map((theme) => {
-              const isSelected = currentThemeName === theme.name;
-              const previewColors = isDarkForPreview
-                ? (theme.colors?.dark ?? {})
-                : (theme.colors?.light ?? {});
-              return (
-                <button
-                  key={theme.name}
-                  type="button"
-                  onClick={() => {
-                    void selectTheme(theme.name);
-                  }}
-                  disabled={themeSwitchBusy}
-                  className={cn(
-                    'relative min-w-0 text-left transition-[opacity,transform] duration-300 ease-out',
-                    themeSwitchBusy ? 'cursor-wait' : 'cursor-pointer',
-                    isSelected && 'ring-2 ring-primary ring-offset-2 ring-offset-background',
-                    themeSwitchBusy && pendingThemeName !== theme.name && 'opacity-40 scale-[0.99]',
-                    (!themeSwitchBusy || pendingThemeName === theme.name) &&
-                      'opacity-100 scale-100',
-                  )}
-                  style={{ borderRadius: previewRadius(previewColors.radius) }}
-                  aria-label={theme.displayName ?? theme.name}
-                  aria-pressed={isSelected}
-                  aria-busy={pendingThemeName === theme.name}
-                >
-                  <ThemePreview
-                    theme={theme}
-                    isSelected={isSelected || pendingThemeName === theme.name}
-                    isDark={isDarkForPreview}
-                    isPending={pendingThemeName === theme.name}
-                    layout={layout}
-                  />
-                </button>
-              );
-            })}
-          </div>
+          {sortedThemes.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">{t('pageThemesEmpty')}</p>
+          ) : (
+            <div className={cn('mt-2', gridClass)}>
+              {sortedThemes.map((theme) => {
+                const isSelected = currentThemeName === theme.name;
+                const previewColors = isDarkForPreview
+                  ? (theme.colors?.dark ?? {})
+                  : (theme.colors?.light ?? {});
+                return (
+                  <button
+                    key={theme.name}
+                    type="button"
+                    onClick={() => {
+                      void selectTheme(theme.name);
+                    }}
+                    disabled={themeSwitchBusy}
+                    className={cn(
+                      'relative min-w-0 text-left transition-[opacity,transform] duration-300 ease-out',
+                      themeSwitchBusy ? 'cursor-wait' : 'cursor-pointer',
+                      isSelected && 'ring-2 ring-primary ring-offset-2 ring-offset-background',
+                      themeSwitchBusy &&
+                        pendingThemeName !== theme.name &&
+                        'opacity-40 scale-[0.99]',
+                      (!themeSwitchBusy || pendingThemeName === theme.name) &&
+                        'opacity-100 scale-100',
+                    )}
+                    style={{ borderRadius: previewRadius(previewColors.radius) }}
+                    aria-label={theme.displayName ?? theme.name}
+                    aria-pressed={isSelected}
+                    aria-busy={pendingThemeName === theme.name}
+                  >
+                    <ThemePreview
+                      theme={theme}
+                      isSelected={isSelected || pendingThemeName === theme.name}
+                      isDark={isDarkForPreview}
+                      isPending={pendingThemeName === theme.name}
+                      layout={layout}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

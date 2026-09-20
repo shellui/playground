@@ -171,6 +171,8 @@ const resources = {
       pageLayoutExperimental: 'The windows layout (taskbar + multi-window) is experimental.',
       pageLayoutConfigNote:
         'Layout is set in shellui.config.ts. In development you can also override it from Shell Settings.',
+      pageThemesEmpty:
+        'Theme swatches appear when the shell sends the catalog. Open this page inside Shellui.',
       pageThemesTry:
         'Change the theme in Shell Settings (gear icon) and see this page and the shell update together.',
       pageLanguagesTry:
@@ -438,6 +440,8 @@ const resources = {
         'Le mode fenêtres (barre des tâches + multi-fenêtres) est expérimental.',
       pageLayoutConfigNote:
         'La mise en page est définie dans shellui.config.ts. En développement vous pouvez aussi la surcharger depuis les Paramètres de la coque.',
+      pageThemesEmpty:
+        'Les pastilles de thème apparaissent lorsque la coque envoie le catalogue. Ouvrez cette page dans Shellui.',
       pageThemesTry:
         'Changez le thème dans les Paramètres de la coque (icône engrenage) pour voir cette page et la coque se mettre à jour.',
       pageLanguagesTry:
