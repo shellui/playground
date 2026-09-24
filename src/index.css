@@ -38,6 +38,7 @@
 /* Shadcn-compatible theme variables; overridden by ThemeProvider from shellui settings */
 :root {
   --radius: 0.5rem;
+  --honey: #c4a35a;
   --background: #ffffff;
   --foreground: #0a0a0a;
   --card: #ffffff;
@@ -194,4 +195,9 @@ nav a {
 
 main {
   padding: 2rem;
+}
+
+/* Scarce Shellui honey gold — kickers and marks only, never blobs. */
+.text-honey {
+  color: var(--honey, #c4a35a);
 }

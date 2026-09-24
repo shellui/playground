@@ -87,7 +87,7 @@ export default function LayoutPreview({ layoutId, className }) {
   return (
     <div
       className={cn(
-        'h-14 w-24 shrink-0 overflow-hidden rounded-[4px] border border-border',
+        'h-16 w-28 shrink-0 overflow-hidden rounded-[4px] border border-border',
         className,
       )}
       aria-hidden

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
-import CodeBlock from '../components/CodeBlock';
+import PageHeader from '../components/PageHeader';
+import ShowCode from '../components/ShowCode';
 import { Button } from '../components/ui/Button';
 import { useLang } from '../contexts/LangContext';
 
@@ -85,13 +86,12 @@ export default function Languages() {
 
   return (
     <div className="font-body text-foreground max-w-3xl">
-      <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t('pageLanguagesTitle')}
-      </h1>
-      <p className="mt-2 text-foreground">{t('pageLanguagesDescription')}</p>
-      <p className="mt-2 text-sm text-muted-foreground">{t('pageLanguagesTry')}</p>
+      <PageHeader
+        title={t('pageLanguagesTitle')}
+        description={t('pageLanguagesDescription')}
+      />
 
-      <section className="mt-6">
+      <section className="rounded-lg border border-border p-4 space-y-5">
         <h2 className="font-heading text-lg font-medium text-foreground mb-1">
           {t('exampleTitleLanguage')}
         </h2>
@@ -146,9 +146,17 @@ export default function Languages() {
             {t('resetTimezoneToBrowser')}
           </Button>
         </div>
-
-        <CodeBlock code={LANGUAGES_CODE} />
       </section>
+
+      <ShowCode
+        samples={[
+          {
+            title: t('exampleTitleLanguage'),
+            hint: t('pageLanguagesTry'),
+            code: LANGUAGES_CODE,
+          },
+        ]}
+      />
     </div>
   );
 }

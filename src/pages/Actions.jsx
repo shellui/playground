@@ -2,8 +2,9 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
-import { Info, TriangleAlert } from 'lucide-react';
-import CodeBlock from '../components/CodeBlock';
+import { TriangleAlert } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
+import ShowCode from '../components/ShowCode';
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/Alert';
 import { Button } from '../components/ui/Button';
 
@@ -167,20 +168,14 @@ export function ActionsInbox() {
 
   return (
     <div className="font-body text-foreground max-w-3xl">
-      <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t('pageActionsTitle')}
-      </h1>
-      <p className="mt-2 text-foreground">{t('pageActionsDescription')}</p>
-
-      <Alert className="mt-4">
-        <Info />
-        <AlertTitle>{t('pageActionsLifecycleTitle')}</AlertTitle>
-        <AlertDescription>{t('pageActionsLifecycle')}</AlertDescription>
-      </Alert>
+      <PageHeader
+        title={t('pageActionsTitle')}
+        description={t('pageActionsDescription')}
+      />
 
       {!available && (
         <Alert
-          className="mt-4"
+          className="mb-4"
           variant="destructive"
         >
           <TriangleAlert />
@@ -189,29 +184,32 @@ export function ActionsInbox() {
         </Alert>
       )}
 
-      <section className="mt-6 space-y-4">
-        <h2 className="font-heading text-lg font-medium text-foreground">
-          {t('actionsInboxHeading')}
-        </h2>
-        <p className="text-sm text-muted-foreground">{t('actionsInboxHint')}</p>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={!available || !chromeActive}
-            onClick={clearChromeActions}
-          >
-            {t('actionsClearChrome')}
-          </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            disabled={!available || chromeActive}
-            onClick={applyInboxActions}
-          >
-            {t('actionsReactivateChrome')}
-          </Button>
+      <section className="rounded-lg border border-border p-4 space-y-4">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h2 className="font-heading text-sm font-semibold text-foreground">
+              {t('actionsInboxHeading')}
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">{t('actionsInboxHint')}</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={!available || !chromeActive}
+              onClick={clearChromeActions}
+            >
+              {t('actionsClearChrome')}
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              disabled={!available || chromeActive}
+              onClick={applyInboxActions}
+            >
+              {t('actionsReactivateChrome')}
+            </Button>
+          </div>
         </div>
 
         <ul className="divide-y divide-border rounded-md border border-border">
@@ -242,8 +240,13 @@ export function ActionsInbox() {
           lastClick={lastClick}
           clickLog={clickLog}
         />
-        <CodeBlock code={INBOX_CODE} />
       </section>
+
+      <ShowCode
+        samples={[
+          { title: t('actionsInboxHeading'), hint: t('pageActionsLifecycle'), code: INBOX_CODE },
+        ]}
+      />
     </div>
   );
 }
@@ -342,14 +345,14 @@ export function ActionsDetail() {
 
   return (
     <div className="font-body text-foreground max-w-3xl">
-      <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t('actionsTitleDetail')}
-      </h1>
-      <p className="mt-2 text-foreground">{t('actionsDetailDescription')}</p>
+      <PageHeader
+        title={t('actionsTitleDetail')}
+        description={t('actionsDetailDescription')}
+      />
 
       {!available && (
         <Alert
-          className="mt-4"
+          className="mb-4"
           variant="destructive"
         >
           <TriangleAlert />
@@ -358,66 +361,60 @@ export function ActionsDetail() {
         </Alert>
       )}
 
-      <Alert className="mt-4">
-        <Info />
-        <AlertTitle>{t('actionsDetailChromeTitle')}</AlertTitle>
-        <AlertDescription>
+      <section className="rounded-lg border border-border p-4 space-y-4">
+        <p className="text-sm text-muted-foreground">
           {refreshing ? t('actionsDetailRefreshing') : t('actionsDetailChromeHint')}
-        </AlertDescription>
-      </Alert>
-
-      <div className="mt-6 flex flex-wrap items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => navigate('/actions')}
-        >
-          {t('actionsBackToInbox')}
-        </Button>
-        <Button
-          variant="secondary"
-          size="sm"
-          disabled={!available || refreshing || !chromeActive}
-          onClick={() => {
-            logClick('refresh');
-            if (refreshTimerRef.current) {
-              window.clearTimeout(refreshTimerRef.current);
-            }
-            setRefreshing(true);
-            applyDetailActions(true);
-            refreshTimerRef.current = window.setTimeout(() => {
-              setRefreshing(false);
-              applyDetailActions(false);
-              refreshTimerRef.current = null;
-            }, 2000);
-          }}
-        >
-          {t('actionsTryRefresh')}
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          disabled={!available || !chromeActive}
-          onClick={clearChromeActions}
-        >
-          {t('actionsClearChrome')}
-        </Button>
-        <Button
-          variant="default"
-          size="sm"
-          disabled={!available || chromeActive}
-          onClick={() => applyDetailActions(false)}
-        >
-          {t('actionsReactivateChrome')}
-        </Button>
-      </div>
-
-      <div className="mt-6">
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate('/actions')}
+          >
+            {t('actionsBackToInbox')}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            disabled={!available || refreshing || !chromeActive}
+            onClick={() => {
+              logClick('refresh');
+              if (refreshTimerRef.current) {
+                window.clearTimeout(refreshTimerRef.current);
+              }
+              setRefreshing(true);
+              applyDetailActions(true);
+              refreshTimerRef.current = window.setTimeout(() => {
+                setRefreshing(false);
+                applyDetailActions(false);
+                refreshTimerRef.current = null;
+              }, 2000);
+            }}
+          >
+            {t('actionsTryRefresh')}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={!available || !chromeActive}
+            onClick={clearChromeActions}
+          >
+            {t('actionsClearChrome')}
+          </Button>
+          <Button
+            variant="default"
+            size="sm"
+            disabled={!available || chromeActive}
+            onClick={() => applyDetailActions(false)}
+          >
+            {t('actionsReactivateChrome')}
+          </Button>
+        </div>
         <ClickLog
           lastClick={lastClick}
           clickLog={clickLog}
         />
-        <p className="text-sm text-muted-foreground mb-2">
+        <p className="text-sm text-muted-foreground">
           <Link
             to="/actions"
             className="underline underline-offset-2 hover:text-foreground"
@@ -425,8 +422,9 @@ export function ActionsDetail() {
             {t('actionsBackToInbox')}
           </Link>
         </p>
-        <CodeBlock code={DETAIL_CODE} />
-      </div>
+      </section>
+
+      <ShowCode samples={[{ title: t('actionsTitleDetail'), code: DETAIL_CODE }]} />
     </div>
   );
 }

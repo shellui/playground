@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
-import { Info } from 'lucide-react';
-import CodeBlock from '../components/CodeBlock';
-import { Alert, AlertTitle } from '../components/ui/Alert';
+import PageHeader from '../components/PageHeader';
+import ShowCode from '../components/ShowCode';
 import { Button } from '../components/ui/Button';
 
 function appRouteUrl(path) {
@@ -29,22 +28,18 @@ export default function Modal() {
 
   return (
     <div className="font-body text-foreground max-w-3xl">
-      <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t('pageModalDrawerTitle')}
-      </h1>
-      <p className="mt-2 text-foreground">{t('pageModalDrawerDescription')}</p>
+      <PageHeader
+        title={t('pageModalDrawerTitle')}
+        description={t('pageModalDrawerDescription')}
+      />
 
-      <Alert className="mt-4">
-        <Info />
-        <AlertTitle>{t('pageModalDrawerFun')}</AlertTitle>
-      </Alert>
-
-      <section className="mt-6 space-y-8">
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
+      <section className="rounded-lg border border-border divide-y divide-border">
+        <div className="p-4">
+          <h2 className="font-heading text-sm font-semibold text-foreground mb-1">
             {t('exampleTitleModal')}
           </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
+          <p className="text-xs text-muted-foreground mb-3">{t('pageModalDrawerFun')}</p>
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               variant="default"
               size="sm"
@@ -60,14 +55,13 @@ export default function Modal() {
               {t('openModalWithLanguages')}
             </Button>
           </div>
-          <CodeBlock code={MODAL_CODE} />
         </div>
 
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
+        <div className="p-4">
+          <h2 className="font-heading text-sm font-semibold text-foreground mb-3">
             {t('exampleTitleDrawer')}
           </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               variant="secondary"
               size="sm"
@@ -102,9 +96,15 @@ export default function Modal() {
               {t('closeDrawer')}
             </Button>
           </div>
-          <CodeBlock code={DRAWER_CODE} />
         </div>
       </section>
+
+      <ShowCode
+        samples={[
+          { title: t('exampleTitleModal'), code: MODAL_CODE },
+          { title: t('exampleTitleDrawer'), code: DRAWER_CODE },
+        ]}
+      />
     </div>
   );
 }

@@ -2,7 +2,8 @@ import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import shellui from '@shellui/sdk';
-import CodeBlock from '../components/CodeBlock';
+import PageHeader from '../components/PageHeader';
+import ShowCode from '../components/ShowCode';
 import { Button } from '../components/ui/Button';
 import { useTheme } from '../contexts/ThemeContext';
 import { getAvailableThemes } from '../lib/theme';
@@ -236,7 +237,11 @@ export default function Themes() {
   const appearance = useTheme();
   const colorScheme = appearance?.colorScheme ?? 'system';
 
-  const availableThemes = useMemo(() => getAvailableThemes(shellui.initialSettings ?? null), []);
+  const availableThemes = useMemo(() => {
+    const fromAppearance = appearance?.availableThemes;
+    if (Array.isArray(fromAppearance) && fromAppearance.length > 0) return fromAppearance;
+    return getAvailableThemes(shellui.initialSettings ?? null);
+  }, [appearance]);
   const sortedThemes = useMemo(
     () =>
       [...availableThemes].sort((a, b) =>
@@ -354,25 +359,24 @@ export default function Themes() {
 
   return (
     <div className="font-body text-foreground max-w-5xl">
-      <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t('pageThemesTitle')}
-      </h1>
-      <p className="mt-2 text-foreground">{t('pageThemesDescription')}</p>
-      <p className="mt-2 text-sm text-muted-foreground">{t('pageThemesTry')}</p>
-
-      <section className="mt-6">
-        <h2 className="font-heading text-lg font-medium text-foreground mb-1">
-          {t('exampleTitleTheme')}
-        </h2>
-        <p className="text-sm text-muted-foreground mb-2">
-          {t('currentTheme')}: {appearance?.displayName ?? appearance?.name ?? t('themeDefault')}
+      <PageHeader
+        title={t('pageThemesTitle')}
+        description={t('pageThemesDescription')}
+      >
+        <p className="mt-2 text-sm text-muted-foreground">
+          {t('currentTheme')}:{' '}
+          <span className="text-foreground font-medium">
+            {appearance?.displayName ?? appearance?.name ?? t('themeDefault')}
+          </span>
         </p>
+      </PageHeader>
 
-        <div className="space-y-2 mt-4">
+      <section className="space-y-6">
+        <div className="space-y-2">
           <div className="space-y-0.5">
-            <h3 className="font-heading text-sm font-medium text-foreground">
+            <h2 className="font-heading text-sm font-medium text-foreground">
               {t('colorSchemeLabel')}
-            </h3>
+            </h2>
             <p className="text-xs text-muted-foreground">
               {t('currentColorScheme')}: {t(colorSchemeToKey(displayedColorScheme))}
             </p>
@@ -415,7 +419,7 @@ export default function Themes() {
           </div>
         </div>
 
-        <div className="space-y-2 mt-4">
+        <div className="space-y-2">
           <div className="space-y-0.5">
             <label
               className="text-sm font-medium leading-none"
@@ -425,48 +429,56 @@ export default function Themes() {
             </label>
             <p className="text-sm text-muted-foreground">{t('appearance.colorThemeDescription')}</p>
           </div>
-          <div className={cn('mt-2', gridClass)}>
-            {sortedThemes.map((theme) => {
-              const isSelected = currentThemeName === theme.name;
-              const previewColors = isDarkForPreview
-                ? (theme.colors?.dark ?? {})
-                : (theme.colors?.light ?? {});
-              return (
-                <button
-                  key={theme.name}
-                  type="button"
-                  onClick={() => {
-                    void selectTheme(theme.name);
-                  }}
-                  disabled={themeSwitchBusy}
-                  className={cn(
-                    'relative min-w-0 text-left transition-[opacity,transform] duration-300 ease-out',
-                    themeSwitchBusy ? 'cursor-wait' : 'cursor-pointer',
-                    isSelected && 'ring-2 ring-primary ring-offset-2 ring-offset-background',
-                    themeSwitchBusy && pendingThemeName !== theme.name && 'opacity-40 scale-[0.99]',
-                    (!themeSwitchBusy || pendingThemeName === theme.name) &&
-                      'opacity-100 scale-100',
-                  )}
-                  style={{ borderRadius: previewRadius(previewColors.radius) }}
-                  aria-label={theme.displayName ?? theme.name}
-                  aria-pressed={isSelected}
-                  aria-busy={pendingThemeName === theme.name}
-                >
-                  <ThemePreview
-                    theme={theme}
-                    isSelected={isSelected || pendingThemeName === theme.name}
-                    isDark={isDarkForPreview}
-                    isPending={pendingThemeName === theme.name}
-                    layout={layout}
-                  />
-                </button>
-              );
-            })}
-          </div>
+          {sortedThemes.length === 0 ? (
+            <p className="mt-2 text-sm text-muted-foreground">{t('pageThemesEmpty')}</p>
+          ) : (
+            <div className={cn('mt-2', gridClass)}>
+              {sortedThemes.map((theme) => {
+                const isSelected = currentThemeName === theme.name;
+                const previewColors = isDarkForPreview
+                  ? (theme.colors?.dark ?? {})
+                  : (theme.colors?.light ?? {});
+                return (
+                  <button
+                    key={theme.name}
+                    type="button"
+                    onClick={() => {
+                      void selectTheme(theme.name);
+                    }}
+                    disabled={themeSwitchBusy}
+                    className={cn(
+                      'relative min-w-0 text-left transition-[opacity,transform] duration-300 ease-out',
+                      themeSwitchBusy ? 'cursor-wait' : 'cursor-pointer',
+                      isSelected && 'ring-2 ring-primary ring-offset-2 ring-offset-background',
+                      themeSwitchBusy &&
+                        pendingThemeName !== theme.name &&
+                        'opacity-40 scale-[0.99]',
+                      (!themeSwitchBusy || pendingThemeName === theme.name) &&
+                        'opacity-100 scale-100',
+                    )}
+                    style={{ borderRadius: previewRadius(previewColors.radius) }}
+                    aria-label={theme.displayName ?? theme.name}
+                    aria-pressed={isSelected}
+                    aria-busy={pendingThemeName === theme.name}
+                  >
+                    <ThemePreview
+                      theme={theme}
+                      isSelected={isSelected || pendingThemeName === theme.name}
+                      isDark={isDarkForPreview}
+                      isPending={pendingThemeName === theme.name}
+                      layout={layout}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
-
-        <CodeBlock code={THEMES_CODE} />
       </section>
+
+      <ShowCode
+        samples={[{ title: t('exampleTitleTheme'), hint: t('pageThemesTry'), code: THEMES_CODE }]}
+      />
     </div>
   );
 }

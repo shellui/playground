@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
-import CodeBlock from '../components/CodeBlock';
+import PageHeader from '../components/PageHeader';
+import ShowCode from '../components/ShowCode';
 import { Button } from '../components/ui/Button';
 
 const ALERT_CODE = `import shellui from '@shellui/sdk';
@@ -38,17 +39,20 @@ export default function DialogPage() {
 
   return (
     <div className="font-body text-foreground max-w-3xl">
-      <h1 className="font-heading text-2xl font-semibold text-foreground">
-        {t('pageDialogTitle')}
-      </h1>
-      <p className="mt-2 text-foreground">{t('pageDialogDescription')}</p>
+      <PageHeader
+        title={t('pageDialogTitle')}
+        description={t('pageDialogDescription')}
+      />
 
-      <section className="mt-6 space-y-8">
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleAlert')}
-          </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
+      <section className="rounded-lg border border-border divide-y divide-border">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="min-w-0">
+            <h2 className="font-heading text-sm font-semibold text-foreground">
+              {t('exampleTitleAlert')}
+            </h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">{t('dialogOk')}</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               variant="default"
               size="sm"
@@ -64,7 +68,7 @@ export default function DialogPage() {
               {t('showAlert')} — {t('dialogSizeDefault')}
             </Button>
             <Button
-              variant="default"
+              variant="outline"
               size="sm"
               onClick={() =>
                 shellui.dialog({
@@ -78,16 +82,20 @@ export default function DialogPage() {
               {t('showAlert')} — {t('dialogSizeSmall')}
             </Button>
           </div>
-          <CodeBlock code={ALERT_CODE} />
         </div>
 
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleConfirm')}
-          </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="min-w-0">
+            <h2 className="font-heading text-sm font-semibold text-foreground">
+              {t('exampleTitleConfirm')}
+            </h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">
+              {t('dialogOk')} / {t('dialogCancel')}
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
             <Button
-              variant="outline"
+              variant="secondary"
               size="sm"
               onClick={() =>
                 shellui.dialog({
@@ -123,14 +131,16 @@ export default function DialogPage() {
               {t('showConfirm')} — {t('dialogSizeSmall')}
             </Button>
           </div>
-          <CodeBlock code={CONFIRM_CODE} />
         </div>
 
-        <div>
-          <h2 className="font-heading text-lg font-medium text-foreground mb-2">
-            {t('exampleTitleDelete')}
-          </h2>
-          <div className="flex flex-wrap items-center gap-2 mb-2">
+        <div className="flex flex-wrap items-center justify-between gap-3 p-4">
+          <div className="min-w-0">
+            <h2 className="font-heading text-sm font-semibold text-foreground">
+              {t('exampleTitleDelete')}
+            </h2>
+            <p className="mt-0.5 text-xs text-muted-foreground">{t('dialogDelete')}</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               variant="destructive"
               size="sm"
@@ -150,7 +160,7 @@ export default function DialogPage() {
               {t('showDelete')} — {t('dialogSizeDefault')}
             </Button>
             <Button
-              variant="destructive"
+              variant="outline"
               size="sm"
               onClick={() =>
                 shellui.dialog({
@@ -168,9 +178,16 @@ export default function DialogPage() {
               {t('showDelete')} — {t('dialogSizeSmall')}
             </Button>
           </div>
-          <CodeBlock code={DELETE_CODE} />
         </div>
       </section>
+
+      <ShowCode
+        samples={[
+          { title: t('exampleTitleAlert'), code: ALERT_CODE },
+          { title: t('exampleTitleConfirm'), code: CONFIRM_CODE },
+          { title: t('exampleTitleDelete'), code: DELETE_CODE },
+        ]}
+      />
     </div>
   );
 }

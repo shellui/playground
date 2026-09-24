@@ -1,6 +1,7 @@
 import { Trans, useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Button } from '../components/ui/Button';
+import { ArrowRight, LayoutPanelLeft, Palette, Settings } from 'lucide-react';
+import { openShellSettings } from '../lib/openShellSettings';
 
 const shelluiSiteLink = (
   <a
@@ -11,14 +12,19 @@ const shelluiSiteLink = (
   />
 );
 
-const FEATURES = [
-  { path: '/actions', key: 'pageActionsTitle' },
-  { path: '/dialog', key: 'pageDialogTitle' },
-  { path: '/toaster', key: 'pageToasterTitle' },
-  { path: '/modal', key: 'pageModalDrawerTitle' },
-  { path: '/layout', key: 'pageLayoutTitle' },
-  { path: '/themes', key: 'pageThemesTitle' },
-  { path: '/languages', key: 'pageLanguagesTitle' },
+const SCENES = [
+  {
+    to: '/themes',
+    icon: Palette,
+    titleKey: 'playgroundSceneThemesTitle',
+    bodyKey: 'playgroundSceneThemesBody',
+  },
+  {
+    to: '/layout',
+    icon: LayoutPanelLeft,
+    titleKey: 'playgroundSceneLayoutTitle',
+    bodyKey: 'playgroundSceneLayoutBody',
+  },
 ];
 
 export default function Home() {
@@ -27,50 +33,84 @@ export default function Home() {
   return (
     <div className="font-body text-foreground max-w-3xl">
       <header className="mb-8">
-        <h1 className="font-heading text-3xl font-bold text-foreground tracking-tight">
+        <p className="text-honey text-xs font-medium uppercase tracking-[0.16em]">
+          {t('playgroundKicker')}
+        </p>
+        <h1 className="font-heading mt-2 text-3xl sm:text-4xl font-bold text-foreground tracking-tight text-balance">
           {t('playgroundTitle')}
         </h1>
-        <p className="mt-2 text-lg text-muted-foreground">{t('playgroundTagline')}</p>
-        <p className="mt-4 text-foreground">
-          <Trans
-            i18nKey="playgroundIntro"
-            components={{ shelluiLink: shelluiSiteLink }}
-          />
+        <p className="mt-3 text-lg text-muted-foreground text-pretty max-w-xl">
+          {t('playgroundTagline')}
         </p>
       </header>
 
-      <section className="mb-8">
-        <h2 className="font-heading text-xl font-semibold text-foreground mb-2">
-          {t('playgroundWhatIs')}
-        </h2>
-        <p className="text-foreground text-muted-foreground">{t('playgroundWhatIsBody')}</p>
-      </section>
-
-      <section className="mb-8">
-        <h2 className="font-heading text-xl font-semibold text-foreground mb-2">
-          {t('playgroundTrySections')}
-        </h2>
-        <p className="text-muted-foreground mb-4">{t('playgroundTrySectionsBody')}</p>
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 list-none p-0 m-0">
-          {FEATURES.map(({ path, key }) => (
-            <li key={path}>
+      <section aria-label={t('playgroundScenesLabel')}>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 list-none p-0 m-0">
+          {SCENES.map(({ to, icon: Icon, titleKey, bodyKey }) => (
+            <li key={to}>
               <Link
-                to={path}
-                className="block"
+                to={to}
+                className="group flex h-full flex-col rounded-lg border border-border bg-card p-4 text-inherit no-underline hover:border-foreground/25 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                <Button
-                  variant="outline"
-                  className="w-full h-auto py-3"
-                >
-                  {t(key)}
-                </Button>
+                <span className="flex items-center gap-2 text-foreground">
+                  <Icon
+                    className="size-4 text-muted-foreground"
+                    aria-hidden
+                  />
+                  <span className="font-heading text-base font-semibold tracking-tight">
+                    {t(titleKey)}
+                  </span>
+                </span>
+                <span className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  {t(bodyKey)}
+                </span>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-foreground">
+                  {t('playgroundOpen')}
+                  <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+                </span>
               </Link>
             </li>
           ))}
+          <li>
+            <button
+              type="button"
+              onClick={openShellSettings}
+              className="group flex h-full w-full flex-col rounded-lg border border-border bg-card p-4 text-left text-inherit hover:border-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <span className="flex items-center gap-2 text-foreground">
+                <Settings
+                  className="size-4 text-muted-foreground"
+                  aria-hidden
+                />
+                <span className="font-heading text-base font-semibold tracking-tight">
+                  {t('playgroundSceneSettingsTitle')}
+                </span>
+              </span>
+              <span className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                {t('playgroundSceneSettingsBody')}
+              </span>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-foreground">
+                {t('openSettings')}
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </button>
+          </li>
         </ul>
       </section>
 
-      <p className="text-muted-foreground text-sm flex items-center gap-2 flex-wrap">
+      <section className="mt-12 max-w-xl">
+        <h2 className="font-heading text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+          {t('playgroundWhatIs')}
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+          <Trans
+            i18nKey="playgroundWhatIsBody"
+            components={{ shelluiLink: shelluiSiteLink }}
+          />
+        </p>
+      </section>
+
+      <p className="mt-10 text-muted-foreground text-sm flex items-center gap-2 flex-wrap">
         {t('playgroundCodeOnGitHub')}
         <a
           href="https://github.com/shellui/playground"
