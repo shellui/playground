@@ -25,7 +25,7 @@
     "adminUrl": "https://admin.shellui.com",
     "login": {
       "methods": ["oauth"],
-      "oauthProviders": ["github"]
+      "oauthProviders": ["github", "google", "microsoft"]
     }
   },
   "cookieConsent": {
