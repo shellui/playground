@@ -21,15 +21,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
-## [Unreleased]
-
-### 🐛 Bug Fixes
-
-- **Shell handshake:** bootstrap shows a visible error if `shellui.init()` fails; Vite HMR follows `--host` without hard-pinning `localhost`. Depends on local linked Shellui packages for the request-driven iframe handshake fix.
+## [0.4.1] - 2026-10-07
 
 ### 🛠 Improvements
 
-- Bump to Shellui [0.5.2](https://github.com/shellui/shellui/releases/tag/v0.5.2) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Includes upstream fix for OAuth login/callback static HTML on nested routes (replaces playground PR #4 hotfix).
+- Bump to Shellui [0.6.0](https://github.com/shellui/shellui/releases/tag/v0.6.0) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`).
+
+### 🐛 Bug Fixes
+
+- **Shell handshake:** bootstrap shows a visible error if `shellui.init()` fails, and Vite HMR follows `--host` without hard-pinning `localhost`.
 
 ## [0.4.0] - 2026-09-18
 
