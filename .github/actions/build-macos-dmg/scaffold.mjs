@@ -17,13 +17,22 @@ conf.bundle.targets = ['dmg'];
 writeFileSync(confPath, `${JSON.stringify(conf, null, 2)}\n`);
 
 // The Shellui template floats tauri = "2", which can resolve past the
-// @tauri-apps/cli minor. The CLI rejects that mismatch.
+// @tauri-apps/cli minor. The CLI rejects that mismatch. tauri-build
+// keeps its own 2.x line (currently 2.7), so leave that requirement at "2".
 const cliVersion = require('@tauri-apps/cli/package.json').version;
 const tauriMinor = cliVersion.split('.').slice(0, 2).join('.');
 const cargoPath = 'dist/app/src-tauri/Cargo.toml';
-const cargo = readFileSync(cargoPath, 'utf8')
-  .replace(/^(tauri-build\s*=\s*\{\s*version\s*=\s*")[^"]+(")/m, `$1${tauriMinor}$2`)
-  .replace(/^(tauri\s*=\s*\{\s*version\s*=\s*")[^"]+(")/m, `$1${tauriMinor}$2`);
+
+function pinCrate(source, crate, version) {
+  const pattern = new RegExp(`^(${crate}\\s*=\\s*\\{\\s*version\\s*=\\s*")[^"]+(")`, 'm');
+  return source.replace(pattern, `$1${version}$2`);
+}
+
+const cargo = pinCrate(
+  pinCrate(readFileSync(cargoPath, 'utf8'), 'tauri-build', '2'),
+  'tauri',
+  `~${tauriMinor}`,
+);
 writeFileSync(cargoPath, cargo);
 
 console.log(`Scaffolded dist/app for Playground ${pkg.version} (Tauri ${tauriMinor})`);
