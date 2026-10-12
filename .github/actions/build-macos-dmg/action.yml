@@ -181,8 +181,24 @@ runs:
         echo "${files}"
         # shellcheck disable=SC2086
         ls -lh ${files}
-        python3 - <<'PY'
+        dmg="$(printf '%s\n' "${files}" | head -n 1)"
+        mountpoint=""
+        cleanup() {
+          if [ -n "${mountpoint}" ]; then
+            hdiutil detach "${mountpoint}" || true
+          fi
+        }
+        trap cleanup EXIT
+        attach="$(hdiutil attach -nobrowse -readonly "${dmg}")"
+        echo "${attach}"
+        mountpoint="$(printf '%s\n' "${attach}" | awk '/\/Volumes\// { print substr($0, index($0, "/Volumes/")); exit }')"
+        if [ -z "${mountpoint}" ]; then
+          echo "Could not mount ${dmg}"
+          exit 1
+        fi
+        BUNDLE_ROOT="${mountpoint}" python3 - <<'PY'
         import json
+        import os
         from pathlib import Path
 
         cfg = json.loads(Path("dist/web/shellui.config.json").read_text())
@@ -214,13 +230,15 @@ runs:
         if "/app/assets/" not in html or "/src/main.jsx" in html:
             raise SystemExit("dist/web/app/index.html is not the production /app build")
 
-        binaries = list(
-            Path("dist/app/src-tauri/target").glob(
-                "*/release/bundle/macos/Playground.app/Contents/MacOS/Playground"
-            )
-        )
+        root = Path(os.environ["BUNDLE_ROOT"])
+        binaries = [
+            path
+            for path in root.rglob("Playground")
+            if path.is_file() and "Playground.app" in path.parts
+        ]
         if not binaries:
-            raise SystemExit("Playground.app binary was not found")
+            found = [str(path) for path in root.rglob("*") if path.is_file()]
+            raise SystemExit("Playground.app binary was not found in the disk image:\n" + "\n".join(found))
         missing = []
         for binary in binaries:
             data = binary.read_bytes()
@@ -229,8 +247,9 @@ runs:
                     missing.append(f"{binary}: {needle.decode()}")
         if missing:
             raise SystemExit("bundle is missing the built /app:\n" + "\n".join(missing))
-        print("Bundled navigation points at /app and the app binary includes the Vite build.")
+        print("Bundled navigation points at /app and the disk image includes the Vite build.")
         print("App URLs:", ", ".join(app_urls[:8]))
+        print("Binary:", binaries[0])
         PY
 
     - name: Upload disk image artifact
