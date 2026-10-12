@@ -1,0 +1,187 @@
+name: Build Playground macOS disk image
+description: Scaffold the Shellui desktop wrapper and build an unsigned universal macOS dmg. Signing turns on only when every Apple secret is set.
+
+inputs:
+  upload-release:
+    description: Attach the build to a GitHub release
+    required: true
+  upload-artifact:
+    description: Upload the dmg as a workflow artifact
+    required: true
+  tag-name:
+    description: Release tag when creating or updating a release
+    required: false
+    default: ''
+  release-name:
+    description: Release title when this action creates the release
+    required: false
+    default: ''
+  release-id:
+    description: Existing release id to upload into
+    required: false
+    default: ''
+  release-body:
+    description: Release notes when this action creates the release
+    required: false
+    default: ''
+  apple-certificate:
+    description: Base64 .p12. Leave empty to build unsigned.
+    required: false
+    default: ''
+  apple-certificate-password:
+    description: Password for the .p12
+    required: false
+    default: ''
+  apple-signing-identity:
+    description: codesign identity
+    required: false
+    default: ''
+  apple-id:
+    description: Apple ID email for notarization
+    required: false
+    default: ''
+  apple-password:
+    description: App-specific password for notarization
+    required: false
+    default: ''
+  apple-team-id:
+    description: Apple Team ID
+    required: false
+    default: ''
+
+runs:
+  using: composite
+  steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+
+    - name: Setup Node.js
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      with:
+        node-version-file: .nvmrc
+        cache: pnpm
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
+
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@e2a55d2ffb04f378e9626c28d38b36d230d1e12f # master
+      with:
+        toolchain: stable
+        targets: aarch64-apple-darwin,x86_64-apple-darwin
+
+    - name: Turn on Apple signing when every secret is set
+      shell: bash
+      env:
+        APPLE_CERTIFICATE: ${{ inputs.apple-certificate }}
+        APPLE_CERTIFICATE_PASSWORD: ${{ inputs.apple-certificate-password }}
+        APPLE_SIGNING_IDENTITY: ${{ inputs.apple-signing-identity }}
+        APPLE_ID: ${{ inputs.apple-id }}
+        APPLE_PASSWORD: ${{ inputs.apple-password }}
+        APPLE_TEAM_ID: ${{ inputs.apple-team-id }}
+      run: |
+        set -euo pipefail
+        missing=""
+        for name in APPLE_CERTIFICATE APPLE_CERTIFICATE_PASSWORD APPLE_SIGNING_IDENTITY APPLE_ID APPLE_PASSWORD APPLE_TEAM_ID; do
+          if [ -z "${!name}" ]; then
+            missing="${missing} ${name}"
+          fi
+        done
+        if [ -n "${missing}" ]; then
+          echo "Apple signing stays off. Unset:${missing}"
+          exit 0
+        fi
+        echo "Apple signing is on. The build will sign and notarize."
+        delim="APPLE_ENV_$(openssl rand -hex 8)"
+        {
+          echo "APPLE_CERTIFICATE<<${delim}"
+          echo "${APPLE_CERTIFICATE}"
+          echo "${delim}"
+          echo "APPLE_CERTIFICATE_PASSWORD<<${delim}"
+          echo "${APPLE_CERTIFICATE_PASSWORD}"
+          echo "${delim}"
+          echo "APPLE_SIGNING_IDENTITY<<${delim}"
+          echo "${APPLE_SIGNING_IDENTITY}"
+          echo "${delim}"
+          echo "APPLE_ID<<${delim}"
+          echo "${APPLE_ID}"
+          echo "${delim}"
+          echo "APPLE_PASSWORD<<${delim}"
+          echo "${APPLE_PASSWORD}"
+          echo "${delim}"
+          echo "APPLE_TEAM_ID<<${delim}"
+          echo "${APPLE_TEAM_ID}"
+          echo "${delim}"
+        } >> "${GITHUB_ENV}"
+
+    - name: Scaffold the Tauri project
+      shell: bash
+      env:
+        DOTENV_CONFIG_PATH: .env.prod
+      run: |
+        set -euo pipefail
+        node .github/actions/build-macos-dmg/scaffold.mjs
+        cargo generate-lockfile --manifest-path dist/app/src-tauri/Cargo.toml
+        python3 - <<'PY'
+        from pathlib import Path
+        path = Path('.gitignore')
+        lines = []
+        for line in path.read_text().splitlines():
+            if line.strip() == 'dist':
+                lines.extend(['dist/*', '!dist/app/', '!dist/app/**'])
+            else:
+                lines.append(line)
+        path.write_text('\n'.join(lines) + '\n')
+        PY
+        if git check-ignore -q dist/app/src-tauri/tauri.conf.json; then
+          echo "dist/app is still gitignored. tauri-action cannot see the project."
+          exit 1
+        fi
+
+    - name: Cache Rust
+      uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+      with:
+        workspaces: dist/app/src-tauri -> target
+        shared-key: playground-macos
+
+    - name: Build universal macOS disk image
+      uses: tauri-apps/tauri-action@1deb371b0cd8bd54025b384f1cd735e725c4060f # v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        DOTENV_CONFIG_PATH: .env.prod
+      with:
+        projectPath: dist/app
+        tauriScript: ${{ github.workspace }}/node_modules/.bin/tauri
+        args: --target universal-apple-darwin --bundles dmg
+        uploadUpdaterJson: false
+        uploadWorkflowArtifacts: false
+        tagName: ${{ inputs.upload-release == 'true' && inputs.tag-name || '' }}
+        releaseName: ${{ inputs.upload-release == 'true' && inputs.release-name || '' }}
+        releaseId: ${{ inputs.upload-release == 'true' && inputs.release-id || '' }}
+        releaseBody: ${{ inputs.upload-release == 'true' && inputs.release-body || '' }}
+        releaseDraft: false
+        prerelease: false
+
+    - name: Confirm the disk image
+      shell: bash
+      run: |
+        set -euo pipefail
+        files="$(find dist/app/src-tauri/target -path '*/bundle/dmg/*.dmg' -type f | sort)"
+        if [ -z "${files}" ]; then
+          echo "No .dmg was produced."
+          find dist/app/src-tauri/target -type d -name bundle -print || true
+          exit 1
+        fi
+        echo "Disk image:"
+        echo "${files}"
+        # shellcheck disable=SC2086
+        ls -lh ${files}
+
+    - name: Upload disk image artifact
+      if: inputs.upload-artifact == 'true'
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+      with:
+        name: Playground-macos-universal
+        path: dist/app/src-tauri/target/**/bundle/dmg/*.dmg
+        if-no-files-found: error

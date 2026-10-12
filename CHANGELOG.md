@@ -26,10 +26,12 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 ### 📚 Documentation
 
 - Add root `AGENTS.md` with Shellui writing and design guidelines for coding agents.
+- Document the unsigned macOS disk image: where GitHub publishes it, how to open it past Gatekeeper, and which secrets turn on signing.
 
 ### 🛠 Improvements
 
 - Bump to Shellui [0.5.2](https://github.com/shellui/shellui/releases/tag/v0.5.2) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Includes upstream fix for OAuth login/callback static HTML on nested routes (replaces playground PR #4 hotfix).
+- Build an unsigned universal macOS disk image in GitHub Actions on version tags, GitHub releases, and manual dispatch.
 
 ## [0.4.0] - 2026-09-18
 

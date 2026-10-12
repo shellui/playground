@@ -41,6 +41,37 @@ pnpm start:desktop   # shell + Vite + native window
 
 Branding comes from root [`tauri.conf.json`](tauri.conf.json) (`productName`: **Playground**, icon: [`static/icon.png`](static/icon.png) padded to Apple’s dock grid). Requires a Shellui CLI that syncs root `tauri.conf.json` (0.5.1+).
 
+### macOS disk image
+
+GitHub Actions builds an unsigned universal macOS disk image for Playground. The image contains both Apple silicon and Intel code (`aarch64` and `x86_64`).
+
+Publish a GitHub release on a version tag such as `v0.4.0`, or push that tag yourself. This repo already marks releases with `v*` tags. The workflow attaches `Playground_<version>_universal.dmg` to the [GitHub release](https://github.com/shellui/playground/releases).
+
+To build without publishing a release, open the Actions tab, choose **Desktop macOS**, and run the workflow on your branch. Download the `Playground-macos-universal` artifact. That artifact is the disk image.
+
+The disk image is unsigned, so Gatekeeper blocks the first open:
+
+1. Open the disk image and drag Playground into Applications.
+2. Control-click Playground, choose Open, then choose Open again.
+3. If macOS blocks it after that, open System Settings, then Privacy & Security, and choose Open Anyway.
+
+Clear the download quarantine flag in Terminal:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/Playground.app
+```
+
+Signing and notarization stay off until all of these repository secrets are set:
+
+- **APPLE_CERTIFICATE**: base64-encoded `.p12` certificate
+- **APPLE_CERTIFICATE_PASSWORD**: password for that `.p12`
+- **APPLE_SIGNING_IDENTITY**: keychain identity, such as `Developer ID Application: Shellui (your_team_id)`
+- **APPLE_ID**: Apple ID email for notarization
+- **APPLE_PASSWORD**: app-specific password for that Apple ID
+- **APPLE_TEAM_ID**: Apple Team ID
+
+When every secret above is present, the same workflow signs and notarizes the disk image. If a secret is missing, the workflow does not set `APPLE_*`. It builds an unsigned disk image and uploads that image.
+
 ## Scripts
 
 | Script               | What it does                                                                     |
