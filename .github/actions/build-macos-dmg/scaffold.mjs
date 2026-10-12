@@ -16,11 +16,13 @@ conf.bundle = conf.bundle || {};
 conf.bundle.targets = ['dmg'];
 writeFileSync(confPath, `${JSON.stringify(conf, null, 2)}\n`);
 
-// The Shellui template floats tauri = "2", which can resolve past the
-// @tauri-apps/cli minor. The CLI rejects that mismatch. tauri-build
-// keeps its own 2.x line (currently 2.7), so leave that requirement at "2".
-const cliVersion = require('@tauri-apps/cli/package.json').version;
-const tauriMinor = cliVersion.split('.').slice(0, 2).join('.');
+// The Shellui template sets tauri = "2". Cargo's caret then selects the
+// newest 2.x crate, while the CLI requires that crate and @tauri-apps/api
+// to share a major and minor. Pin the crate to the installed API minor.
+// Tauri 2.12 constrains its own dependencies so they compile together.
+// tauri-build stays on a separate 2.x line, so leave that requirement at "2".
+const apiVersion = require('@tauri-apps/api/package.json').version;
+const tauriMinor = apiVersion.split('.').slice(0, 2).join('.');
 const cargoPath = 'dist/app/src-tauri/Cargo.toml';
 
 function pinCrate(source, crate, version) {
