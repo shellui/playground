@@ -4,10 +4,6 @@ on:
   push:
     tags:
       - 'v*.*.*'
-    # Temporary: prove the disk image on this branch. workflow_dispatch
-    # cannot start until this file exists on the default branch.
-    branches:
-      - cursor/macos-dmg-workflow-bdd8
   release:
     types: [published]
   workflow_dispatch:
@@ -106,7 +102,7 @@ jobs:
             *) version_tag=0 ;;
           esac
 
-          if [ "${event}" = "workflow_dispatch" ] || [ "${tag}" = "cursor/macos-dmg-workflow-bdd8" ]; then
+          if [ "${event}" = "workflow_dispatch" ]; then
             mode="artifact"
           elif [ "${event}" = "release" ]; then
             if [ "${version_tag}" -eq 1 ]; then
