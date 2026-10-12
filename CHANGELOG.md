@@ -34,6 +34,10 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 - Build an unsigned universal macOS disk image in GitHub Actions on version tags, GitHub releases, and manual dispatch.
 - Align `@tauri-apps/api` and `@tauri-apps/cli` with Rust Tauri 2.12 so that disk image compiles.
 
+### 🐛 Bug Fixes
+
+- Load the bundled React playground at `/app` in the macOS disk image. The desktop build sets `PLAYGROUND_APP_URL=/app` from `.env.prod` and runs `vite build` after the Shellui shell build.
+
 ## [0.4.0] - 2026-09-18
 
 ### 🔒 Security

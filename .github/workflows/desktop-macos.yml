@@ -4,6 +4,10 @@ on:
   push:
     tags:
       - 'v*.*.*'
+    # Temporary: prove the disk image on this branch. workflow_dispatch
+    # cannot start until this file exists on the default branch.
+    branches:
+      - cursor/macos-dmg-workflow-bdd8
   release:
     types: [published]
   workflow_dispatch:
@@ -55,6 +59,7 @@ jobs:
 
           workflow = Path(".github/workflows/desktop-macos.yml").read_text()
           action = Path(".github/actions/build-macos-dmg/action.yml").read_text()
+          scaffold = Path(".github/actions/build-macos-dmg/scaffold.mjs").read_text()
           for needle in (
               "tauri-apps/tauri-action@",
               "macos-latest",
@@ -62,8 +67,11 @@ jobs:
               "universal-apple-darwin",
               "APPLE_CERTIFICATE",
               "contents: write",
+              "PLAYGROUND_APP_URL",
+              "DOTENV_CONFIG_PATH",
+              "vite build",
           ):
-              blob = workflow + "\n" + action
+              blob = workflow + "\n" + action + "\n" + scaffold
               if needle not in blob:
                   raise SystemExit(f"missing {needle}")
           print("desktop build config ok")
@@ -98,7 +106,7 @@ jobs:
             *) version_tag=0 ;;
           esac
 
-          if [ "${event}" = "workflow_dispatch" ]; then
+          if [ "${event}" = "workflow_dispatch" ] || [ "${tag}" = "cursor/macos-dmg-workflow-bdd8" ]; then
             mode="artifact"
           elif [ "${event}" = "release" ]; then
             if [ "${version_tag}" -eq 1 ]; then

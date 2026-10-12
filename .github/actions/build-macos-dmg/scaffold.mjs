@@ -14,6 +14,20 @@ const conf = JSON.parse(readFileSync(confPath, 'utf8'));
 conf.version = pkg.version;
 conf.bundle = conf.bundle || {};
 conf.bundle.targets = ['dmg'];
+
+// Local `pnpm build:desktop` loads `.env.prod` (PLAYGROUND_APP_URL=/app) and
+// `pnpm build` then runs `vite build` into dist/web/app. The generated hook
+// only builds the shell. Without the Vite app, navigation to /app has nothing
+// to show and the webview falls through to the shell itself.
+const hook = conf.build && conf.build.beforeBuildCommand;
+if (!hook || typeof hook.script !== 'string' || !hook.script.includes('build --target tauri')) {
+  throw new Error(`Unexpected beforeBuildCommand: ${hook && hook.script}`);
+}
+hook.script =
+  'DOTENV_CONFIG_PATH=.env.prod PLAYGROUND_APP_URL=/app ' +
+  hook.script +
+  ' && pnpm exec vite build';
+
 writeFileSync(confPath, `${JSON.stringify(conf, null, 2)}\n`);
 
 // The Shellui template sets tauri = "2". Cargo's caret then selects the

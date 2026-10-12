@@ -49,6 +49,8 @@ Publish a GitHub release on a version tag such as `v0.4.0`, or push that tag you
 
 To build without publishing a release, open the Actions tab, choose **Desktop macOS**, and run the workflow on your branch. Download the `Playground-macos-universal` artifact. That artifact is the disk image.
 
+The disk image contains the Shellui shell and the React playground. `vite build` writes the playground to `dist/web/app` (Vite `base` `/app/`). Navigation opens that build because the workflow sets `PLAYGROUND_APP_URL=/app` and `DOTENV_CONFIG_PATH=.env.prod`, the same values `pnpm build` and `pnpm build:desktop` load from [`.env.prod`](.env.prod). That file also supplies `SHELLUI_COMPANY_ID`, `WEBSITE_URL`, `DOCS_URL`, and `FILES_URL`. Without `PLAYGROUND_APP_URL=/app`, navigation falls back to `http://localhost:5173` and the window never shows the bundled app.
+
 The disk image is unsigned, so Gatekeeper blocks the first open:
 
 1. Open the disk image and drag Playground into Applications.

@@ -149,7 +149,11 @@ runs:
       uses: tauri-apps/tauri-action@1deb371b0cd8bd54025b384f1cd735e725c4060f # v1.0.0
       env:
         GITHUB_TOKEN: ${{ github.token }}
+        # Same production values as `pnpm build` / `pnpm build:desktop`.
+        # DOTENV_CONFIG_PATH loads .env.prod. PLAYGROUND_APP_URL=/app points
+        # navigation at the Vite build in dist/web/app, not the dev server.
         DOTENV_CONFIG_PATH: .env.prod
+        PLAYGROUND_APP_URL: /app
       with:
         projectPath: dist/app
         tauriScript: ${{ github.workspace }}/node_modules/.bin/tauri
@@ -177,6 +181,57 @@ runs:
         echo "${files}"
         # shellcheck disable=SC2086
         ls -lh ${files}
+        python3 - <<'PY'
+        import json
+        from pathlib import Path
+
+        cfg = json.loads(Path("dist/web/shellui.config.json").read_text())
+
+        def walk(items):
+            for item in items or []:
+                if not isinstance(item, dict):
+                    continue
+                yield item
+                yield from walk(item.get("items"))
+
+        app_urls = []
+        for item in walk(cfg.get("navigation")):
+            for key in ("url", "settings"):
+                value = item.get(key)
+                if isinstance(value, str) and value.startswith("/app"):
+                    app_urls.append(value)
+
+        if not any(url.startswith("/app/#") or url.startswith("/app#") for url in app_urls):
+            raise SystemExit(f"navigation does not point at /app: {app_urls[:8]}")
+        remote = [url for url in app_urls if url.startswith("http") or "localhost" in url]
+        if remote:
+            raise SystemExit(f"bundled app URLs are remote: {remote}")
+
+        index = Path("dist/web/app/index.html")
+        if not index.is_file():
+            raise SystemExit("dist/web/app/index.html is missing. The Vite app was not built.")
+        html = index.read_text()
+        if "/app/assets/" not in html or "/src/main.jsx" in html:
+            raise SystemExit("dist/web/app/index.html is not the production /app build")
+
+        binaries = list(
+            Path("dist/app/src-tauri/target").glob(
+                "*/release/bundle/macos/Playground.app/Contents/MacOS/Playground"
+            )
+        )
+        if not binaries:
+            raise SystemExit("Playground.app binary was not found")
+        missing = []
+        for binary in binaries:
+            data = binary.read_bytes()
+            for needle in (b"/app/index.html", b"/app/assets/"):
+                if needle not in data:
+                    missing.append(f"{binary}: {needle.decode()}")
+        if missing:
+            raise SystemExit("bundle is missing the built /app:\n" + "\n".join(missing))
+        print("Bundled navigation points at /app and the app binary includes the Vite build.")
+        print("App URLs:", ", ".join(app_urls[:8]))
+        PY
 
     - name: Upload disk image artifact
       if: inputs.upload-artifact == 'true'
