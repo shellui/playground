@@ -1,8 +1,27 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Playground",
+  "version": "0.4.1",
   "identifier": "com.shellui.playground",
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": ["shellui-playground"]
+      },
+      "mobile": [
+        {
+          "scheme": ["shellui-playground"]
+        }
+      ]
+    }
+  },
   "bundle": {
-    "icon": ["static/icon.png"]
+    "icon": ["static/icon.png"],
+    "macOS": {
+      "infoPlist": "src-tauri/Info.plist"
+    },
+    "iOS": {
+      "infoPlist": "src-tauri/Info.ios.plist"
+    }
   }
 }
