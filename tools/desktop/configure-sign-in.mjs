@@ -27,6 +27,10 @@ if (!cargo.includes('tauri-plugin-opener')) {
   }
   cargo = withPlugins;
 }
+// `generate_context!` references `::serde_json` when tauri.conf.json has a `plugins` block.
+if (!/^serde_json\s*=/m.test(cargo)) {
+  cargo = cargo.replace(/^(tauri\s*=\s*\{[^\n]*\}\n)/m, '$1serde_json = "1"\n');
+}
 writeFileSync(cargoPath, cargo);
 
 const libPath = path.join(appSrc, 'src/lib.rs');
