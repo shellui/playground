@@ -21,6 +21,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [0.4.1] - 2026-10-14
+
+### 🛠 Improvements
+
+- Bump to Shellui [0.6.1](https://github.com/shellui/shellui/releases/tag/v0.6.1) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Fixes the blank page on deep URLs and adds desktop sign-in support.
+
+### ✨ Feature
+
+- Desktop sign-in returns to `shellui-playground://callback`. `@shellui/core` handles PKCE.
+
 ## [Unreleased]
 
 ### 📚 Documentation
