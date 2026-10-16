@@ -13,6 +13,7 @@ const shelluiSiteLink = (
 
 const FEATURES = [
   { path: '/actions', key: 'pageActionsTitle' },
+  { path: '/chat', key: 'pageChatTitle' },
   { path: '/dialog', key: 'pageDialogTitle' },
   { path: '/toaster', key: 'pageToasterTitle' },
   { path: '/modal', key: 'pageModalDrawerTitle' },

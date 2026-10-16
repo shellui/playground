@@ -95,6 +95,16 @@
         },
         {
           "label": {
+            "en": "Chat",
+            "fr": "Chat"
+          },
+          "path": "chat",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/chat",
+          "safeForAuthToken": true,
+          "icon": "/icons/chat.svg"
+        },
+        {
+          "label": {
             "en": "Modal & Drawer",
             "fr": "Fenêtre modale et tiroir"
           },

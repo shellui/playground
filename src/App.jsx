@@ -7,6 +7,7 @@ import Layout from './pages/Layout';
 import Modal from './pages/Modal';
 import Dialog from './pages/Dialog';
 import Toaster from './pages/Toaster';
+import Chat from './pages/Chat';
 import Actions, { ActionsDetail, ActionsLayout } from './pages/Actions';
 
 /** Reset scroll when the hash route changes (in-app links or shell-driven hash replace). */
@@ -52,6 +53,10 @@ export default function App() {
         <Route
           path="/toaster"
           element={<Toaster />}
+        />
+        <Route
+          path="/chat"
+          element={<Chat />}
         />
         <Route
           path="/actions"
