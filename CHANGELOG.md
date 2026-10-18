@@ -21,6 +21,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [0.4.2] - 2026-10-18
+
+### ✨ Feature
+
+- Desktop sign-in returns to `shellui-playground://callback`, with PKCE handled by `@shellui/core`.
+- Unsigned universal macOS disk image built in GitHub Actions on tags, releases and manual runs.
+
+### 🛠 Improvements
+
+- Bump to Shellui [0.6.2](https://github.com/shellui/shellui/releases/tag/v0.6.2): desktop dev sign-in and window focus fixes.
+- Align `@tauri-apps/api` and `@tauri-apps/cli` with Rust Tauri 2.12.
+
+### 🐛 Bug Fixes
+
+- The macOS disk image loads the bundled playground at `/app`.
+
+### 📚 Documentation
+
+- Add `AGENTS.md` with Shellui writing and design guidelines.
+- Document the unsigned macOS disk image and the secrets that turn on signing.
+
 ## [0.4.1] - 2026-10-07
 
 ### 🛠 Improvements

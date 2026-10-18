@@ -18,9 +18,12 @@
       }
     ]
   },
+  "auth": {
+    "desktopScheme": "shellui-playground"
+  },
   "backend": {
     "type": "shellui",
-    "url": "https://id.shellui.com",
+    "url": "${SHELLUI_IDENTITY_URL:-https://id.shellui.com}",
     "companyId": "${SHELLUI_COMPANY_ID:-1}",
     "adminUrl": "https://admin.shellui.com",
     "login": {
@@ -228,7 +231,7 @@
   },
   "port": 4000,
   "title": "Shellui",
-  "version": "0.4.1-dev",
+  "version": "0.4.2-dev",
   "favicon": "/favicon.png",
   "appIcon": "/app-icon.svg",
   "logo": "/logo.svg",

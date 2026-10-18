@@ -1,0 +1,185 @@
+name: Desktop macOS
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  release:
+    types: [published]
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/desktop-macos.yml
+      - .github/actions/build-macos-dmg/**
+      - tauri.conf.json
+      - package.json
+      - pnpm-lock.yaml
+      - .nvmrc
+      - static/icon.png
+
+# contents: write is set only on the release job, which uploads the dmg.
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-macos-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Check desktop build config
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          conf = json.loads(Path("tauri.conf.json").read_text())
+          if conf.get("productName") != "Playground":
+              raise SystemExit("tauri.conf.json productName must be Playground")
+          if conf.get("identifier") != "com.shellui.playground":
+              raise SystemExit("tauri.conf.json identifier must be com.shellui.playground")
+          icons = conf.get("bundle", {}).get("icon") or []
+          if not icons:
+              raise SystemExit("tauri.conf.json bundle.icon is empty")
+          icon = Path(icons[0])
+          if not icon.is_file():
+              raise SystemExit(f"missing icon {icon}")
+
+          workflow = Path(".github/workflows/desktop-macos.yml").read_text()
+          action = Path(".github/actions/build-macos-dmg/action.yml").read_text()
+          scaffold = Path(".github/actions/build-macos-dmg/scaffold.mjs").read_text()
+          for needle in (
+              "tauri-apps/tauri-action@",
+              "macos-latest",
+              "workflow_dispatch",
+              "universal-apple-darwin",
+              "APPLE_CERTIFICATE",
+              "contents: write",
+              "PLAYGROUND_APP_URL",
+              "DOTENV_CONFIG_PATH",
+              "vite build",
+          ):
+              blob = workflow + "\n" + action + "\n" + scaffold
+              if needle not in blob:
+                  raise SystemExit(f"missing {needle}")
+          print("desktop build config ok")
+          PY
+
+      - name: Lint workflows
+        shell: bash
+        run: |
+          bash <(curl -sSfL https://raw.githubusercontent.com/rhysd/actionlint/v1.7.12/scripts/download-actionlint.bash) 1.7.12
+          ./actionlint -color
+
+  plan:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      mode: ${{ steps.decide.outputs.mode }}
+    steps:
+      - name: Choose artifact or release upload
+        id: decide
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          event="${{ github.event_name }}"
+          tag="${GITHUB_REF_NAME}"
+          mode=""
+
+          case "${tag}" in
+            v*.*.*) version_tag=1 ;;
+            *) version_tag=0 ;;
+          esac
+
+          if [ "${event}" = "workflow_dispatch" ]; then
+            mode="artifact"
+          elif [ "${event}" = "release" ]; then
+            if [ "${version_tag}" -eq 1 ]; then
+              mode="release"
+            else
+              echo "Release tag ${tag} is not a version tag. Skipping the macOS build."
+              mode="skip"
+            fi
+          else
+            # A GitHub Release publish also pushes the tag. Wait so that run can own the build.
+            if [ "${version_tag}" -eq 0 ]; then
+              echo "Tag ${tag} is not a version tag. Skipping the macOS build."
+              mode="skip"
+            else
+              for _ in 1 2 3 4 5 6; do
+                if gh release view "${tag}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+                  echo "Release ${tag} already exists. The release workflow attaches the disk image."
+                  mode="skip"
+                  break
+                fi
+                sleep 10
+              done
+              if [ -z "${mode}" ]; then
+                mode="release"
+              fi
+            fi
+          fi
+
+          echo "mode=${mode}" >> "${GITHUB_OUTPUT}"
+
+  artifact:
+    needs: plan
+    if: needs.plan.outputs.mode == 'artifact'
+    runs-on: macos-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Build and upload artifact
+        uses: ./.github/actions/build-macos-dmg
+        with:
+          upload-release: 'false'
+          upload-artifact: 'true'
+          apple-certificate: ${{ secrets.APPLE_CERTIFICATE }}
+          apple-certificate-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          apple-signing-identity: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          apple-id: ${{ secrets.APPLE_ID }}
+          apple-password: ${{ secrets.APPLE_PASSWORD }}
+          apple-team-id: ${{ secrets.APPLE_TEAM_ID }}
+
+  release:
+    needs: plan
+    if: needs.plan.outputs.mode == 'release'
+    runs-on: macos-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Build and attach to the release
+        uses: ./.github/actions/build-macos-dmg
+        with:
+          upload-release: 'true'
+          upload-artifact: 'false'
+          tag-name: ${{ github.event.release.tag_name || github.ref_name }}
+          release-name: Playground ${{ github.event.release.tag_name || github.ref_name }}
+          release-id: ${{ github.event_name == 'release' && github.event.release.id || '' }}
+          release-body: Unsigned macOS disk image for Shellui Playground. Allow the app in Privacy and Security on first open.
+          apple-certificate: ${{ secrets.APPLE_CERTIFICATE }}
+          apple-certificate-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          apple-signing-identity: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          apple-id: ${{ secrets.APPLE_ID }}
+          apple-password: ${{ secrets.APPLE_PASSWORD }}
+          apple-team-id: ${{ secrets.APPLE_TEAM_ID }}

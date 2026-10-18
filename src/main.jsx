@@ -11,7 +11,7 @@ import './index.css';
 
 function showBootstrapError(error) {
   const message = error instanceof Error ? error.message : String(error);
-  console.error('[playground] shellui.init() failed — shell handshake did not complete.', error);
+  console.error('[playground] shellui.init() failed. The shell handshake did not complete.', error);
   const root = document.getElementById('root');
   if (root) {
     root.innerHTML = `<div style="font:14px/1.5 system-ui,sans-serif;padding:2rem;max-width:36rem">
