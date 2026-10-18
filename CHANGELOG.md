@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [0.4.2] - 2026-10-18
+
+### 🛠 Improvements
+
+- Shellui 0.6.2: desktop dev sign-in and window focus fixes.
+
 ## [0.4.1] - 2026-10-14
 
 ### 🛠 Improvements

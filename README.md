@@ -1,8 +1,8 @@
 # Shellui Playground
 
-A demo of **Shellui 0.6.1**, the microfrontend orchestration framework, deployed to GitHub Pages.
+A demo of **Shellui 0.6.2**, the microfrontend orchestration framework, deployed to GitHub Pages.
 
-The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package**. One `pnpm install` (npm `@shellui/*` ^0.6.1).
+The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package**. One `pnpm install` (npm `@shellui/*` ^0.6.2).
 
 ## Quick Start
 
@@ -10,7 +10,7 @@ The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package
 pnpm install
 ```
 
-This playground expects the sibling [`shellui`](../shellui) monorepo (linked via `link:../shellui/packages/*`). After SDK changes in that repo, run `pnpm build:sdk`.
+`pnpm install` installs `@shellui/cli`, `@shellui/core`, and `@shellui/sdk` from npm.
 
 One terminal starts the iframe app and the shell (`config.dev.run`). Stopping the app (or Ctrl+C) stops the shell:
 
@@ -40,6 +40,8 @@ pnpm start:desktop   # shell + Vite + native window
 ```
 
 Branding comes from root [`tauri.conf.json`](tauri.conf.json) (`productName`: **Playground**, icon: [`static/icon.png`](static/icon.png) padded to Apple’s dock grid). Requires a Shellui CLI that syncs root `tauri.conf.json` (0.5.1+).
+
+`pnpm start:desktop` signs in with `shellui-playground-dev`. Installed builds keep `shellui-playground`. The macOS window uses an overlay titlebar, and the shell can unminimize, show, and focus that window when the sign-in link arrives.
 
 ### macOS disk image
 

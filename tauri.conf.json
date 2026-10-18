@@ -1,8 +1,22 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Playground",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "identifier": "com.shellui.playground",
+  "app": {
+    "windows": [
+      {
+        "hiddenTitle": true,
+        "titleBarStyle": "Overlay",
+        "decorations": true,
+        "acceptFirstMouse": true,
+        "trafficLightPosition": {
+          "x": 16,
+          "y": 24
+        }
+      }
+    ]
+  },
   "plugins": {
     "deep-link": {
       "desktop": {
