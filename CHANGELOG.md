@@ -23,36 +23,34 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ## [0.4.2] - 2026-10-18
 
-### 🛠 Improvements
-
-- Shellui 0.6.2: desktop dev sign-in and window focus fixes.
-
-## [0.4.1] - 2026-10-14
-
-### 🛠 Improvements
-
-- Bump to Shellui [0.6.1](https://github.com/shellui/shellui/releases/tag/v0.6.1) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Fixes the blank page on deep URLs and adds desktop sign-in support.
-
 ### ✨ Feature
 
-- Desktop sign-in returns to `shellui-playground://callback`. `@shellui/core` handles PKCE.
-
-## [Unreleased]
-
-### 📚 Documentation
-
-- Add root `AGENTS.md` with Shellui writing and design guidelines for coding agents.
-- Document the unsigned macOS disk image: where GitHub publishes it, how to open it past Gatekeeper, and which secrets turn on signing.
+- Desktop sign-in returns to `shellui-playground://callback`, with PKCE handled by `@shellui/core`.
+- Unsigned universal macOS disk image built in GitHub Actions on tags, releases and manual runs.
 
 ### 🛠 Improvements
 
-- Bump to Shellui [0.5.2](https://github.com/shellui/shellui/releases/tag/v0.5.2) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`). Includes upstream fix for OAuth login/callback static HTML on nested routes (replaces playground PR #4 hotfix).
-- Build an unsigned universal macOS disk image in GitHub Actions on version tags, GitHub releases, and manual dispatch.
-- Align `@tauri-apps/api` and `@tauri-apps/cli` with Rust Tauri 2.12 so that disk image compiles.
+- Bump to Shellui [0.6.2](https://github.com/shellui/shellui/releases/tag/v0.6.2): desktop dev sign-in and window focus fixes.
+- Align `@tauri-apps/api` and `@tauri-apps/cli` with Rust Tauri 2.12.
 
 ### 🐛 Bug Fixes
 
-- Load the bundled React playground at `/app` in the macOS disk image. The desktop build sets `PLAYGROUND_APP_URL=/app` from `.env.prod` and runs `vite build` after the Shellui shell build.
+- The macOS disk image loads the bundled playground at `/app`.
+
+### 📚 Documentation
+
+- Add `AGENTS.md` with Shellui writing and design guidelines.
+- Document the unsigned macOS disk image and the secrets that turn on signing.
+
+## [0.4.1] - 2026-10-07
+
+### 🛠 Improvements
+
+- Bump to Shellui [0.6.0](https://github.com/shellui/shellui/releases/tag/v0.6.0) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`).
+
+### 🐛 Bug Fixes
+
+- **Shell handshake:** bootstrap shows a visible error if `shellui.init()` fails, and Vite HMR follows `--host` without hard-pinning `localhost`.
 
 ## [0.4.0] - 2026-09-18
 
