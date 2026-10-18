@@ -27,6 +27,10 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 - The macOS disk image builds again. The redundant `Info.plist` files are gone, and the deep-link plugin registers the URL scheme.
 
+### 🏗 Chore
+
+- CI installs, checks formatting and builds on every pull request and on pushes to `main` and `develop`.
+
 ## [0.4.2] - 2026-10-18
 
 ### ✨ Feature
