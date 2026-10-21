@@ -21,6 +21,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [0.4.4] - 2026-10-21
+
+### 🛠 Improvements
+
+- Bump to Shellui 0.7.0-alpha.1, pinned exactly: sign-in uses PKCE for web and desktop.
+- Requires identity-service 0.9.0 and shellui 0.7.0-alpha.1.
+
+## [0.4.3] - 2026-10-18
+
+### 🐛 Bug Fixes
+
+- The macOS disk image builds again. The redundant `Info.plist` files are gone, and the deep-link plugin registers the URL scheme.
+
+### 🏗 Chore
+
+- CI installs, checks formatting and builds on every pull request and on pushes to `main` and `develop`.
+
 ## [0.4.2] - 2026-10-18
 
 ### ✨ Feature
