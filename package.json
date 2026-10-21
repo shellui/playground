@@ -1,6 +1,6 @@
 {
   "name": "shellui-playground",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "A playground for Shellui — demo deployed to GitHub Pages",
   "type": "module",
   "scripts": {
@@ -32,9 +32,9 @@
     ]
   },
   "dependencies": {
-    "@shellui/cli": "0.7.0-alpha.1",
-    "@shellui/core": "0.7.0-alpha.1",
-    "@shellui/sdk": "0.7.0-alpha.1",
+    "@shellui/cli": "0.7.0-alpha.2",
+    "@shellui/core": "0.7.0-alpha.2",
+    "@shellui/sdk": "0.7.0-alpha.2",
     "i18next": "^24.2.3",
     "lucide-react": "^0.468.0",
     "prism-react-renderer": "^2.4.1",

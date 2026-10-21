@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [0.4.5] - 2026-10-21
+
+### 🐛 Bug Fixes
+
+- Fixes sign-in on GitHub Pages with Shellui 0.7.0-alpha.2.
+
 ## [0.4.4] - 2026-10-21
 
 ### 🛠 Improvements
