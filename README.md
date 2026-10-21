@@ -1,8 +1,8 @@
 # Shellui Playground
 
-A demo of **Shellui 0.6.2**, the microfrontend orchestration framework, deployed to GitHub Pages.
+A demo of **Shellui 0.7.0-alpha.1**, the microfrontend orchestration framework, deployed to GitHub Pages.
 
-The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package**. One `pnpm install` (npm `@shellui/*` ^0.6.2).
+The shell (`@shellui/cli`) and the embedded Vite/React app live in **one package**. One `pnpm install` (npm `@shellui/*` 0.7.0-alpha.1, pinned exactly). Requires identity-service 0.9.0, which needs PKCE sign-in.
 
 ## Quick Start
 
