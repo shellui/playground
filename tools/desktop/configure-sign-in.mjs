@@ -105,5 +105,3 @@ cpSync(
   path.join(overlay, 'capabilities/default.json'),
   path.join(appSrc, 'capabilities/default.json'),
 );
-cpSync(path.join(overlay, 'Info.plist'), path.join(appSrc, 'Info.plist'));
-cpSync(path.join(overlay, 'Info.ios.plist'), path.join(appSrc, 'Info.ios.plist'));
