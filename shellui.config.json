@@ -234,7 +234,7 @@
   },
   "port": 4000,
   "title": "Shellui",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "favicon": "/favicon.png",
   "appIcon": "/app-icon.svg",
   "logo": "/logo.svg",
