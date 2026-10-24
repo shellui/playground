@@ -23,7 +23,7 @@
   },
   "backend": {
     "type": "shellui",
-    "url": "${SHELLUI_IDENTITY_URL:-https://id.shellui.com}",
+    "url": "${SHELLUI_IDENTITY_URL:-https://id.eu.shellui.com}",
     "companyId": "${SHELLUI_COMPANY_ID:-1}",
     "adminUrl": "https://admin.shellui.com",
     "login": {
@@ -227,11 +227,14 @@
     "url": "http://localhost:5173"
   },
   "hosting": {
-    "url": "https://shellui.app"
+    "url": "https://eu.shellui.app"
+  },
+  "email": {
+    "url": "https://email.eu.shellui.com"
   },
   "port": 4000,
   "title": "Shellui",
-  "version": "0.4.3-dev",
+  "version": "0.4.6",
   "favicon": "/favicon.png",
   "appIcon": "/app-icon.svg",
   "logo": "/logo.svg",
@@ -239,7 +242,7 @@
   "layout": "sidebar",
   "activeTheme": "shellui",
   "storage": {
-    "url": "https://storage.shellui.com",
+    "url": "https://storage.eu.shellui.com",
     "filesUrl": "https://files.shellui.com"
   },
   "themes": [
