@@ -1,6 +1,6 @@
 {
   "name": "shellui-playground",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "A playground for Shellui — demo deployed to GitHub Pages",
   "type": "module",
   "scripts": {
