@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [Unreleased]
+
+### 🚨 Changed
+
+- Bump to Shellui 0.7.0-alpha.9, so sign-in from the Account page returns there signed in.
+
 ## [0.4.6] - 2026-10-24
 
 ### 🚨 Changed
