@@ -31,6 +31,7 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 - Bump to Shellui 0.7.0-alpha.9, so sign-in from the Account page returns there signed in.
 - Bump to Shellui 0.7.0-alpha.10 for the redesigned layouts and the macOS title bar strip.
+- Bump to Shellui 0.7.0-alpha.11 for the sidebar account block, floating drawers and fresh scripts and styles after an upgrade in `shellui start`.
 - macOS desktop app: the traffic lights stay at the system position (no `trafficLightPosition`) and the unused `objc2` crates are gone.
 
 ## [0.4.6] - 2026-10-24
