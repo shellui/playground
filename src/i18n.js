@@ -5,7 +5,6 @@ import pageBundles from './locales';
 const resources = {
   en: {
     translation: {
-      applyingTheme: 'Applying theme',
       bootError: {
         title: 'Playground failed to start',
         body: 'The Shellui SDK handshake did not complete. Open this app inside the shell on port 4000, and check that the shell is running.',
@@ -147,30 +146,17 @@ const resources = {
           dark: 'Dark',
         },
       },
-      pageThemesTitle: 'Themes',
-      pageThemesDescription:
-        'Shellui supports custom themes: colors, fonts, and radius. Change the theme from the sidebar settings to see this app and the shell adapt.',
       pageLanguagesTitle: 'Languages',
       pageLanguagesDescription:
         'Shellui can drive the app language. When you switch language in settings, the shell and this app update together via i18n.',
       // Home / Playground
       codeSample: 'Code sample',
-      currentTheme: 'Current theme',
       currentLanguage: 'Current language',
-      pageThemesTry:
-        'Change the theme in Shell Settings (gear icon) and see this page and the shell update together.',
       pageLanguagesTry:
         'Change the language in Shell Settings (gear icon) and see all labels on this page update.',
-      themeLight: 'Light',
-      themeDark: 'Dark',
-      themeSystem: 'System',
       languageEn: 'English',
       languageFr: 'Français',
-      exampleTitleTheme: 'Theme from Shell',
       exampleTitleLanguage: 'Language from Shell',
-      colorSchemeLabel: 'Color scheme',
-      currentColorScheme: 'Current mode',
-      themeDefault: 'Default',
       regionLabel: 'Region (timezone)',
       currentRegion: 'Current timezone',
       selectLanguage: 'Select language',
@@ -182,13 +168,10 @@ const resources = {
       timezoneTokyo: 'Tokyo',
       resetTimezoneToBrowser: 'Reset to browser timezone',
       currentTimeInRegion: 'Current time in region',
-      'appearance.colorTheme': 'Color theme',
-      'appearance.colorThemeDescription': 'Choose a theme for colors and typography.',
     },
   },
   fr: {
     translation: {
-      applyingTheme: 'Application du thème',
       bootError: {
         title: "Le playground n'a pas démarré",
         body: "La connexion au SDK Shellui n'a pas abouti. Ouvrez cette app dans le shell sur le port 4000 et vérifiez que le shell tourne.",
@@ -334,29 +317,16 @@ const resources = {
           dark: 'Sombre',
         },
       },
-      pageThemesTitle: 'Thèmes',
-      pageThemesDescription:
-        "Shellui prend en charge les thèmes personnalisés : couleurs, polices et rayon. Changez le thème dans les paramètres de la barre latérale pour voir le shell et l'app s'adapter.",
       pageLanguagesTitle: 'Langues',
       pageLanguagesDescription:
         "Shellui peut piloter la langue de l'app. Quand vous changez la langue dans les paramètres, le shell et cette app se mettent à jour ensemble via i18n.",
       codeSample: 'Exemple de code',
-      currentTheme: 'Thème actuel',
       currentLanguage: 'Langue actuelle',
-      pageThemesTry:
-        'Changez le thème dans les Paramètres du shell (icône engrenage) pour voir cette page et le shell se mettre à jour.',
       pageLanguagesTry:
         'Changez la langue dans les Paramètres du shell (icône engrenage) pour voir toutes les étiquettes de cette page se mettre à jour.',
-      themeLight: 'Clair',
-      themeDark: 'Sombre',
-      themeSystem: 'Système',
       languageEn: 'Anglais',
       languageFr: 'Français',
-      exampleTitleTheme: 'Thème (venant du shell)',
       exampleTitleLanguage: 'Langue (venant du shell)',
-      colorSchemeLabel: 'Mode clair / sombre',
-      currentColorScheme: 'Mode actuel',
-      themeDefault: 'Par défaut',
       regionLabel: 'Région (fuseau horaire)',
       currentRegion: 'Fuseau actuel',
       selectLanguage: 'Choisir la langue',
@@ -368,9 +338,6 @@ const resources = {
       timezoneTokyo: 'Tokyo',
       resetTimezoneToBrowser: 'Réinitialiser au fuseau du navigateur',
       currentTimeInRegion: 'Heure actuelle dans la région',
-      'appearance.colorTheme': 'Thème de couleurs',
-      'appearance.colorThemeDescription':
-        'Choisissez un thème pour les couleurs et la typographie.',
     },
   },
 };

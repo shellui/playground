@@ -116,14 +116,18 @@ export function LayoutsIllustration({ current }) {
 }
 
 /**
- * Swatches of the first available themes, current theme first and outlined.
- * Uses the primary of the active mode, so dark themes never draw black on black.
+ * Swatches of the current theme and the 7 after it in alphabetical order, current first
+ * and outlined. Uses the colors of the active mode, so dark themes never draw black on black.
  */
 export function ThemesIllustration({ themes, current, mode, countLabel }) {
-  const list = [...themes];
-  const index = list.findIndex((theme) => theme.name === current);
-  if (index > 0) list.unshift(...list.splice(index, 1));
-  const shown = list.slice(0, 8);
+  const list = [...themes].sort((a, b) =>
+    (a.displayName ?? a.name).localeCompare(b.displayName ?? b.name),
+  );
+  const index = Math.max(
+    0,
+    list.findIndex((theme) => theme.name === current),
+  );
+  const shown = [...list.slice(index), ...list.slice(0, index)].slice(0, 8);
   return (
     <div className="flex w-full flex-col items-center gap-2 px-3">
       <div className="flex flex-wrap justify-center gap-1.5">
