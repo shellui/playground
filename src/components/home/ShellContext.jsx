@@ -187,7 +187,7 @@ export default function ShellContext({ showOpenSettings }) {
           to="/languages"
           linkLabel={t('home.ctx.linkLanguage')}
         >
-          {t(lang === 'fr' ? 'languageFr' : 'languageEn')}
+          {lang === 'fr' ? 'Français' : 'English'}
         </Cell>
         <Cell
           icon={Clock3}

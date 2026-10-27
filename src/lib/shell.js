@@ -14,14 +14,30 @@ export function appRouteUrl(path) {
  *
  * @param {(current: import('@shellui/sdk').Settings) => Partial<import('@shellui/sdk').Settings>} update
  */
+// What this app last sent, until the shell answers. Two clicks in a row would otherwise
+// both start from the same `initialSettings` and the second would undo the first.
+let lastSent = null;
+let listening = false;
+function listenForEcho() {
+  if (listening) return;
+  listening = true;
+  const clear = () => {
+    lastSent = null;
+  };
+  shellui.addMessageListener('SHELLUI_SETTINGS', clear);
+  shellui.addMessageListener('SHELLUI_SETTINGS_UPDATED', clear);
+}
+
 export function updateShellSettings(update) {
-  const current = shellui.initialSettings ?? {};
+  listenForEcho();
+  const current = lastSent ?? shellui.initialSettings ?? {};
   const settings = { ...current, ...update(current) };
   // The shell adds the theme list for apps; sending it back would store all 47 themes.
   if (settings.appearance?.availableThemes) {
     const { availableThemes: _list, ...appearance } = settings.appearance;
     settings.appearance = appearance;
   }
+  lastSent = settings;
   shellui.sendMessageToParent({ type: 'SHELLUI_SETTINGS_UPDATED', payload: { settings } });
   return settings;
 }
