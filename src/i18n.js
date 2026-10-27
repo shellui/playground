@@ -4,6 +4,11 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      applyingTheme: 'Applying theme',
+      bootError: {
+        title: 'Playground failed to start',
+        body: 'The Shellui SDK handshake did not complete. Open this app inside the shell on port 4000, and check that the shell is running.',
+      },
       appSettings: {
         title: 'Playground',
         body: 'Settings for this app only. The shell shows this page because the Playground item in shellui.config.json declares a settings URL.',
@@ -282,6 +287,11 @@ const resources = {
   },
   fr: {
     translation: {
+      applyingTheme: 'Application du thème',
+      bootError: {
+        title: "Le playground n'a pas démarré",
+        body: "La connexion au SDK Shellui n'a pas abouti. Ouvrez cette app dans le shell sur le port 4000 et vérifiez que le shell tourne.",
+      },
       appSettings: {
         title: 'Playground',
         body: "Réglages propres à cette app. Le shell affiche cette page parce que l'élément Playground de shellui.config.json déclare une URL de réglages.",

@@ -81,6 +81,7 @@ function MiniSwatch({ colors }) {
  * }} props
  */
 function ThemePreview({ theme, isSelected, isDark, isPending = false, layout }) {
+  const { t } = useTranslation();
   const colors = isDark ? (theme.colors?.dark ?? {}) : (theme.colors?.light ?? {});
   const background = colors.background ?? (isDark ? '#0a0a0a' : '#ffffff');
   const radius = colors.radius;
@@ -96,7 +97,7 @@ function ThemePreview({ theme, isSelected, isDark, isPending = false, layout }) 
       aria-hidden={!isPending}
     >
       <ThemeSwitchSpinner className="size-5 text-primary" />
-      {isPending ? <span className="sr-only">Applying theme</span> : null}
+      {isPending ? <span className="sr-only">{t('applyingTheme')}</span> : null}
     </div>
   );
 
