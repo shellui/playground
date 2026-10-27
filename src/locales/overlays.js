@@ -66,7 +66,7 @@ export default {
         themes: 'Themes',
         languages: 'Language and region',
       },
-      mobileSheet: 'On a phone the shell shows every drawer as a bottom sheet.',
+      mobileSheet: 'On a phone the shell shows every drawer as a floating bottom sheet.',
       ready: 'Press Run to open it in the shell.',
     },
     sample: {
@@ -147,7 +147,7 @@ export default {
         languages: 'Langue et région',
       },
       mobileSheet:
-        "Sur un téléphone, le shell affiche chaque tiroir comme une feuille en bas de l'écran.",
+        "Sur un téléphone, le shell affiche chaque tiroir comme une feuille flottante en bas de l'écran.",
       ready: "Appuyez sur le bouton pour l'ouvrir dans le shell.",
     },
     sample: {

@@ -26,6 +26,7 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 ### 🛠 Improvements
 
 - **Themes:** picking a theme applies it right away, without an Apply button. The tiles are a radio group you can move through with the arrow keys.
+- **Modals and drawers:** the drawer preview, side picker and home illustration show floating drawers, as in Shellui 0.7.0.
 
 ### 🚨 Changed
 

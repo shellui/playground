@@ -42,8 +42,8 @@ const DRAWER_HINT = {
 /** Drawing sizes, in px of the mini screen (width) or % of its height. */
 const MODAL_DRAW_W = { sm: 260, md: 330, lg: 440, xl: 520 };
 const DRAWER_DRAW = {
-  horizontal: { sm: 150, md: 200, lg: 250, xl: 320, full: '100%' },
-  vertical: { sm: '40%', md: '55%', lg: '75%', xl: '90%', full: '100%' },
+  horizontal: { sm: 150, md: 200, lg: 250, xl: 320, full: 'calc(100% - 12px)' },
+  vertical: { sm: '40%', md: '55%', lg: '75%', xl: '90%', full: 'calc(100% - 12px)' },
 };
 
 const MODAL_DEFAULTS = {
@@ -220,12 +220,15 @@ function DrawerDrawing({ o, phone, label }) {
   const dims = DRAWER_DRAW[vertical ? 'vertical' : 'horizontal'];
   const custom = o.custom.trim();
   const size = custom ? (vertical ? '50%' : 220) : (dims[o.size] ?? dims.md);
-  const place = {
-    left: 'inset-y-0 left-0 border-r rounded-r-lg',
-    right: 'inset-y-0 right-0 border-l rounded-l-lg',
-    top: 'inset-x-0 top-0 border-b rounded-b-lg',
-    bottom: 'inset-x-0 bottom-0 border-t rounded-t-lg',
-  }[side];
+  // Floating panel: a small gap on its outer sides, like the real drawer.
+  const place = phone
+    ? 'inset-x-1 bottom-1 rounded-xl border'
+    : {
+        left: 'inset-y-1.5 left-1.5 rounded-lg border',
+        right: 'inset-y-1.5 right-1.5 rounded-lg border',
+        top: 'inset-x-1.5 top-1.5 rounded-lg border',
+        bottom: 'inset-x-1.5 bottom-1.5 rounded-lg border',
+      }[side];
   const grip = {
     left: 'right-1 top-1/2 h-8 w-1 -translate-y-1/2',
     right: 'left-1 top-1/2 h-8 w-1 -translate-y-1/2',
@@ -272,10 +275,10 @@ function SidePicker({ value, onChange, label }) {
     refs.current[next]?.focus();
   };
   const panel = {
-    left: 'inset-y-0 left-0 w-[35%]',
-    right: 'inset-y-0 right-0 w-[35%]',
-    top: 'inset-x-0 top-0 h-[40%]',
-    bottom: 'inset-x-0 bottom-0 h-[40%]',
+    left: 'inset-y-0.5 left-0.5 w-[35%] rounded-[3px]',
+    right: 'inset-y-0.5 right-0.5 w-[35%] rounded-[3px]',
+    top: 'inset-x-0.5 top-0.5 h-[40%] rounded-[3px]',
+    bottom: 'inset-x-0.5 bottom-0.5 h-[40%] rounded-[3px]',
   };
   return (
     <div

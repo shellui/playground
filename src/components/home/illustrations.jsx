@@ -74,7 +74,7 @@ export function OverlaysIllustration() {
         <Bar className="w-3/4" />
         <Bar className="mt-1.5 w-1/2" />
       </div>
-      <div className="absolute inset-y-0 right-0 w-[44%] border-l border-border bg-card p-2.5 shadow-lg">
+      <div className="absolute inset-y-1.5 right-1.5 w-[44%] rounded-md border border-border bg-card p-2.5 shadow-lg">
         <Bar className="w-2/3 bg-muted-foreground/50" />
         <Bar className="mt-2 w-full" />
         <Bar className="mt-1.5 w-3/4" />
