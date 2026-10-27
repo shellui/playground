@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import pageBundles from './locales';
 
 const resources = {
   en: {
@@ -158,9 +159,6 @@ const resources = {
       pageModalDrawerTitle: 'Modal & Drawer',
       pageModalDrawerDescription:
         'Shellui can open content in a modal overlay (blocks interaction until dismissed) or in a drawer that slides in from the edge. Use modals for focused tasks like Settings; use drawers for extra content or actions without leaving the current context.',
-      pageDialogTitle: 'Dialog',
-      pageDialogDescription:
-        'Dialogs are focused conversations: confirmations, alerts, or forms. They capture focus and can return a result on dismiss.',
       pageToasterTitle: 'Toaster',
       pageToasterDescription:
         'Toast notifications appear briefly to confirm actions or show status. They stack and dismiss automatically or on user close.',
@@ -218,12 +216,6 @@ const resources = {
       openModalWithLanguages: 'Open Languages in modal',
       openDrawerFromRight: 'Drawer from right (Themes)',
       openDrawerFromBottom: 'Drawer from bottom',
-      showAlert: 'Show alert (OK only)',
-      showConfirm: 'Show confirm (OK / Cancel)',
-      showDelete: 'Show delete confirmation',
-      dialogOk: 'OK',
-      dialogCancel: 'Cancel',
-      dialogDelete: 'Delete',
       toastSuccess: 'Success toast',
       toastError: 'Error toast',
       toastWithAction: 'Toast with action',
@@ -252,11 +244,6 @@ const resources = {
       exampleTitleLanguage: 'Language from Shell',
       exampleTitleModal: 'Open modal with app URL',
       exampleTitleDrawer: 'Open drawer with app URL',
-      exampleTitleAlert: 'Alert (OK only)',
-      exampleTitleConfirm: 'Confirm (OK / Cancel)',
-      exampleTitleDelete: 'Delete confirmation',
-      dialogSizeDefault: 'default',
-      dialogSizeSmall: 'small',
       exampleTitleToastSuccess: 'Success toast',
       exampleTitleToastError: 'Error toast',
       exampleTitleToastAction: 'Toast with action',
@@ -445,9 +432,6 @@ const resources = {
       pageModalDrawerTitle: 'Fenêtre modale et tiroir',
       pageModalDrawerDescription:
         "Shellui peut ouvrir du contenu dans une fenêtre modale (bloque l'interaction jusqu'à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.",
-      pageDialogTitle: 'Dialogue',
-      pageDialogDescription:
-        'Les dialogues sont des échanges ciblés : confirmations, alertes ou formulaires. Ils capturent le focus et peuvent renvoyer un résultat à la fermeture.',
       pageToasterTitle: 'Notifications',
       pageToasterDescription:
         "Les toasts s'affichent brièvement pour confirmer une action ou un statut. Ils s'empilent et se ferment automatiquement ou par l'utilisateur.",
@@ -507,12 +491,6 @@ const resources = {
       openModalWithLanguages: 'Ouvrir Langues en modale',
       openDrawerFromRight: 'Tiroir depuis la droite (Thèmes)',
       openDrawerFromBottom: 'Tiroir depuis le bas',
-      showAlert: 'Alerte (OK uniquement)',
-      showConfirm: 'Confirmation (OK / Annuler)',
-      showDelete: 'Confirmation de suppression',
-      dialogOk: 'OK',
-      dialogCancel: 'Annuler',
-      dialogDelete: 'Supprimer',
       toastSuccess: 'Toast succès',
       toastError: 'Toast erreur',
       toastWithAction: 'Toast avec action',
@@ -541,11 +519,6 @@ const resources = {
       exampleTitleLanguage: 'Langue (venant du shell)',
       exampleTitleModal: "Ouvrir une modale avec l'URL de l'app",
       exampleTitleDrawer: "Ouvrir un tiroir avec l'URL de l'app",
-      exampleTitleAlert: 'Alerte (OK uniquement)',
-      exampleTitleConfirm: 'Confirmation (OK / Annuler)',
-      exampleTitleDelete: 'Confirmation de suppression',
-      dialogSizeDefault: 'défaut',
-      dialogSizeSmall: 'petit',
       exampleTitleToastSuccess: 'Toast succès',
       exampleTitleToastError: 'Toast erreur',
       exampleTitleToastAction: 'Toast avec action',
@@ -576,6 +549,13 @@ const resources = {
     },
   },
 };
+
+// Page strings live next to each other in src/locales, one module per page.
+for (const bundle of pageBundles) {
+  for (const lang of Object.keys(resources)) {
+    Object.assign(resources[lang].translation, bundle[lang]);
+  }
+}
 
 i18n.use(initReactI18next).init({
   resources,
