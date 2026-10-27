@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
 import { TriangleAlert } from 'lucide-react';
 import CodeBlock from '../components/CodeBlock';
+import { layoutToKey } from '../lib/layouts';
+import { updateShellSettings } from '../lib/shell';
 import LayoutPreview from '../components/LayoutPreview';
 import { Alert, AlertTitle } from '../components/ui/Alert';
 
@@ -43,16 +45,6 @@ function cn(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const layoutToKey = (layout) => {
-  if (layout === 'fullscreen') return 'layoutFullscreen';
-  if (layout === 'windows') return 'layoutWindows';
-  if (layout === 'floating') return 'layoutFloating';
-  if (layout === 'app-bar') return 'layoutAppBar';
-  if (layout === 'app-bar-inset') return 'layoutAppBarInset';
-  if (layout === 'sidebar-inset') return 'layoutSidebarInset';
-  return 'layoutSidebar';
-};
-
 export default function Layout() {
   const { t } = useTranslation();
   const [layout, setLayout] = useState(() => shellui.initialSettings?.layout ?? 'sidebar');
@@ -60,11 +52,7 @@ export default function Layout() {
 
   const applyLayout = (nextLayout) => {
     setLayout(nextLayout);
-    const settings = { ...(shellui.initialSettings ?? {}), layout: nextLayout };
-    shellui.sendMessageToParent({
-      type: 'SHELLUI_SETTINGS_UPDATED',
-      payload: { settings },
-    });
+    updateShellSettings(() => ({ layout: nextLayout }));
   };
 
   return (

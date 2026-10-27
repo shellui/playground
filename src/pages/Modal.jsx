@@ -4,12 +4,7 @@ import { Info } from 'lucide-react';
 import CodeBlock from '../components/CodeBlock';
 import { Alert, AlertTitle } from '../components/ui/Alert';
 import { Button } from '../components/ui/Button';
-
-function appRouteUrl(path) {
-  const base = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') || '/';
-  const pathPart = path.startsWith('/') ? path : '/' + path;
-  return `${window.location.origin}${base}#${pathPart}`;
-}
+import { appRouteUrl } from '../lib/shell';
 
 const MODAL_CODE = `import shellui from '@shellui/sdk';
 

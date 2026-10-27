@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
+import { updateShellSettings } from '../lib/shell';
 import CodeBlock from '../components/CodeBlock';
 import { Button } from '../components/ui/Button';
 import { useLang } from '../contexts/LangContext';
+import { useLocation } from 'react-router-dom';
 
 const LANGUAGES_CODE = `import shellui from '@shellui/sdk';
 import i18n from './i18n';
@@ -38,6 +40,12 @@ export default function Languages() {
     () => shellui.initialSettings?.region?.timezone ?? browserTimezone,
   );
   const [now, setNow] = useState(() => new Date());
+  const { hash } = useLocation();
+
+  // Home links here with #region: bring the timezone controls into view.
+  useEffect(() => {
+    if (hash === '#region') document.getElementById('region')?.scrollIntoView();
+  }, [hash]);
 
   useEffect(() => {
     const syncFromSettings = (message) => {
@@ -74,12 +82,7 @@ export default function Languages() {
   })();
 
   const applySettings = (updates) => {
-    const current = shellui.initialSettings ?? {};
-    const nextSettings = { ...current, ...updates };
-    shellui.sendMessageToParent({
-      type: 'SHELLUI_SETTINGS_UPDATED',
-      payload: { settings: nextSettings },
-    });
+    updateShellSettings(() => updates);
     if (updates.region?.timezone) setTimezone(updates.region.timezone);
   };
 
@@ -116,7 +119,10 @@ export default function Languages() {
           </Button>
         </div>
 
-        <h3 className="font-heading text-sm font-medium text-foreground mt-4 mb-2">
+        <h3
+          id="region"
+          className="font-heading text-sm font-medium text-foreground mt-4 mb-2 scroll-mt-6"
+        >
           {t('regionLabel')}
         </h3>
         <p className="text-sm text-muted-foreground mb-2">

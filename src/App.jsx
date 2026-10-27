@@ -11,11 +11,12 @@ import Actions, { ActionsDetail, ActionsLayout } from './pages/Actions';
 
 /** Reset scroll when the hash route changes (in-app links or shell-driven hash replace). */
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    // Links with an anchor (for example /languages#region) scroll on their own.
+    if (!hash) window.scrollTo(0, 0);
+  }, [pathname, hash]);
 
   return null;
 }

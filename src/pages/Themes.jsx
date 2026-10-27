@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import shellui from '@shellui/sdk';
+import { updateShellSettings } from '../lib/shell';
 import CodeBlock from '../components/CodeBlock';
 import { Button } from '../components/ui/Button';
 import { useTheme } from '../contexts/ThemeContext';
@@ -275,14 +276,7 @@ export default function Themes() {
 
   const applyAppearance = useCallback(
     (updates) => {
-      const currentSettings = shellui.initialSettings ?? {};
-      const nextAppearance = { ...(appearance ?? {}), ...updates };
-      shellui.sendMessageToParent({
-        type: 'SHELLUI_SETTINGS_UPDATED',
-        payload: {
-          settings: { ...currentSettings, appearance: nextAppearance },
-        },
-      });
+      updateShellSettings(() => ({ appearance: { ...(appearance ?? {}), ...updates } }));
     },
     [appearance],
   );
