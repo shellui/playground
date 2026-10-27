@@ -13,7 +13,8 @@ import {
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLang } from '../../contexts/LangContext';
 import { useNow, useShellSettings } from '../../lib/useShellSettings';
-import { layoutToKey } from '../../lib/layouts';
+import { layout as configLayout } from '../../../shellui.config.json';
+import { layoutName } from '../../lib/layouts';
 import { formatShellTime } from '../../lib/shell';
 
 function Cell({ icon: Icon, label, children, to, linkLabel }) {
@@ -205,7 +206,7 @@ export default function ShellContext({ showOpenSettings }) {
           to="/layout"
           linkLabel={t('home.ctx.linkLayouts')}
         >
-          {t(layoutToKey(settings?.layout))}
+          {layoutName(t, settings?.layout ?? configLayout ?? 'sidebar')}
         </Cell>
         <Cell
           icon={UserRound}

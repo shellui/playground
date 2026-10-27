@@ -9,7 +9,7 @@ import {
   Trash2,
   CircleX,
 } from 'lucide-react';
-import LayoutPreview from '../LayoutPreview';
+import LayoutSchematic from '../LayoutSchematic';
 
 /*
  * Small schematic drawings for the tour cards. Built only from theme tokens
@@ -104,9 +104,10 @@ export function LayoutsIllustration({ current }) {
   return (
     <div className="grid w-full grid-cols-4 gap-2 px-3">
       {ids.map((id) => (
-        <LayoutPreview
+        <LayoutSchematic
           key={id}
-          layoutId={id}
+          id={id}
+          compact
           className={`h-14 w-full ${id === current ? 'ring-2 ring-primary ring-offset-2 ring-offset-muted' : ''}`}
         />
       ))}

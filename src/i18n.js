@@ -153,46 +153,21 @@ const resources = {
       pageLanguagesTitle: 'Languages',
       pageLanguagesDescription:
         'Shellui can drive the app language. When you switch language in settings, the shell and this app update together via i18n.',
-      pageLayoutTitle: 'Layout',
-      pageLayoutDescription:
-        'Shellui supports different layout modes: sidebar and sidebar-inset, app bar and app-bar-inset, floating (glass chrome over full-bleed content), fullscreen (content only), or windows (taskbar and multi-window). Configure the layout in the shell to change how the app is presented.',
       // Home / Playground
       codeSample: 'Code sample',
       currentTheme: 'Current theme',
       currentLanguage: 'Current language',
-      pageLayoutExperimental: 'The windows layout (taskbar + multi-window) is experimental.',
-      pageLayoutConfigNote:
-        'Layout is set in shellui.config.json. In development you can also override it from Shell Settings.',
       pageThemesTry:
         'Change the theme in Shell Settings (gear icon) and see this page and the shell update together.',
       pageLanguagesTry:
         'Change the language in Shell Settings (gear icon) and see all labels on this page update.',
-      layoutSidebar: 'Sidebar',
-      layoutSidebarInset: 'Sidebar inset',
-      layoutAppBar: 'App bar',
-      layoutAppBarInset: 'App bar inset',
-      layoutFloating: 'Floating',
-      layoutFullscreen: 'Fullscreen',
-      layoutWindows: 'Windows (experimental)',
-      layoutCategorySidebar: 'Sidebar',
-      layoutCategoryTopBar: 'Top bar',
-      layoutCategoryFloating: 'Floating',
-      layoutCategoryExperimental: 'Experimental',
-      layoutInsetHint: 'Padded chrome tray with a rounded content frame.',
-      layoutFloatingHint:
-        'Glass navigation over full-bleed content (tabs on phone, sidebar on desktop).',
-      layoutWindowsHint: 'Taskbar and multi-window desktop.',
       themeLight: 'Light',
       themeDark: 'Dark',
       themeSystem: 'System',
       languageEn: 'English',
       languageFr: 'Français',
-      exampleTitleLayoutConfig: 'Layout configuration',
       exampleTitleTheme: 'Theme from Shell',
       exampleTitleLanguage: 'Language from Shell',
-      currentLayout: 'Current layout',
-      layoutFullscreenNote:
-        'Fullscreen is only for applications that handle navigation directly instead of using shellui.',
       colorSchemeLabel: 'Color scheme',
       currentColorScheme: 'Current mode',
       themeDefault: 'Default',
@@ -365,46 +340,20 @@ const resources = {
       pageLanguagesTitle: 'Langues',
       pageLanguagesDescription:
         "Shellui peut piloter la langue de l'app. Quand vous changez la langue dans les paramètres, le shell et cette app se mettent à jour ensemble via i18n.",
-      pageLayoutTitle: 'Mise en page',
-      pageLayoutDescription:
-        "Shellui propose plusieurs modes de mise en page : barre latérale et barre latérale inset, barre d'app et barre d'app inset, flottante (chrome en verre sur contenu plein écran), plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans le shell pour changer la présentation de l\'app.",
       codeSample: 'Exemple de code',
       currentTheme: 'Thème actuel',
       currentLanguage: 'Langue actuelle',
-      pageLayoutExperimental:
-        'Le mode fenêtres (barre des tâches + multi-fenêtres) est expérimental.',
-      pageLayoutConfigNote:
-        'La mise en page est définie dans shellui.config.json. En développement vous pouvez aussi la surcharger depuis les Paramètres du shell.',
       pageThemesTry:
         'Changez le thème dans les Paramètres du shell (icône engrenage) pour voir cette page et le shell se mettre à jour.',
       pageLanguagesTry:
         'Changez la langue dans les Paramètres du shell (icône engrenage) pour voir toutes les étiquettes de cette page se mettre à jour.',
-      layoutSidebar: 'Barre latérale',
-      layoutSidebarInset: 'Barre latérale inset',
-      layoutAppBar: "Barre d'app",
-      layoutAppBarInset: "Barre d'app inset",
-      layoutFloating: 'Flottante',
-      layoutFullscreen: 'Plein écran',
-      layoutWindows: 'Fenêtres (expérimental)',
-      layoutCategorySidebar: 'Barre latérale',
-      layoutCategoryTopBar: 'Barre du haut',
-      layoutCategoryFloating: 'Flottante',
-      layoutCategoryExperimental: 'Expérimental',
-      layoutInsetHint: 'Plateau chromé rembourré avec un cadre de contenu arrondi.',
-      layoutFloatingHint:
-        'Navigation en verre sur contenu plein écran (onglets sur téléphone, barre latérale sur bureau).',
-      layoutWindowsHint: 'Barre des tâches et bureau multi-fenêtres.',
       themeLight: 'Clair',
       themeDark: 'Sombre',
       themeSystem: 'Système',
       languageEn: 'Anglais',
       languageFr: 'Français',
-      exampleTitleLayoutConfig: 'Configuration de la mise en page',
       exampleTitleTheme: 'Thème (venant du shell)',
       exampleTitleLanguage: 'Langue (venant du shell)',
-      currentLayout: 'Mise en page actuelle',
-      layoutFullscreenNote:
-        "Le mode plein écran est réservé aux applications qui gèrent la navigation elles-mêmes au lieu d'utiliser shellui.",
       colorSchemeLabel: 'Mode clair / sombre',
       currentColorScheme: 'Mode actuel',
       themeDefault: 'Par défaut',

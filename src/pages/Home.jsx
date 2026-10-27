@@ -17,6 +17,7 @@ import {
 import { useTheme } from '../contexts/ThemeContext';
 import { useLang } from '../contexts/LangContext';
 import { useShellSettings } from '../lib/useShellSettings';
+import { layout as configLayout } from '../../shellui.config.json';
 
 const REPO_URL = 'https://github.com/shellui/playground';
 const RELEASES_URL = 'https://github.com/shellui/playground/releases';
@@ -254,7 +255,7 @@ function Tour() {
             body={t('home.c.layoutsBody')}
             api="layout"
           >
-            <LayoutsIllustration current={settings?.layout ?? 'sidebar'} />
+            <LayoutsIllustration current={settings?.layout ?? configLayout ?? 'sidebar'} />
           </TourCard>
         </div>
       </GroupRow>
