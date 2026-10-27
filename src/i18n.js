@@ -159,9 +159,6 @@ const resources = {
       pageModalDrawerTitle: 'Modal & Drawer',
       pageModalDrawerDescription:
         'Shellui can open content in a modal overlay (blocks interaction until dismissed) or in a drawer that slides in from the edge. Use modals for focused tasks like Settings; use drawers for extra content or actions without leaving the current context.',
-      pageToasterTitle: 'Toaster',
-      pageToasterDescription:
-        'Toast notifications appear briefly to confirm actions or show status. They stack and dismiss automatically or on user close.',
       pageActionsTitle: 'Action buttons',
       pageActionsDescription:
         'Optional floating chrome owned by Shellui: back, title, trailing buttons, and a bottom primary FAB. Apps declare intent with the SDK; the shell renders chrome above the iframe and posts clicks back.',
@@ -216,9 +213,6 @@ const resources = {
       openModalWithLanguages: 'Open Languages in modal',
       openDrawerFromRight: 'Drawer from right (Themes)',
       openDrawerFromBottom: 'Drawer from bottom',
-      toastSuccess: 'Success toast',
-      toastError: 'Error toast',
-      toastWithAction: 'Toast with action',
       layoutSidebar: 'Sidebar',
       layoutSidebarInset: 'Sidebar inset',
       layoutAppBar: 'App bar',
@@ -244,13 +238,6 @@ const resources = {
       exampleTitleLanguage: 'Language from Shell',
       exampleTitleModal: 'Open modal with app URL',
       exampleTitleDrawer: 'Open drawer with app URL',
-      exampleTitleToastSuccess: 'Success toast',
-      exampleTitleToastError: 'Error toast',
-      exampleTitleToastAction: 'Toast with action',
-      exampleTitleToastLoadThenSuccess: 'Load then success',
-      exampleTitleToastPosition: 'Toast position',
-      toastLoadThenSuccess: 'Load then success',
-      toastPositionDescription: 'Popping up in this corner.',
       currentLayout: 'Current layout',
       layoutFullscreenNote:
         'Fullscreen is only for applications that handle navigation directly instead of using shellui.',
@@ -432,9 +419,6 @@ const resources = {
       pageModalDrawerTitle: 'Fenêtre modale et tiroir',
       pageModalDrawerDescription:
         "Shellui peut ouvrir du contenu dans une fenêtre modale (bloque l'interaction jusqu'à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.",
-      pageToasterTitle: 'Notifications',
-      pageToasterDescription:
-        "Les toasts s'affichent brièvement pour confirmer une action ou un statut. Ils s'empilent et se ferment automatiquement ou par l'utilisateur.",
       pageActionsTitle: "Boutons d'action",
       pageActionsDescription:
         "Chrome flottant optionnel géré par Shellui : retour, titre, boutons secondaires et FAB principal en bas. Les apps déclarent l'intention via le SDK ; le shell affiche le chrome au-dessus de l'iframe et renvoie les clics.",
@@ -491,9 +475,6 @@ const resources = {
       openModalWithLanguages: 'Ouvrir Langues en modale',
       openDrawerFromRight: 'Tiroir depuis la droite (Thèmes)',
       openDrawerFromBottom: 'Tiroir depuis le bas',
-      toastSuccess: 'Toast succès',
-      toastError: 'Toast erreur',
-      toastWithAction: 'Toast avec action',
       layoutSidebar: 'Barre latérale',
       layoutSidebarInset: 'Barre latérale inset',
       layoutAppBar: "Barre d'app",
@@ -519,13 +500,6 @@ const resources = {
       exampleTitleLanguage: 'Langue (venant du shell)',
       exampleTitleModal: "Ouvrir une modale avec l'URL de l'app",
       exampleTitleDrawer: "Ouvrir un tiroir avec l'URL de l'app",
-      exampleTitleToastSuccess: 'Toast succès',
-      exampleTitleToastError: 'Toast erreur',
-      exampleTitleToastAction: 'Toast avec action',
-      exampleTitleToastLoadThenSuccess: 'Chargement puis succès',
-      exampleTitleToastPosition: 'Position du toast',
-      toastLoadThenSuccess: 'Chargement puis succès',
-      toastPositionDescription: 'Me voici, dans ce coin.',
       currentLayout: 'Mise en page actuelle',
       layoutFullscreenNote:
         "Le mode plein écran est réservé aux applications qui gèrent la navigation elles-mêmes au lieu d'utiliser shellui.",
