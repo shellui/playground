@@ -180,9 +180,8 @@ const resources = {
       pageActionsLifecycleTitle: 'Lifecycle',
       pageActionsLifecycle:
         'Chrome is optional and reserves safe padding. Re-set actions on your own in-app route changes — the shell does not guess SPA routes. Clear on unmount; shell navigation away also clears that view’s actions.',
-      pageActionsMissingTitle: 'SDK actions API not available',
-      pageActionsMissing:
-        'This demo needs shellui.actions from shellui#42. Sibling checkout: branch cursor/floating-actions-sdk-100e, run pnpm build:sdk, then restart pnpm start.',
+      pageActionsMissingTitle: 'Action buttons are not available',
+      pageActionsMissing: 'Update @shellui/sdk to 0.7 or later to use action buttons.',
       actionsInboxHeading: 'Inbox',
       actionsInboxHint:
         'Chrome shows the Inbox title and trailing actions (no back). Open a message to navigate in-app — the detail screen re-sets chrome with a back button, a different title, and a refresh control.',
@@ -501,9 +500,9 @@ const resources = {
       pageActionsLifecycleTitle: 'Cycle de vie',
       pageActionsLifecycle:
         'Le chrome est optionnel et réserve un padding sécurisé. Re-déclarez les actions à chaque changement de route interne — la coque ne déduit pas les routes SPA. Effacez au démontage ; quitter la vue via la navigation shell efface aussi les actions.',
-      pageActionsMissingTitle: 'API actions du SDK indisponible',
+      pageActionsMissingTitle: "Boutons d'action indisponibles",
       pageActionsMissing:
-        'Cette démo nécessite shellui.actions (shellui#42). Checkout frère : branche cursor/floating-actions-sdk-100e, puis pnpm build:sdk et relancez pnpm start.',
+        "Mettez à jour @shellui/sdk en 0.7 ou plus pour utiliser les boutons d'action.",
       actionsInboxHeading: 'Boîte de réception',
       actionsInboxHint:
         'Le chrome affiche le titre Boîte de réception et des actions secondaires (pas de retour). Ouvrez un message pour naviguer dans l’app — l’écran détail redéfinit le chrome avec un bouton retour, un autre titre et un contrôle Actualiser.',
