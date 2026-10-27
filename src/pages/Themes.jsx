@@ -210,12 +210,8 @@ export default function Themes() {
   }, [pending, currentName]);
   useEffect(() => () => clearTimeout(pendingTimer.current), []);
 
-  // The theme list is added by the shell for apps; leave it out so it is not stored back.
   const send = (updates) =>
-    updateShellSettings(() => {
-      const { availableThemes: _list, ...rest } = appearance ?? {};
-      return { appearance: { ...rest, ...updates } };
-    });
+    updateShellSettings(() => ({ appearance: { ...(appearance ?? {}), ...updates } }));
 
   const apply = () => {
     if (isApplied || pending) return;

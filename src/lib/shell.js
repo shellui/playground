@@ -17,6 +17,11 @@ export function appRouteUrl(path) {
 export function updateShellSettings(update) {
   const current = shellui.initialSettings ?? {};
   const settings = { ...current, ...update(current) };
+  // The shell adds the theme list for apps; sending it back would store all 47 themes.
+  if (settings.appearance?.availableThemes) {
+    const { availableThemes: _list, ...appearance } = settings.appearance;
+    settings.appearance = appearance;
+  }
   shellui.sendMessageToParent({ type: 'SHELLUI_SETTINGS_UPDATED', payload: { settings } });
   return settings;
 }
