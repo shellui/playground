@@ -9,6 +9,7 @@ import languages from './languages';
 import prefs from './prefs';
 import account from './account';
 import storage from './storage';
+import notfound from './notfound';
 
 export default [
   pg,
@@ -22,4 +23,5 @@ export default [
   prefs,
   account,
   storage,
+  notfound,
 ];

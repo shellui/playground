@@ -9,11 +9,6 @@ const resources = {
         title: 'Playground failed to start',
         body: 'The Shellui SDK handshake did not complete. Open this app inside the shell on port 4000, and check that the shell is running.',
       },
-      notFound: {
-        title: 'This page does not exist',
-        body: 'The playground has no route for',
-        home: 'Back to Home',
-      },
       home: {
         chip: 'Live demo',
         title1: 'This page is an app.',
@@ -145,11 +140,6 @@ const resources = {
       bootError: {
         title: "Le playground n'a pas démarré",
         body: "La connexion au SDK Shellui n'a pas abouti. Ouvrez cette app dans le shell sur le port 4000 et vérifiez que le shell tourne.",
-      },
-      notFound: {
-        title: "Cette page n'existe pas",
-        body: "Le playground n'a pas de route pour",
-        home: "Retour à l'accueil",
       },
       home: {
         chip: 'Démo en direct',
