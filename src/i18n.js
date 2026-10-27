@@ -156,9 +156,6 @@ const resources = {
       pageLayoutTitle: 'Layout',
       pageLayoutDescription:
         'Shellui supports different layout modes: sidebar and sidebar-inset, app bar and app-bar-inset, floating (glass chrome over full-bleed content), fullscreen (content only), or windows (taskbar and multi-window). Configure the layout in the shell to change how the app is presented.',
-      pageModalDrawerTitle: 'Modal & Drawer',
-      pageModalDrawerDescription:
-        'Shellui can open content in a modal overlay (blocks interaction until dismissed) or in a drawer that slides in from the edge. Use modals for focused tasks like Settings; use drawers for extra content or actions without leaving the current context.',
       pageActionsTitle: 'Action buttons',
       pageActionsDescription:
         'Optional floating chrome owned by Shellui: back, title, trailing buttons, and a bottom primary FAB. Apps declare intent with the SDK; the shell renders chrome above the iframe and posts clicks back.',
@@ -206,13 +203,6 @@ const resources = {
         'Change the theme in Shell Settings (gear icon) and see this page and the shell update together.',
       pageLanguagesTry:
         'Change the language in Shell Settings (gear icon) and see all labels on this page update.',
-      pageModalDrawerFun:
-        'What can the shell load? Your own app. Pass a URL to a route in this app and the shell loads it in a modal or drawer. Use it for settings or preview panels without leaving the page.',
-      closeDrawer: 'Close drawer',
-      openModalWithThemes: 'Open Themes in modal',
-      openModalWithLanguages: 'Open Languages in modal',
-      openDrawerFromRight: 'Drawer from right (Themes)',
-      openDrawerFromBottom: 'Drawer from bottom',
       layoutSidebar: 'Sidebar',
       layoutSidebarInset: 'Sidebar inset',
       layoutAppBar: 'App bar',
@@ -236,8 +226,6 @@ const resources = {
       exampleTitleLayoutConfig: 'Layout configuration',
       exampleTitleTheme: 'Theme from Shell',
       exampleTitleLanguage: 'Language from Shell',
-      exampleTitleModal: 'Open modal with app URL',
-      exampleTitleDrawer: 'Open drawer with app URL',
       currentLayout: 'Current layout',
       layoutFullscreenNote:
         'Fullscreen is only for applications that handle navigation directly instead of using shellui.',
@@ -416,9 +404,6 @@ const resources = {
       pageLayoutTitle: 'Mise en page',
       pageLayoutDescription:
         "Shellui propose plusieurs modes de mise en page : barre latérale et barre latérale inset, barre d'app et barre d'app inset, flottante (chrome en verre sur contenu plein écran), plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans le shell pour changer la présentation de l\'app.",
-      pageModalDrawerTitle: 'Fenêtre modale et tiroir',
-      pageModalDrawerDescription:
-        "Shellui peut ouvrir du contenu dans une fenêtre modale (bloque l'interaction jusqu'à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.",
       pageActionsTitle: "Boutons d'action",
       pageActionsDescription:
         "Chrome flottant optionnel géré par Shellui : retour, titre, boutons secondaires et FAB principal en bas. Les apps déclarent l'intention via le SDK ; le shell affiche le chrome au-dessus de l'iframe et renvoie les clics.",
@@ -468,13 +453,6 @@ const resources = {
         'Changez le thème dans les Paramètres du shell (icône engrenage) pour voir cette page et le shell se mettre à jour.',
       pageLanguagesTry:
         'Changez la langue dans les Paramètres du shell (icône engrenage) pour voir toutes les étiquettes de cette page se mettre à jour.',
-      pageModalDrawerFun:
-        "Que peut charger le shell ? Votre propre app. Passez l'URL d'une route de cette app et le shell la charge dans une modale ou un tiroir. Utile pour des panneaux de réglages ou d'aperçu sans quitter la page.",
-      closeDrawer: 'Fermer le tiroir',
-      openModalWithThemes: 'Ouvrir Thèmes en modale',
-      openModalWithLanguages: 'Ouvrir Langues en modale',
-      openDrawerFromRight: 'Tiroir depuis la droite (Thèmes)',
-      openDrawerFromBottom: 'Tiroir depuis le bas',
       layoutSidebar: 'Barre latérale',
       layoutSidebarInset: 'Barre latérale inset',
       layoutAppBar: "Barre d'app",
@@ -498,8 +476,6 @@ const resources = {
       exampleTitleLayoutConfig: 'Configuration de la mise en page',
       exampleTitleTheme: 'Thème (venant du shell)',
       exampleTitleLanguage: 'Langue (venant du shell)',
-      exampleTitleModal: "Ouvrir une modale avec l'URL de l'app",
-      exampleTitleDrawer: "Ouvrir un tiroir avec l'URL de l'app",
       currentLayout: 'Mise en page actuelle',
       layoutFullscreenNote:
         "Le mode plein écran est réservé aux applications qui gèrent la navigation elles-mêmes au lieu d'utiliser shellui.",

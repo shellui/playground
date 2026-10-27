@@ -215,3 +215,7 @@ main {
     padding: 1rem;
   }
 }
+
+main.pg-bare {
+  padding: 0;
+}

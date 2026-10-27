@@ -8,6 +8,7 @@ import Modal from './pages/Modal';
 import Dialog from './pages/Dialog';
 import Toaster from './pages/Toaster';
 import NotFound from './pages/NotFound';
+import OverlaySample from './pages/OverlaySample';
 import PlaygroundSettings from './pages/PlaygroundSettings';
 import Actions, { ActionsDetail, ActionsLayout } from './pages/Actions';
 
@@ -24,8 +25,11 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  // The overlay sample sets its own padding: the shell draws the frame around it.
+  const bare = pathname === '/overlay-sample';
   return (
-    <main className="font-body text-foreground">
+    <main className={`font-body text-foreground ${bare ? 'pg-bare' : ''}`}>
       <ScrollToTop />
       <Routes>
         <Route
@@ -69,6 +73,10 @@ export default function App() {
             element={<ActionsDetail />}
           />
         </Route>
+        <Route
+          path="/overlay-sample"
+          element={<OverlaySample />}
+        />
         <Route
           path="/settings"
           element={<PlaygroundSettings />}
