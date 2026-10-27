@@ -26,8 +26,8 @@ function ScrollToTop() {
 
 export default function App() {
   const { pathname } = useLocation();
-  // The overlay sample sets its own padding: the shell draws the frame around it.
-  const bare = pathname === '/overlay-sample';
+  // These set their own padding: the shell draws the frame or the Settings pane around them.
+  const bare = pathname === '/overlay-sample' || pathname === '/settings';
   return (
     <main className={`font-body text-foreground ${bare ? 'pg-bare' : ''}`}>
       <ScrollToTop />

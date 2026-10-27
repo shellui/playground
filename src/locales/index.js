@@ -6,5 +6,6 @@ import actions from './actions';
 import layouts from './layouts';
 import themes from './themes';
 import languages from './languages';
+import prefs from './prefs';
 
-export default [pg, dialogs, toasts, overlays, actions, layouts, themes, languages];
+export default [pg, dialogs, toasts, overlays, actions, layouts, themes, languages, prefs];

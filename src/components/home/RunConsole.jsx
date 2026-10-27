@@ -13,7 +13,6 @@ import {
 import CodeBlock from '../CodeBlock';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLang } from '../../contexts/LangContext';
-import { getConsoleTab } from '../../lib/prefs';
 import { appRouteUrl, formatShellTime, updateShellSettings } from '../../lib/shell';
 
 /** Quote a value for a JavaScript sample the same way it is passed at runtime. */
@@ -152,7 +151,7 @@ export default function RunConsole() {
   const lang = useLang();
   const appearance = useTheme();
   const mode = appearance?.mode === 'dark' ? 'dark' : 'light';
-  const [active, setActive] = useState(getConsoleTab);
+  const [active, setActive] = useState('dialog');
   const [result, setResult] = useState(null);
   const tabRefs = useRef({});
   const report = useMemo(() => (text) => setResult(text), []);

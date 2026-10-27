@@ -1,30 +1,4 @@
 /**
- * Preferences that belong to this app (not to the shell). Stored in this app's
- * localStorage and edited from Settings > Applications > Playground.
- */
-const CONSOLE_TAB_KEY = 'playground.consoleTab';
-export const CONSOLE_TABS = ['toast', 'dialog', 'drawer', 'scheme', 'language'];
-export const DEFAULT_CONSOLE_TAB = 'dialog';
-
-export function getConsoleTab() {
-  try {
-    const value = localStorage.getItem(CONSOLE_TAB_KEY);
-    return CONSOLE_TABS.includes(value) ? value : DEFAULT_CONSOLE_TAB;
-  } catch {
-    return DEFAULT_CONSOLE_TAB;
-  }
-}
-
-export function setConsoleTab(value) {
-  try {
-    if (value === DEFAULT_CONSOLE_TAB) localStorage.removeItem(CONSOLE_TAB_KEY);
-    else localStorage.setItem(CONSOLE_TAB_KEY, value);
-  } catch {
-    // Storage can be blocked (private mode); the default stays in use.
-  }
-}
-
-/**
  * Demo preferences, edited in Settings > Applications > Playground. The settings pane
  * is another frame of this app (same origin), so pages listen to the `storage` event
  * and pick up changes without a reload.
@@ -91,11 +65,11 @@ export function saveOptions(page, options) {
   }
 }
 
-/** Removes saved options and tells every open page to reset. Demo prefs stay. */
+/** Removes every `playground.*` key but the demo prefs, then tells open pages to reset. */
 export function clearLogsAndOptions() {
   try {
     Object.keys(localStorage)
-      .filter((key) => key.startsWith(OPTIONS_PREFIX))
+      .filter((key) => key.startsWith('playground.') && key !== PREFS_KEY && key !== RESET_KEY)
       .forEach((key) => localStorage.removeItem(key));
   } catch {
     // Nothing stored.
