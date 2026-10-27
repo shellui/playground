@@ -23,6 +23,10 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ## [Unreleased]
 
+### 🛠 Improvements
+
+- **Themes:** picking a theme applies it right away, without an Apply button. The tiles are a radio group you can move through with the arrow keys.
+
 ### 🚨 Changed
 
 - Bump to Shellui 0.7.0-alpha.9, so sign-in from the Account page returns there signed in.

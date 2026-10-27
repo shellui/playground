@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Check, Loader2, Monitor, Moon, Palette, Search, Sun } from 'lucide-react';
+import { Monitor, Moon, Palette, Search, Sun } from 'lucide-react';
 import shellui from '@shellui/sdk';
 import CodeBlock from '../components/CodeBlock';
 import { Inline, PageHeader, Segmented } from '../components/playground';
@@ -47,15 +47,33 @@ function themeStyle(colors = {}, theme) {
   return style;
 }
 
-function Tile({ theme, dark, pressed, current, onClick, badge }) {
+/** Arrow keys, Home and End move between theme radios and select the one they land on. */
+function onRadioKeyDown(event) {
+  const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[event.key];
+  if (step === undefined && event.key !== 'Home' && event.key !== 'End') return;
+  const radios = [...event.currentTarget.querySelectorAll('[role="radio"]')];
+  if (!radios.length) return;
+  event.preventDefault();
+  const at = radios.indexOf(document.activeElement);
+  let next;
+  if (event.key === 'Home') next = 0;
+  else if (event.key === 'End') next = radios.length - 1;
+  else next = (Math.max(at, 0) + step + radios.length) % radios.length;
+  radios[next].focus();
+  radios[next].click();
+}
+
+function Tile({ theme, dark, checked, focusable, current, onSelect, badge }) {
   const c = (dark ? theme.colors?.dark : theme.colors?.light) ?? {};
   const r = tileRadius(c.radius);
   return (
     <button
       type="button"
-      aria-pressed={pressed}
-      onClick={onClick}
-      className={`flex w-full min-w-0 cursor-pointer flex-col gap-2 rounded-lg border bg-card p-1.5 pb-2 text-left text-card-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none ${pressed ? 'border-primary ring-1 ring-primary' : 'border-border hover:border-foreground/25'}`}
+      role="radio"
+      aria-checked={checked}
+      tabIndex={focusable ? 0 : -1}
+      onClick={onSelect}
+      className={`flex w-full min-w-0 cursor-pointer flex-col gap-2 rounded-lg border bg-card p-1.5 pb-2 text-left text-card-foreground transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring motion-reduce:transition-none ${checked ? 'border-primary ring-1 ring-primary' : 'border-border hover:border-foreground/25'}`}
     >
       <span
         aria-hidden
@@ -194,14 +212,13 @@ export default function Themes() {
   };
 
   const [query, setQuery] = useState('');
-  const [previewName, setPreviewName] = useState(null);
+  // The theme just picked, until the shell echoes it back. Selection shows it right away.
   const [pending, setPending] = useState(null);
   const pendingTimer = useRef(null);
 
-  const previewed = themes.find((theme) => theme.name === previewName) ?? currentTheme;
-  const isApplied = previewed.name === currentName;
+  const selectedName = pending ?? currentName;
+  const selected = themes.find((theme) => theme.name === selectedName) ?? currentTheme;
 
-  // Keep the spinner until the shell echoes the new theme back.
   useEffect(() => {
     if (pending && pending === currentName) {
       clearTimeout(pendingTimer.current);
@@ -213,25 +230,27 @@ export default function Themes() {
   const send = (updates) =>
     updateShellSettings(() => ({ appearance: { ...(appearance ?? {}), ...updates } }));
 
-  const apply = () => {
-    if (isApplied || pending) return;
-    setPending(previewed.name);
+  const select = (theme) => {
+    if (theme.name === selectedName) return;
+    setPending(theme.name === currentName ? null : theme.name);
     clearTimeout(pendingTimer.current);
     pendingTimer.current = setTimeout(() => setPending(null), 5000);
-    send({ name: previewed.name, displayName: previewed.displayName, colors: previewed.colors });
+    send({ name: theme.name, displayName: theme.displayName, colors: theme.colors });
   };
 
   const needle = query.trim().toLowerCase();
-  const others = themes.filter((theme) => theme.name !== currentName);
   const matches = needle
     ? themes.filter(
         (theme) =>
           nameOf(theme).toLowerCase().includes(needle) || theme.name.toLowerCase().includes(needle),
       )
-    : others;
+    : themes;
+  const tabName = matches.some((theme) => theme.name === selectedName)
+    ? selectedName
+    : matches[0]?.name;
 
   const modeLabel = t(dark ? 'themes.dark' : 'themes.light');
-  const previewColors = (dark ? previewed.colors?.dark : previewed.colors?.light) ?? {};
+  const previewColors = (dark ? selected.colors?.dark : selected.colors?.light) ?? {};
   const currentBadge = (
     <span className="inline-flex h-[18px] flex-none items-center rounded-md border border-primary/40 bg-primary/15 px-1.5 text-[10.5px] font-medium">
       {t('themes.current')}
@@ -252,10 +271,11 @@ shellui.addMessageListener('SHELLUI_SETTINGS', (message) =>
       key={theme.name}
       theme={theme}
       dark={dark}
-      pressed={theme.name === previewed.name}
+      checked={theme.name === selectedName}
+      focusable={theme.name === tabName}
       current={theme.name === currentName}
       badge={currentBadge}
-      onClick={() => setPreviewName(theme.name)}
+      onSelect={() => select(theme)}
     />
   );
 
@@ -310,20 +330,20 @@ shellui.addMessageListener('SHELLUI_SETTINGS', (message) =>
                 id="pv-title"
                 className="m-0 truncate font-heading text-base font-semibold"
               >
-                {nameOf(previewed)}
+                {nameOf(selected)}
               </h2>
             </div>
-            <code className="font-mono text-[11.5px] text-muted-foreground">{previewed.name}</code>
+            <code className="font-mono text-[11.5px] text-muted-foreground">{selected.name}</code>
           </div>
           <Preview
-            key={previewed.name}
-            theme={previewed}
+            key={selected.name}
+            theme={selected}
             dark={dark}
             t={t}
           />
-          <dl className="m-0 grid grid-cols-3 border-b border-border">
+          <dl className="m-0 grid grid-cols-3">
             {[
-              [t('themes.font'), firstFamily(previewed.fontFamily)],
+              [t('themes.font'), firstFamily(selected.fontFamily)],
               [t('themes.radius'), previewColors.radius?.trim() || '0rem'],
               [t('themes.mode'), modeLabel],
             ].map(([label, value], i) => (
@@ -340,42 +360,6 @@ shellui.addMessageListener('SHELLUI_SETTINGS', (message) =>
               </div>
             ))}
           </dl>
-          <div className="flex items-center justify-end gap-2 px-3.5 py-3 max-[759px]:grid max-[759px]:grid-cols-2">
-            <button
-              type="button"
-              onClick={() => setPreviewName(null)}
-              disabled={isApplied}
-              className="inline-flex h-9 cursor-pointer items-center justify-center rounded-md border-0 bg-transparent px-3 text-sm font-medium hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {t('themes.keep', { name: nameOf(currentTheme) })}
-            </button>
-            <button
-              type="button"
-              onClick={apply}
-              disabled={isApplied || Boolean(pending)}
-              aria-busy={Boolean(pending)}
-              className="inline-flex h-9 min-w-0 cursor-pointer items-center justify-center gap-1.5 rounded-md border-0 bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {pending ? (
-                <Loader2
-                  className="size-4 animate-spin motion-reduce:animate-none"
-                  aria-hidden
-                />
-              ) : (
-                <Check
-                  className="size-4"
-                  aria-hidden
-                />
-              )}
-              <span className="truncate">
-                {pending
-                  ? t('themes.applying', { name: nameOf(previewed) })
-                  : isApplied
-                    ? t('themes.applied')
-                    : t('themes.apply', { name: nameOf(previewed) })}
-              </span>
-            </button>
-          </div>
         </aside>
 
         <section
@@ -409,17 +393,15 @@ shellui.addMessageListener('SHELLUI_SETTINGS', (message) =>
 
           <div className="relative">
             <div className="max-h-[640px] overflow-y-auto p-3 pb-8 max-[759px]:max-h-[520px]">
-              {!needle && (
-                <>
-                  <h3 className="m-0 mb-2 text-[13px] font-medium">{t('themes.appliedNow')}</h3>
-                  <div className="mb-5 grid grid-cols-4 gap-2.5 max-[759px]:grid-cols-2">
-                    {tileFor(currentTheme)}
-                  </div>
-                  <h3 className="m-0 mb-2 text-[13px] font-medium">{t('themes.all')}</h3>
-                </>
-              )}
+              {!needle && <h3 className="m-0 mb-2 text-[13px] font-medium">{t('themes.all')}</h3>}
               {matches.length ? (
-                <div className="grid grid-cols-4 gap-2.5 max-[759px]:grid-cols-2">
+                <div
+                  role="radiogroup"
+                  aria-label={t('themes.all')}
+                  aria-busy={Boolean(pending)}
+                  onKeyDown={onRadioKeyDown}
+                  className="grid grid-cols-4 gap-2.5 max-[759px]:grid-cols-2"
+                >
                   {matches.map(tileFor)}
                 </div>
               ) : (
