@@ -35,9 +35,9 @@
     }
   },
   "dependencies": {
-    "@shellui/cli": "0.7.0-alpha.9",
-    "@shellui/core": "0.7.0-alpha.9",
-    "@shellui/sdk": "0.7.0-alpha.9",
+    "@shellui/cli": "0.7.0-alpha.10",
+    "@shellui/core": "0.7.0-alpha.10",
+    "@shellui/sdk": "0.7.0-alpha.10",
     "i18next": "^24.2.3",
     "lucide-react": "^0.468.0",
     "prism-react-renderer": "^2.4.1",

@@ -26,6 +26,7 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 ### 🚨 Changed
 
 - Bump to Shellui 0.7.0-alpha.9, so sign-in from the Account page returns there signed in.
+- Bump to Shellui 0.7.0-alpha.10 for the redesigned layouts and the macOS title bar strip.
 
 ## [0.4.6] - 2026-10-24
 
