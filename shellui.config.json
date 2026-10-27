@@ -172,6 +172,16 @@
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/account",
           "safeForAuthToken": true,
           "icon": "/icons/user.svg"
+        },
+        {
+          "label": {
+            "en": "Storage picker",
+            "fr": "Sélecteur de fichiers"
+          },
+          "path": "storage",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/storage",
+          "safeForAuthToken": true,
+          "icon": "/icons/folder-open.svg"
         }
       ]
     },

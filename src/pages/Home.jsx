@@ -12,6 +12,7 @@ import {
   LanguageIllustration,
   LayoutsIllustration,
   OverlaysIllustration,
+  StorageIllustration,
   ThemesIllustration,
   ToastsIllustration,
 } from '../components/home/illustrations';
@@ -315,7 +316,15 @@ function Tour() {
           >
             <AuthIllustration />
           </TourCard>
-          {/* Storage picker joins this row when its page ships. */}
+          <TourCard
+            to="/storage"
+            title={t('home.c.storage')}
+            body={t('home.c.storageBody')}
+            api="selectFiles · selectFolders"
+            badge={<NewBadge />}
+          >
+            <StorageIllustration />
+          </TourCard>
         </div>
       </GroupRow>
     </section>

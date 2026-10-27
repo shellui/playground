@@ -8,5 +8,18 @@ import themes from './themes';
 import languages from './languages';
 import prefs from './prefs';
 import account from './account';
+import storage from './storage';
 
-export default [pg, dialogs, toasts, overlays, actions, layouts, themes, languages, prefs, account];
+export default [
+  pg,
+  dialogs,
+  toasts,
+  overlays,
+  actions,
+  layouts,
+  themes,
+  languages,
+  prefs,
+  account,
+  storage,
+];
