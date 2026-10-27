@@ -4,6 +4,11 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      notFound: {
+        title: 'This page does not exist',
+        body: 'The playground has no route for',
+        home: 'Back to Home',
+      },
       home: {
         chip: 'Live demo',
         title1: 'This page is an app.',
@@ -306,6 +311,11 @@ const resources = {
   },
   fr: {
     translation: {
+      notFound: {
+        title: "Cette page n'existe pas",
+        body: "Le playground n'a pas de route pour",
+        home: "Retour à l'accueil",
+      },
       home: {
         chip: 'Démo en direct',
         title1: 'Cette page est une app.',
