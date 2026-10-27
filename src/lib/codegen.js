@@ -12,28 +12,28 @@ export function raw(code) {
 const quote = (s) => `'${String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
 const key = (k) => (/^[A-Za-z_$][\w$]*$/.test(k) ? k : quote(k));
 
-export function jsValue(value, indent = '') {
+export function jsValue(value, indent = '', width = 52) {
   if (value && value[RAW]) return value[RAW];
   if (typeof value === 'string') return quote(value);
   if (Array.isArray(value)) {
     if (value.length === 0) return '[]';
     const inner = indent + '  ';
-    return `[\n${value.map((v) => inner + jsValue(v, inner)).join(',\n')},\n${indent}]`;
+    return `[\n${value.map((v) => inner + jsValue(v, inner, width)).join(',\n')},\n${indent}]`;
   }
   if (value && typeof value === 'object') {
     const entries = Object.entries(value).filter(([, v]) => v !== undefined);
     if (entries.length === 0) return '{}';
-    const inline = entries.map(([k, v]) => `${key(k)}: ${jsValue(v, indent)}`).join(', ');
-    if (indent && inline.length <= 52 && !inline.includes('\n')) return `{ ${inline} }`;
+    const inline = entries.map(([k, v]) => `${key(k)}: ${jsValue(v, indent, width)}`).join(', ');
+    if (indent && inline.length <= width && !inline.includes('\n')) return `{ ${inline} }`;
     const inner = indent + '  ';
-    return `{\n${entries.map(([k, v]) => `${inner}${key(k)}: ${jsValue(v, inner)}`).join(',\n')},\n${indent}}`;
+    return `{\n${entries.map(([k, v]) => `${inner}${key(k)}: ${jsValue(v, inner, width)}`).join(',\n')},\n${indent}}`;
   }
   return String(value);
 }
 
 /** `import shellui from '@shellui/sdk';` then `shellui.fn({...});`. */
-export function sdkCall(fn, options, { before = '', after = '' } = {}) {
-  const arg = options === undefined ? '' : jsValue(options, '');
+export function sdkCall(fn, options, { before = '', after = '', width } = {}) {
+  const arg = options === undefined ? '' : jsValue(options, '', width);
   return `import shellui from '@shellui/sdk';\n\n${before}shellui.${fn}(${arg});${after}`;
 }
 

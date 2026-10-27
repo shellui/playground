@@ -156,42 +156,6 @@ const resources = {
       pageLayoutTitle: 'Layout',
       pageLayoutDescription:
         'Shellui supports different layout modes: sidebar and sidebar-inset, app bar and app-bar-inset, floating (glass chrome over full-bleed content), fullscreen (content only), or windows (taskbar and multi-window). Configure the layout in the shell to change how the app is presented.',
-      pageActionsTitle: 'Action buttons',
-      pageActionsDescription:
-        'Optional floating chrome owned by Shellui: back, title, trailing buttons, and a bottom primary FAB. Apps declare intent with the SDK; the shell renders chrome above the iframe and posts clicks back.',
-      pageActionsLifecycleTitle: 'Lifecycle',
-      pageActionsLifecycle:
-        "Chrome is optional and reserves safe padding. Set actions again on each in-app route change, because the shell does not guess SPA routes. Clear on unmount; shell navigation away also clears that view's actions.",
-      pageActionsMissingTitle: 'Action buttons are not available',
-      pageActionsMissing: 'Update @shellui/sdk to 0.7 or later to use action buttons.',
-      actionsInboxHeading: 'Inbox',
-      actionsInboxHint:
-        'Chrome shows the Inbox title and trailing actions (no back). Open a message to navigate in-app. The detail screen sets chrome again with a back button, a different title, and a refresh control.',
-      actionsMessageTitle: 'Message {{n}}',
-      actionsMessagePreview: 'Tap to open detail and try back + refresh…',
-      actionsOpenDetail: 'Open',
-      actionsDetailDescription:
-        'This screen re-declared chrome actions for the detail route. Use the shell back control (or the button below) to return to Inbox.',
-      actionsDetailChromeTitle: 'Try the chrome',
-      actionsDetailChromeHint:
-        'Back returns to Inbox. Refresh spins with animate: "icon-rotate" for 2 seconds while disabled.',
-      actionsDetailRefreshing: 'Refreshing… the chrome refresh icon should be spinning.',
-      actionsBackToInbox: 'Back to Inbox',
-      actionsTryRefresh: 'Trigger refresh',
-      actionsClearChrome: 'Clear actions',
-      actionsReactivateChrome: 'Re-activate actions',
-      actionsTitleInbox: 'Inbox',
-      actionsTitleDetail: 'Message detail',
-      actionsTrailingShare: 'Share',
-      actionsTrailingEdit: 'Edit',
-      actionsTrailingArchive: 'Archive',
-      actionsTrailingDelete: 'Delete',
-      actionsTrailingStar: 'Star',
-      actionsTrailingRefresh: 'Refresh',
-      actionsPrimaryCompose: 'Compose',
-      actionsLastClickEmpty: 'Click an action button in the shell chrome to see its id here.',
-      actionsLastClick: 'Last click: {{id}}',
-      actionsClickToast: 'Action: {{id}}',
       // Home / Playground
       codeSample: 'Code sample',
       currentTheme: 'Current theme',
@@ -404,44 +368,6 @@ const resources = {
       pageLayoutTitle: 'Mise en page',
       pageLayoutDescription:
         "Shellui propose plusieurs modes de mise en page : barre latérale et barre latérale inset, barre d'app et barre d'app inset, flottante (chrome en verre sur contenu plein écran), plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans le shell pour changer la présentation de l\'app.",
-      pageActionsTitle: "Boutons d'action",
-      pageActionsDescription:
-        "Chrome flottant optionnel géré par Shellui : retour, titre, boutons secondaires et FAB principal en bas. Les apps déclarent l'intention via le SDK ; le shell affiche le chrome au-dessus de l'iframe et renvoie les clics.",
-      pageActionsLifecycleTitle: 'Cycle de vie',
-      pageActionsLifecycle:
-        'Le chrome est optionnel et réserve un padding sécurisé. Redéclarez les actions à chaque changement de route interne, car le shell ne déduit pas les routes SPA. Effacez au démontage ; quitter la vue via la navigation shell efface aussi les actions.',
-      pageActionsMissingTitle: "Boutons d'action indisponibles",
-      pageActionsMissing:
-        "Mettez à jour @shellui/sdk en 0.7 ou plus pour utiliser les boutons d'action.",
-      actionsInboxHeading: 'Boîte de réception',
-      actionsInboxHint:
-        "Le chrome affiche le titre Boîte de réception et des actions secondaires (pas de retour). Ouvrez un message pour naviguer dans l'app. L'écran détail redéfinit le chrome avec un bouton retour, un autre titre et un contrôle Actualiser.",
-      actionsMessageTitle: 'Message {{n}}',
-      actionsMessagePreview: 'Ouvrir le détail pour tester retour + actualiser…',
-      actionsOpenDetail: 'Ouvrir',
-      actionsDetailDescription:
-        'Cet écran a redéclaré les actions chrome pour la route détail. Utilisez le retour du shell (ou le bouton ci-dessous) pour revenir à la boîte de réception.',
-      actionsDetailChromeTitle: 'Essayer le chrome',
-      actionsDetailChromeHint:
-        'Retour ramène à la boîte de réception. Actualiser tourne avec animate: "icon-rotate" pendant 2 secondes tout en étant désactivé.',
-      actionsDetailRefreshing: "Actualisation… l'icône Actualiser du chrome devrait tourner.",
-      actionsBackToInbox: 'Retour à la boîte',
-      actionsTryRefresh: "Lancer l'actualisation",
-      actionsClearChrome: 'Effacer les actions',
-      actionsReactivateChrome: 'Réactiver les actions',
-      actionsTitleInbox: 'Boîte de réception',
-      actionsTitleDetail: 'Détail du message',
-      actionsTrailingShare: 'Partager',
-      actionsTrailingEdit: 'Modifier',
-      actionsTrailingArchive: 'Archiver',
-      actionsTrailingDelete: 'Supprimer',
-      actionsTrailingStar: 'Favori',
-      actionsTrailingRefresh: 'Actualiser',
-      actionsPrimaryCompose: 'Composer',
-      actionsLastClickEmpty:
-        "Cliquez un bouton d'action dans le chrome du shell pour voir son id ici.",
-      actionsLastClick: 'Dernier clic : {{id}}',
-      actionsClickToast: 'Action : {{id}}',
       codeSample: 'Exemple de code',
       currentTheme: 'Thème actuel',
       currentLanguage: 'Langue actuelle',
