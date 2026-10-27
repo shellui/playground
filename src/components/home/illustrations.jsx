@@ -8,6 +8,12 @@ import {
   RotateCw,
   Trash2,
   CircleX,
+  FileText,
+  Folder,
+  Github,
+  Globe,
+  Image,
+  LayoutGrid,
 } from 'lucide-react';
 import LayoutSchematic from '../LayoutSchematic';
 
@@ -195,6 +201,53 @@ export function LanguageIllustration({ lang, timeZone }) {
             {fmt(tile.code)}
           </span>
         </div>
+      ))}
+    </div>
+  );
+}
+
+export function AuthIllustration() {
+  const rows = [
+    { Icon: Github, label: 'GitHub' },
+    { Icon: Globe, label: 'Google' },
+    { Icon: LayoutGrid, label: 'Microsoft' },
+  ];
+  return (
+    <div className="flex w-[54%] flex-col gap-1.5">
+      {rows.map(({ Icon, label }) => (
+        <span
+          key={label}
+          className="flex items-center gap-2 rounded-md border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground shadow-sm"
+        >
+          <Icon className="size-3.5 text-muted-foreground" />
+          {label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+export function StorageIllustration() {
+  const rows = [
+    { Icon: Folder, width: 'w-1/2' },
+    { Icon: FileText, width: 'w-2/3', on: true },
+    { Icon: Image, width: 'w-5/12' },
+  ];
+  return (
+    <div className="flex w-[58%] flex-col gap-1.5 rounded-md border border-border bg-card p-2 shadow-md">
+      {rows.map(({ Icon, width, on }, index) => (
+        <span
+          key={index}
+          className={`flex items-center gap-2 rounded-sm px-1.5 py-1 ${on ? 'bg-primary/15 ring-1 ring-primary/60' : ''}`}
+        >
+          <Icon className="size-3.5 flex-none text-muted-foreground" />
+          <Bar className={width} />
+          {on && (
+            <span className="ml-auto flex size-3.5 flex-none items-center justify-center rounded-full bg-primary text-primary-foreground">
+              <Check className="size-2.5" />
+            </span>
+          )}
+        </span>
       ))}
     </div>
   );

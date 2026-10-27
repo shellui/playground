@@ -7,6 +7,7 @@ import Layout from './pages/Layout';
 import Modal from './pages/Modal';
 import Dialog from './pages/Dialog';
 import Toaster from './pages/Toaster';
+import Account from './pages/Account';
 import NotFound from './pages/NotFound';
 import OverlaySample from './pages/OverlaySample';
 import PlaygroundSettings from './pages/PlaygroundSettings';
@@ -47,6 +48,10 @@ export default function App() {
         <Route
           path="/layout"
           element={<Layout />}
+        />
+        <Route
+          path="/account"
+          element={<Account />}
         />
         <Route
           path="/modal"

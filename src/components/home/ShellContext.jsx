@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import shellui from '@shellui/sdk';
+import { initials, providerName } from '../../lib/auth';
 import {
   Clock3,
   Languages,
@@ -38,15 +39,6 @@ function Cell({ icon: Icon, label, children, to, linkLabel }) {
       )}
     </div>
   );
-}
-
-function initials(name) {
-  return (name || '?')
-    .split(/\s+/)
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((part) => part[0].toUpperCase())
-    .join('');
 }
 
 function Account({ settings }) {
@@ -89,7 +81,7 @@ function Account({ settings }) {
         <span className="block truncate">{user.name || user.email}</span>
         {user.authProvider && (
           <span className="block truncate text-xs font-normal text-muted-foreground">
-            {t('home.ctx.signedInWith', { provider: user.authProvider })}
+            {t('home.ctx.signedInWith', { provider: providerName(user.authProvider) })}
           </span>
         )}
       </span>

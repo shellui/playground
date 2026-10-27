@@ -7,6 +7,7 @@ import ShellContext from '../components/home/ShellContext';
 import TourCard from '../components/home/TourCard';
 import {
   ActionsIllustration,
+  AuthIllustration,
   DialogIllustration,
   LanguageIllustration,
   LayoutsIllustration,
@@ -178,6 +179,15 @@ function Hero() {
   );
 }
 
+function NewBadge() {
+  const { t } = useTranslation();
+  return (
+    <span className="inline-flex h-[18px] items-center rounded-md border border-primary/40 bg-primary/15 px-1.5 text-[10.5px] font-medium text-foreground">
+      {t('home.new')}
+    </span>
+  );
+}
+
 function Tour() {
   const { t } = useTranslation();
   const appearance = useTheme();
@@ -291,7 +301,23 @@ function Tour() {
           </TourCard>
         </div>
       </GroupRow>
-      {/* Account and data (Sign-in and user, Storage picker) joins this tour when those pages ship. */}
+      <GroupRow
+        title={t('home.g.account')}
+        body={t('home.g.accountBody')}
+      >
+        <div className="grid min-w-0 gap-3 min-[760px]:grid-cols-2">
+          <TourCard
+            to="/account"
+            title={t('home.c.auth')}
+            body={t('home.c.authBody')}
+            api="shellui.login · settings.user"
+            badge={<NewBadge />}
+          >
+            <AuthIllustration />
+          </TourCard>
+          {/* Storage picker joins this row when its page ships. */}
+        </div>
+      </GroupRow>
     </section>
   );
 }

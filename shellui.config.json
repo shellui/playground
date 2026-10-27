@@ -159,6 +159,24 @@
     },
     {
       "title": {
+        "en": "Account and data",
+        "fr": "Compte et données"
+      },
+      "items": [
+        {
+          "label": {
+            "en": "Sign-in and user",
+            "fr": "Connexion et utilisateur"
+          },
+          "path": "account",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/account",
+          "safeForAuthToken": true,
+          "icon": "/icons/user.svg"
+        }
+      ]
+    },
+    {
+      "title": {
         "en": "Applications",
         "fr": "Applications"
       },
