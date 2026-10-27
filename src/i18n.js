@@ -222,7 +222,7 @@ const resources = {
       currentLanguage: 'Current language',
       pageLayoutExperimental: 'The windows layout (taskbar + multi-window) is experimental.',
       pageLayoutConfigNote:
-        'Layout is set in shellui.config.ts. In development you can also override it from Shell Settings.',
+        'Layout is set in shellui.config.json. In development you can also override it from Shell Settings.',
       pageThemesTry:
         'Change the theme in Shell Settings (gear icon) and see this page and the shell update together.',
       pageLanguagesTry:
@@ -544,7 +544,7 @@ const resources = {
       pageLayoutExperimental:
         'Le mode fenêtres (barre des tâches + multi-fenêtres) est expérimental.',
       pageLayoutConfigNote:
-        'La mise en page est définie dans shellui.config.ts. En développement vous pouvez aussi la surcharger depuis les Paramètres de la coque.',
+        'La mise en page est définie dans shellui.config.json. En développement vous pouvez aussi la surcharger depuis les Paramètres de la coque.',
       pageThemesTry:
         'Changez le thème dans les Paramètres de la coque (icône engrenage) pour voir cette page et la coque se mettre à jour.',
       pageLanguagesTry:

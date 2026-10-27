@@ -8,12 +8,11 @@ import { updateShellSettings } from '../lib/shell';
 import LayoutPreview from '../components/LayoutPreview';
 import { Alert, AlertTitle } from '../components/ui/Alert';
 
-const LAYOUT_CONFIG_CODE = `// shellui.config.ts
-const config: ShelluiConfig = {
-  // 'sidebar' (default) | 'sidebar-inset' | 'app-bar' | 'app-bar-inset' | 'floating' | 'fullscreen' | 'windows'
-  layout: "sidebar",
-  // ...
-};`;
+const LAYOUT_CONFIG_CODE = `// shellui.config.json
+// "layout": sidebar (default), sidebar-inset, app-bar, app-bar-inset, floating, fullscreen or windows
+{
+  "layout": "sidebar"
+}`;
 
 const LAYOUT_CATEGORIES = [
   {
@@ -117,7 +116,7 @@ export default function Layout() {
         <p className="text-xs text-muted-foreground mb-3">{t('layoutFullscreenNote')}</p>
         <CodeBlock
           code={LAYOUT_CONFIG_CODE}
-          language="typescript"
+          language="json"
         />
       </section>
     </div>
