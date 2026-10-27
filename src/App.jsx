@@ -8,6 +8,7 @@ import Modal from './pages/Modal';
 import Dialog from './pages/Dialog';
 import Toaster from './pages/Toaster';
 import NotFound from './pages/NotFound';
+import PlaygroundSettings from './pages/PlaygroundSettings';
 import Actions, { ActionsDetail, ActionsLayout } from './pages/Actions';
 
 /** Reset scroll when the hash route changes (in-app links or shell-driven hash replace). */
@@ -68,6 +69,10 @@ export default function App() {
             element={<ActionsDetail />}
           />
         </Route>
+        <Route
+          path="/settings"
+          element={<PlaygroundSettings />}
+        />
         <Route
           path="*"
           element={<NotFound />}

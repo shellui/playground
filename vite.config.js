@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import pkg from './package.json' with { type: 'json' };
 
 export default defineConfig(({ mode }) => ({
   plugins: [react(), tailwindcss()],
+  define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
+  },
   // Optional: keep the iframe app off the shell cache (`node_modules/.vite-shellui`).
   cacheDir: 'node_modules/.vite-app',
   base: mode === 'production' ? '/app/' : '/',

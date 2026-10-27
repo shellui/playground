@@ -4,6 +4,16 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
   en: {
     translation: {
+      appSettings: {
+        title: 'Playground',
+        body: 'Settings for this app only. The shell shows this page because the Playground item in shellui.config.json declares a settings URL.',
+        consoleTitle: 'First tab in Run a call',
+        consoleBody: 'The Home console opens on this call. Saved in this browser.',
+        aboutTitle: 'About this app',
+        appVersion: 'Playground version',
+        sdkVersion: '@shellui/sdk version',
+        source: 'Source',
+      },
       notFound: {
         title: 'This page does not exist',
         body: 'The playground has no route for',
@@ -311,6 +321,17 @@ const resources = {
   },
   fr: {
     translation: {
+      appSettings: {
+        title: 'Playground',
+        body: "Réglages propres à cette app. Le shell affiche cette page parce que l'élément Playground de shellui.config.json déclare une URL de réglages.",
+        consoleTitle: 'Premier onglet de Lancer un appel',
+        consoleBody:
+          "La console de l'accueil s'ouvre sur cet appel. Enregistré dans ce navigateur.",
+        aboutTitle: 'À propos de cette app',
+        appVersion: 'Version du playground',
+        sdkVersion: 'Version de @shellui/sdk',
+        source: 'Code source',
+      },
       notFound: {
         title: "Cette page n'existe pas",
         body: "Le playground n'a pas de route pour",
