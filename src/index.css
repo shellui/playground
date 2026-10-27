@@ -219,3 +219,41 @@ main {
 main.pg-bare {
   padding: 0;
 }
+
+/* Home: dot field behind the top of the page. Spans the frame, under any shell
+   chrome (the floating sidebar is glass), and fades out towards the content. */
+.pg-hero-dots {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 640px;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 45%, transparent);
+  /* A soft primary wash at the top left, so glass chrome above it shows its tint. */
+  background-image: radial-gradient(
+    60% 70% at 12% 0%,
+    color-mix(in oklab, var(--primary) 16%, transparent),
+    transparent 70%
+  );
+  --pg-dot: color-mix(in oklab, var(--foreground) 15%, transparent);
+}
+.dark .pg-hero-dots {
+  --pg-dot: color-mix(in oklab, var(--foreground) 11%, transparent);
+}
+/* Static grid under reduced motion (the canvas is not mounted then). */
+.pg-hero-dots:not([data-live])::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--pg-dot) 1.1px, transparent 1.6px);
+  background-size: 24px 24px;
+  background-position: center 0;
+}
+@media (max-width: 759px) {
+  .pg-hero-dots {
+    height: 480px;
+  }
+}

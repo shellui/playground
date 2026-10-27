@@ -5,6 +5,7 @@ import CodeBlock from '../components/CodeBlock';
 import RunConsole from '../components/home/RunConsole';
 import ShellContext from '../components/home/ShellContext';
 import TourCard from '../components/home/TourCard';
+import HeroDots from '../components/home/HeroDots';
 import {
   ActionsIllustration,
   AuthIllustration,
@@ -474,6 +475,7 @@ export default function Home() {
   const { t } = useTranslation();
   return (
     <div className="relative isolate mx-auto max-w-[1180px] font-body text-foreground">
+      <HeroDots />
       <div className="grid min-w-0 items-start gap-10 min-[1180px]:grid-cols-[minmax(0,1fr)_480px]">
         <Hero />
         <RunConsole />
