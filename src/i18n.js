@@ -169,12 +169,12 @@ const resources = {
         'Optional floating chrome owned by Shellui: back, title, trailing buttons, and a bottom primary FAB. Apps declare intent with the SDK; the shell renders chrome above the iframe and posts clicks back.',
       pageActionsLifecycleTitle: 'Lifecycle',
       pageActionsLifecycle:
-        'Chrome is optional and reserves safe padding. Re-set actions on your own in-app route changes — the shell does not guess SPA routes. Clear on unmount; shell navigation away also clears that view’s actions.',
+        "Chrome is optional and reserves safe padding. Set actions again on each in-app route change, because the shell does not guess SPA routes. Clear on unmount; shell navigation away also clears that view's actions.",
       pageActionsMissingTitle: 'Action buttons are not available',
       pageActionsMissing: 'Update @shellui/sdk to 0.7 or later to use action buttons.',
       actionsInboxHeading: 'Inbox',
       actionsInboxHint:
-        'Chrome shows the Inbox title and trailing actions (no back). Open a message to navigate in-app — the detail screen re-sets chrome with a back button, a different title, and a refresh control.',
+        'Chrome shows the Inbox title and trailing actions (no back). Open a message to navigate in-app. The detail screen sets chrome again with a back button, a different title, and a refresh control.',
       actionsMessageTitle: 'Message {{n}}',
       actionsMessagePreview: 'Tap to open detail and try back + refresh…',
       actionsOpenDetail: 'Open',
@@ -212,7 +212,7 @@ const resources = {
       pageLanguagesTry:
         'Change the language in Shell Settings (gear icon) and see all labels on this page update.',
       pageModalDrawerFun:
-        'What can we load? Your app. Yes, really. Pass a URL to a route in this app and the shell will load it in a modal or drawer. Perfect for "quick settings" or "preview" panels without leaving the page.',
+        'What can the shell load? Your own app. Pass a URL to a route in this app and the shell loads it in a modal or drawer. Use it for settings or preview panels without leaving the page.',
       closeDrawer: 'Close drawer',
       openModalWithThemes: 'Open Themes in modal',
       openModalWithLanguages: 'Open Languages in modal',
@@ -435,45 +435,45 @@ const resources = {
       },
       pageThemesTitle: 'Thèmes',
       pageThemesDescription:
-        'Shellui prend en charge les thèmes personnalisés : couleurs, polices et rayon. Changez le thème dans les paramètres de la barre latérale pour voir la coque et l’app s’adapter.',
+        "Shellui prend en charge les thèmes personnalisés : couleurs, polices et rayon. Changez le thème dans les paramètres de la barre latérale pour voir le shell et l'app s'adapter.",
       pageLanguagesTitle: 'Langues',
       pageLanguagesDescription:
-        'Shellui peut piloter la langue de l’app. Quand vous changez la langue dans les paramètres, la coque et cette app se mettent à jour ensemble via i18n.',
+        "Shellui peut piloter la langue de l'app. Quand vous changez la langue dans les paramètres, le shell et cette app se mettent à jour ensemble via i18n.",
       pageLayoutTitle: 'Mise en page',
       pageLayoutDescription:
-        "Shellui propose plusieurs modes de mise en page : barre latérale et barre latérale inset, barre d'app et barre d'app inset, flottante (chrome en verre sur contenu plein écran), plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans la coque pour changer la présentation de l’app.",
+        "Shellui propose plusieurs modes de mise en page : barre latérale et barre latérale inset, barre d'app et barre d'app inset, flottante (chrome en verre sur contenu plein écran), plein écran (contenu seul) ou fenêtres (barre des tâches et multi-fenêtres). Configurez la mise en page dans le shell pour changer la présentation de l\'app.",
       pageModalDrawerTitle: 'Fenêtre modale et tiroir',
       pageModalDrawerDescription:
-        'Shellui peut ouvrir du contenu dans une fenêtre modale (bloque l’interaction jusqu’à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.',
+        "Shellui peut ouvrir du contenu dans une fenêtre modale (bloque l'interaction jusqu'à fermeture) ou dans un tiroir qui glisse depuis le bord. Utilisez la modale pour des tâches ciblées (ex. Paramètres) ; utilisez le tiroir pour du contenu ou des actions sans quitter le contexte actuel.",
       pageDialogTitle: 'Dialogue',
       pageDialogDescription:
         'Les dialogues sont des échanges ciblés : confirmations, alertes ou formulaires. Ils capturent le focus et peuvent renvoyer un résultat à la fermeture.',
       pageToasterTitle: 'Notifications',
       pageToasterDescription:
-        'Les toasts s’affichent brièvement pour confirmer une action ou un statut. Ils s’empilent et se ferment automatiquement ou par l’utilisateur.',
+        "Les toasts s'affichent brièvement pour confirmer une action ou un statut. Ils s'empilent et se ferment automatiquement ou par l'utilisateur.",
       pageActionsTitle: "Boutons d'action",
       pageActionsDescription:
-        'Chrome flottant optionnel géré par Shellui : retour, titre, boutons secondaires et FAB principal en bas. Les apps déclarent l’intention via le SDK ; la coque affiche le chrome au-dessus de l’iframe et renvoie les clics.',
+        "Chrome flottant optionnel géré par Shellui : retour, titre, boutons secondaires et FAB principal en bas. Les apps déclarent l'intention via le SDK ; le shell affiche le chrome au-dessus de l'iframe et renvoie les clics.",
       pageActionsLifecycleTitle: 'Cycle de vie',
       pageActionsLifecycle:
-        'Le chrome est optionnel et réserve un padding sécurisé. Re-déclarez les actions à chaque changement de route interne — la coque ne déduit pas les routes SPA. Effacez au démontage ; quitter la vue via la navigation shell efface aussi les actions.',
+        'Le chrome est optionnel et réserve un padding sécurisé. Redéclarez les actions à chaque changement de route interne, car le shell ne déduit pas les routes SPA. Effacez au démontage ; quitter la vue via la navigation shell efface aussi les actions.',
       pageActionsMissingTitle: "Boutons d'action indisponibles",
       pageActionsMissing:
         "Mettez à jour @shellui/sdk en 0.7 ou plus pour utiliser les boutons d'action.",
       actionsInboxHeading: 'Boîte de réception',
       actionsInboxHint:
-        'Le chrome affiche le titre Boîte de réception et des actions secondaires (pas de retour). Ouvrez un message pour naviguer dans l’app — l’écran détail redéfinit le chrome avec un bouton retour, un autre titre et un contrôle Actualiser.',
+        "Le chrome affiche le titre Boîte de réception et des actions secondaires (pas de retour). Ouvrez un message pour naviguer dans l'app. L'écran détail redéfinit le chrome avec un bouton retour, un autre titre et un contrôle Actualiser.",
       actionsMessageTitle: 'Message {{n}}',
       actionsMessagePreview: 'Ouvrir le détail pour tester retour + actualiser…',
       actionsOpenDetail: 'Ouvrir',
       actionsDetailDescription:
-        'Cet écran a redéclaré les actions chrome pour la route détail. Utilisez le retour de la coque (ou le bouton ci-dessous) pour revenir à la boîte de réception.',
+        'Cet écran a redéclaré les actions chrome pour la route détail. Utilisez le retour du shell (ou le bouton ci-dessous) pour revenir à la boîte de réception.',
       actionsDetailChromeTitle: 'Essayer le chrome',
       actionsDetailChromeHint:
         'Retour ramène à la boîte de réception. Actualiser tourne avec animate: "icon-rotate" pendant 2 secondes tout en étant désactivé.',
-      actionsDetailRefreshing: 'Actualisation… l’icône Actualiser du chrome devrait tourner.',
+      actionsDetailRefreshing: "Actualisation… l'icône Actualiser du chrome devrait tourner.",
       actionsBackToInbox: 'Retour à la boîte',
-      actionsTryRefresh: 'Lancer l’actualisation',
+      actionsTryRefresh: "Lancer l'actualisation",
       actionsClearChrome: 'Effacer les actions',
       actionsReactivateChrome: 'Réactiver les actions',
       actionsTitleInbox: 'Boîte de réception',
@@ -486,7 +486,7 @@ const resources = {
       actionsTrailingRefresh: 'Actualiser',
       actionsPrimaryCompose: 'Composer',
       actionsLastClickEmpty:
-        "Cliquez un bouton d'action dans le chrome de la coque pour voir son id ici.",
+        "Cliquez un bouton d'action dans le chrome du shell pour voir son id ici.",
       actionsLastClick: 'Dernier clic : {{id}}',
       actionsClickToast: 'Action : {{id}}',
       codeSample: 'Exemple de code',
@@ -495,13 +495,13 @@ const resources = {
       pageLayoutExperimental:
         'Le mode fenêtres (barre des tâches + multi-fenêtres) est expérimental.',
       pageLayoutConfigNote:
-        'La mise en page est définie dans shellui.config.json. En développement vous pouvez aussi la surcharger depuis les Paramètres de la coque.',
+        'La mise en page est définie dans shellui.config.json. En développement vous pouvez aussi la surcharger depuis les Paramètres du shell.',
       pageThemesTry:
-        'Changez le thème dans les Paramètres de la coque (icône engrenage) pour voir cette page et la coque se mettre à jour.',
+        'Changez le thème dans les Paramètres du shell (icône engrenage) pour voir cette page et le shell se mettre à jour.',
       pageLanguagesTry:
-        'Changez la langue dans les Paramètres de la coque (icône engrenage) pour voir toutes les étiquettes de cette page se mettre à jour.',
+        'Changez la langue dans les Paramètres du shell (icône engrenage) pour voir toutes les étiquettes de cette page se mettre à jour.',
       pageModalDrawerFun:
-        "Qu'est-ce qu'on peut charger ? Votre app. Oui, vraiment. Passez l'URL d'une route de cette app et la coque la chargera dans une modale ou un tiroir. Idéal pour des « réglages rapides » ou des panneaux « aperçu » sans quitter la page.",
+        "Que peut charger le shell ? Votre propre app. Passez l'URL d'une route de cette app et le shell la charge dans une modale ou un tiroir. Utile pour des panneaux de réglages ou d'aperçu sans quitter la page.",
       closeDrawer: 'Fermer le tiroir',
       openModalWithThemes: 'Ouvrir Thèmes en modale',
       openModalWithLanguages: 'Ouvrir Langues en modale',
@@ -518,8 +518,8 @@ const resources = {
       toastWithAction: 'Toast avec action',
       layoutSidebar: 'Barre latérale',
       layoutSidebarInset: 'Barre latérale inset',
-      layoutAppBar: 'Barre d’app',
-      layoutAppBarInset: 'Barre d’app inset',
+      layoutAppBar: "Barre d'app",
+      layoutAppBarInset: "Barre d'app inset",
       layoutFloating: 'Flottante',
       layoutFullscreen: 'Plein écran',
       layoutWindows: 'Fenêtres (expérimental)',
@@ -537,10 +537,10 @@ const resources = {
       languageEn: 'Anglais',
       languageFr: 'Français',
       exampleTitleLayoutConfig: 'Configuration de la mise en page',
-      exampleTitleTheme: 'Thème (venant de la coque)',
-      exampleTitleLanguage: 'Langue (venant de la coque)',
-      exampleTitleModal: 'Ouvrir une modale avec l’URL de l’app',
-      exampleTitleDrawer: 'Ouvrir un tiroir avec l’URL de l’app',
+      exampleTitleTheme: 'Thème (venant du shell)',
+      exampleTitleLanguage: 'Langue (venant du shell)',
+      exampleTitleModal: "Ouvrir une modale avec l'URL de l'app",
+      exampleTitleDrawer: "Ouvrir un tiroir avec l'URL de l'app",
       exampleTitleAlert: 'Alerte (OK uniquement)',
       exampleTitleConfirm: 'Confirmation (OK / Annuler)',
       exampleTitleDelete: 'Confirmation de suppression',

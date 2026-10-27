@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => ({
     // iframe postMessage target matching against nav URLs (localhost:5173).
     origin: 'http://localhost:5173',
     cors: true,
-    // Do not hard-pin hmr.host — Vite follows `--host` so LAN clients get a
+    // Do not hard-pin hmr.host: Vite follows `--host` so LAN clients get a
     // reachable HMR websocket. clientPort stays on the companion port.
     hmr: {
       clientPort: 5173,

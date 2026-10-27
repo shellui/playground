@@ -12,7 +12,7 @@ import {
 
 /**
  * Get appearance from SDK settings (e.g. shellui.initialSettings).
- * Same type as settings.appearance – use without modification.
+ * Same type as settings.appearance, use without modification.
  *
  * @param {import('@shellui/sdk').Settings | null | undefined} settings
  * @returns {import('@shellui/sdk').Appearance | null}
