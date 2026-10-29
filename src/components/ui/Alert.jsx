@@ -4,6 +4,8 @@ const variantStyles = {
   default: 'border border-border/80 bg-muted/50 text-foreground [&>svg]:text-foreground',
   destructive:
     'border border-destructive/30 bg-destructive/5 text-destructive [&>svg]:text-destructive',
+  warning:
+    'border border-warning/40 bg-warning/10 text-foreground [&>svg]:text-warning dark:[&>svg]:text-amber-400',
 };
 
 /**

@@ -1,0 +1,66 @@
+export default {
+  en: {
+    account: {
+      title: 'Sign-in and user',
+      lede: 'The shell signs people in and shares who they are with every app. Your app never sees a password.',
+      out: {
+        title: 'You are not signed in',
+        text: 'Pick a provider. The shell opens the sign-in, then comes back here and this page shows what your app receives.',
+      },
+      continueWith: 'Continue with {{provider}}',
+      providersHelp: 'Providers come from `backend.login.oauthProviders` in the config.',
+      signedInWith: 'Signed in with {{provider}}',
+      owner: 'Company owner',
+      staff: 'Staff',
+      manage: 'Manage account',
+      signOutHelp: 'Sign out from Settings, User account.',
+      fields: 'What your app gets',
+      avatarAlt: 'Profile picture of {{name}}',
+      code: {
+        t: 'In your code',
+        d: 'Your app asks for a sign-in and reads the result. The shell talks to the provider, keeps the session and sends the user to every app.',
+        c1: 'Ask the shell to sign the person in',
+        c2: 'Read who is signed in',
+        c3: 'Updates arrive with every settings change',
+      },
+      gate: {
+        t: 'Pages that need sign-in',
+        d: 'Mark a navigation item with `requiresAuth` and the shell asks for sign-in before it opens. Add `hideWhenLoggedOut` and the item only shows once someone is signed in. In this playground, Files works that way.',
+        visible: 'Visible',
+        hidden: 'Hidden until sign-in',
+      },
+    },
+  },
+  fr: {
+    account: {
+      title: 'Connexion et utilisateur',
+      lede: 'Le shell connecte les personnes et partage leur identité avec chaque app. Votre app ne voit jamais de mot de passe.',
+      out: {
+        title: "Vous n'êtes pas connecté",
+        text: 'Choisissez un fournisseur. Le shell ouvre la connexion, revient ici, et cette page montre ce que reçoit votre app.',
+      },
+      continueWith: 'Continuer avec {{provider}}',
+      providersHelp: 'Les fournisseurs viennent de `backend.login.oauthProviders` dans la config.',
+      signedInWith: 'Connecté avec {{provider}}',
+      owner: "Propriétaire de l'entreprise",
+      staff: 'Équipe',
+      manage: 'Gérer le compte',
+      signOutHelp: 'Déconnectez-vous depuis Paramètres, Compte utilisateur.',
+      fields: 'Ce que reçoit votre app',
+      avatarAlt: 'Photo de profil de {{name}}',
+      code: {
+        t: 'Dans votre code',
+        d: "Votre app demande une connexion et lit le résultat. Le shell échange avec le fournisseur, garde la session et envoie l'utilisateur à chaque app.",
+        c1: 'Demander au shell de connecter la personne',
+        c2: 'Lire qui est connecté',
+        c3: 'Les mises à jour arrivent à chaque changement de paramètres',
+      },
+      gate: {
+        t: 'Pages qui demandent une connexion',
+        d: "Ajoutez `requiresAuth` à un élément de navigation et le shell demande une connexion avant de l'ouvrir. Ajoutez `hideWhenLoggedOut` et l'élément n'apparaît qu'une fois la personne connectée. Dans ce playground, Fichiers fonctionne ainsi.",
+        visible: 'Visible',
+        hidden: "Masqué jusqu'à la connexion",
+      },
+    },
+  },
+};

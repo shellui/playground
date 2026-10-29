@@ -14,10 +14,13 @@ function showBootstrapError(error) {
   console.error('[playground] shellui.init() failed. The shell handshake did not complete.', error);
   const root = document.getElementById('root');
   if (root) {
+    // i18n resources are bundled, so the message follows the browser language even before init.
+    const t = i18n.getFixedT(navigator.language?.startsWith('fr') ? 'fr' : 'en');
+    const escape = (text) => text.replace(/</g, '&lt;');
     root.innerHTML = `<div style="font:14px/1.5 system-ui,sans-serif;padding:2rem;max-width:36rem">
-      <h1 style="font-size:1.25rem;margin:0 0 .5rem">Playground failed to start</h1>
-      <p style="margin:0 0 .75rem;color:#444">The shellui SDK handshake did not complete. Open this app inside the shell (port 4000), and ensure the shell is running.</p>
-      <pre style="white-space:pre-wrap;background:#f4f4f5;padding:1rem;border-radius:8px;font-size:12px">${message.replace(/</g, '&lt;')}</pre>
+      <h1 style="font-size:1.25rem;margin:0 0 .5rem">${escape(t('bootError.title'))}</h1>
+      <p style="margin:0 0 .75rem;color:#444">${escape(t('bootError.body'))}</p>
+      <pre style="white-space:pre-wrap;background:#f4f4f5;padding:1rem;border-radius:8px;font-size:12px">${escape(message)}</pre>
     </div>`;
   }
 }

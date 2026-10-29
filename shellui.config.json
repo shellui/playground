@@ -54,7 +54,10 @@
   },
   "navigation": [
     {
-      "label": "Homepage",
+      "label": {
+        "en": "Home",
+        "fr": "Accueil"
+      },
       "path": "",
       "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/",
       "safeForAuthToken": true,
@@ -62,14 +65,14 @@
     },
     {
       "title": {
-        "en": "Features",
-        "fr": "Fonctionnalités"
+        "en": "Overlays",
+        "fr": "Superpositions"
       },
       "items": [
         {
           "label": {
-            "en": "Dialog",
-            "fr": "Dialogue"
+            "en": "Dialogs",
+            "fr": "Dialogues"
           },
           "path": "dialog",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/dialog",
@@ -78,7 +81,7 @@
         },
         {
           "label": {
-            "en": "Toaster",
+            "en": "Toasts",
             "fr": "Notifications"
           },
           "path": "toaster",
@@ -86,6 +89,24 @@
           "safeForAuthToken": true,
           "icon": "/icons/toaster.svg"
         },
+        {
+          "label": {
+            "en": "Modals and drawers",
+            "fr": "Modales et tiroirs"
+          },
+          "path": "modal",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/modal",
+          "safeForAuthToken": true,
+          "icon": "/icons/modal.svg"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Chrome",
+        "fr": "Chrome"
+      },
+      "items": [
         {
           "label": {
             "en": "Action buttons",
@@ -98,18 +119,8 @@
         },
         {
           "label": {
-            "en": "Modal & Drawer",
-            "fr": "Fenêtre modale et tiroir"
-          },
-          "path": "modal",
-          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/modal",
-          "safeForAuthToken": true,
-          "icon": "/icons/modal.svg"
-        },
-        {
-          "label": {
-            "en": "Layout",
-            "fr": "Mise en page"
+            "en": "Layouts",
+            "fr": "Mises en page"
           },
           "path": "layout",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/layout",
@@ -136,8 +147,8 @@
         },
         {
           "label": {
-            "en": "Language & region",
-            "fr": "Langue & région"
+            "en": "Language and region",
+            "fr": "Langue et région"
           },
           "path": "languages",
           "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/languages",
@@ -146,7 +157,34 @@
         }
       ]
     },
-
+    {
+      "title": {
+        "en": "Account and data",
+        "fr": "Compte et données"
+      },
+      "items": [
+        {
+          "label": {
+            "en": "Sign-in and user",
+            "fr": "Connexion et utilisateur"
+          },
+          "path": "account",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/account",
+          "safeForAuthToken": true,
+          "icon": "/icons/user.svg"
+        },
+        {
+          "label": {
+            "en": "Storage picker",
+            "fr": "Sélecteur de fichiers"
+          },
+          "path": "storage",
+          "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/storage",
+          "safeForAuthToken": true,
+          "icon": "/icons/folder-open.svg"
+        }
+      ]
+    },
     {
       "title": {
         "en": "Applications",
@@ -165,30 +203,23 @@
       ]
     },
     {
-      "title": {
-        "en": "External Links",
-        "fr": "Liens externes"
+      "label": "Website",
+      "path": "website",
+      "url": "${WEBSITE_URL:-http://localhost:8080/}",
+      "safeForAuthToken": true,
+      "icon": "/icons/globe.svg",
+      "position": "end"
+    },
+    {
+      "label": {
+        "en": "Docs",
+        "fr": "Documentation"
       },
-      "items": [
-        {
-          "label": "Website",
-          "path": "website",
-          "url": "${WEBSITE_URL:-http://localhost:8080/}",
-          "safeForAuthToken": true,
-          "icon": "/icons/globe.svg"
-        },
-        {
-          "label": {
-            "en": "Docs",
-            "fr": "Documentation"
-          },
-          "path": "docs",
-          "url": "${DOCS_URL:-https://docs.shellui.com}",
-          "safeForAuthToken": true,
-          "icon": "/icons/book-open.svg",
-          "position": "end"
-        }
-      ]
+      "path": "docs",
+      "url": "${DOCS_URL:-https://docs.shellui.com}",
+      "safeForAuthToken": true,
+      "icon": "/icons/book-open.svg",
+      "position": "end"
     },
     {
       "label": "Playground",

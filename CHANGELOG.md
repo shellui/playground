@@ -21,6 +21,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [0.5.0] - 2026-10-29
+
+### 🏗 Chore
+
+- **Dependencies:** bumped @shellui/cli, core and sdk to 0.7.0-alpha.12.
+
+### 🛠 Improvements
+
+- **Themes:** tiles and the preview show the light and dark variants side by side, with larger color swatches.
+- **Home:** the animated dot field from the Shellui windows layout sits behind the top of the page and fades out towards the content. In the floating layout it runs under the glass sidebar. Reduced motion shows a static grid.
+- **Themes:** picking a theme applies it right away, without an Apply button. The tiles are a radio group you can move through with the arrow keys.
+- **Modals and drawers:** the drawer preview, side picker and home illustration show floating drawers, as in Shellui 0.7.0.
+
+### 🚨 Changed
+
+- Bump to Shellui 0.7.0-alpha.9, so sign-in from the Account page returns there signed in.
+- Bump to Shellui 0.7.0-alpha.10 for the redesigned layouts and the macOS title bar strip.
+- Bump to Shellui 0.7.0-alpha.11 for the sidebar account block, floating drawers and fresh scripts and styles after an upgrade in `shellui start`.
+- macOS desktop app: the traffic lights stay at the system position (no `trafficLightPosition`) and the unused `objc2` crates are gone.
+
 ## [0.4.6] - 2026-10-24
 
 ### 🚨 Changed

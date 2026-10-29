@@ -1,0 +1,78 @@
+/* Shared page pattern: header, recipes, workbench, log, notes. Tokens only, so every
+   theme and dark mode apply. Utilities can still override these classes. */
+@layer components {
+  .pg-dots {
+    background-color: var(--muted);
+    background-image: radial-gradient(
+      color-mix(in oklab, var(--foreground) 8%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 12px 12px;
+  }
+  .pg-recipes {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .pg-recipes[data-count='4'] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .pg-recipes[data-count='5'] {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  @media (max-width: 1179px) {
+    .pg-recipes,
+    .pg-recipes[data-count] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  /* Same sideways scroll on every page under 760 px. */
+  @media (max-width: 759px) {
+    .pg-recipes,
+    .pg-recipes[data-count] {
+      display: flex;
+      overflow-x: auto;
+      margin-inline: -1rem;
+      padding: 2px 1rem 4px;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 1rem;
+    }
+    .pg-recipes > * {
+      flex: 0 0 132px;
+      scroll-snap-align: start;
+    }
+  }
+  .pg-mini-line {
+    display: block;
+    height: 7px;
+    border-radius: 3px;
+    background: color-mix(in oklab, var(--foreground) 11%, transparent);
+  }
+  .pg-mini-head {
+    display: block;
+    height: 10px;
+    width: 34%;
+    border-radius: 4px;
+    background: color-mix(in oklab, var(--foreground) 40%, transparent);
+    margin-bottom: 6px;
+  }
+  .pg-shadow {
+    box-shadow: 0 24px 48px -16px rgb(0 0 0 / 0.45);
+  }
+  .pg-scrim {
+    background: rgb(0 0 0 / 0.42);
+  }
+  .dark .pg-scrim {
+    background: rgb(0 0 0 / 0.6);
+  }
+  .pg-notes li::marker {
+    color: var(--primary);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pg-recipes *,
+    .pg-bench * {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}
