@@ -1,6 +1,6 @@
 [package]
 name = "playground"
-version = "0.4.3"
+version = "0.5.0"
 default-run = "Playground"
 description = "Shellui desktop app"
 authors = ["Shellui"]
