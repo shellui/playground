@@ -23,6 +23,10 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ## [Unreleased]
 
+### 🏗 Chore
+
+- **Dependencies:** bumped @shellui/cli, core and sdk to 0.7.0-alpha.12.
+
 ### 🛠 Improvements
 
 - **Home:** the animated dot field from the Shellui windows layout sits behind the top of the page and fades out towards the content. In the floating layout it runs under the glass sidebar. Reduced motion shows a static grid.
