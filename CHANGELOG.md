@@ -29,6 +29,7 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ### 🛠 Improvements
 
+- **Themes:** tiles and the preview show the light and dark variants side by side, with larger color swatches.
 - **Home:** the animated dot field from the Shellui windows layout sits behind the top of the page and fades out towards the content. In the floating layout it runs under the glass sidebar. Reduced motion shows a static grid.
 - **Themes:** picking a theme applies it right away, without an Apply button. The tiles are a radio group you can move through with the arrow keys.
 - **Modals and drawers:** the drawer preview, side picker and home illustration show floating drawers, as in Shellui 0.7.0.

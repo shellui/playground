@@ -63,9 +63,32 @@ function onRadioKeyDown(event) {
   radios[next].click();
 }
 
-function Tile({ theme, dark, checked, focusable, current, onSelect, badge }) {
-  const c = (dark ? theme.colors?.dark : theme.colors?.light) ?? {};
+/** Light or dark swatch of a theme: primary bar over secondary, accent and foreground. */
+function Swatch({ c }) {
   const r = tileRadius(c.radius);
+  return (
+    <span
+      className="flex min-w-0 flex-1 flex-col gap-1.5 border p-2"
+      style={{ backgroundColor: c.background, borderColor: c.border, borderRadius: r }}
+    >
+      <i
+        className="block h-3.5 w-3/5"
+        style={{ backgroundColor: c.primary, borderRadius: r }}
+      />
+      <span className="flex gap-1">
+        {[c.secondary, c.accent, c.foreground].map((color, i) => (
+          <i
+            key={i}
+            className="block h-2.5 flex-1"
+            style={{ backgroundColor: color, borderRadius: r }}
+          />
+        ))}
+      </span>
+    </span>
+  );
+}
+
+function Tile({ theme, checked, focusable, current, onSelect, badge }) {
   return (
     <button
       type="button"
@@ -77,22 +100,10 @@ function Tile({ theme, dark, checked, focusable, current, onSelect, badge }) {
     >
       <span
         aria-hidden
-        className="flex flex-col gap-1.5 border p-2"
-        style={{ backgroundColor: c.background, borderColor: c.border, borderRadius: r }}
+        className="flex gap-1"
       >
-        <i
-          className="block h-2 w-3/5"
-          style={{ backgroundColor: c.primary, borderRadius: r }}
-        />
-        <span className="flex gap-1">
-          {[c.secondary, c.accent, c.foreground].map((color, i) => (
-            <i
-              key={i}
-              className="block h-1.5 flex-1"
-              style={{ backgroundColor: color, borderRadius: r }}
-            />
-          ))}
-        </span>
+        <Swatch c={theme.colors?.light ?? {}} />
+        <Swatch c={theme.colors?.dark ?? {}} />
       </span>
       <span className="flex min-w-0 items-center justify-between gap-1.5 px-0.5">
         <span className="truncate text-[12.5px]">{nameOf(theme)}</span>
@@ -110,9 +121,23 @@ function Preview({ theme, dark, t }) {
     <div
       className="flex flex-col gap-3 border-y border-border p-3"
       style={themeStyle(c, theme)}
-      aria-label={t('themes.sample', { name: nameOf(theme) })}
+      aria-label={`${t('themes.sample', { name: nameOf(theme) })}, ${t(dark ? 'themes.dark' : 'themes.light')}`}
       role="group"
     >
+      <p className="m-0 flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+        {dark ? (
+          <Moon
+            className="size-3.5"
+            aria-hidden
+          />
+        ) : (
+          <Sun
+            className="size-3.5"
+            aria-hidden
+          />
+        )}
+        {t(dark ? 'themes.dark' : 'themes.light')}
+      </p>
       <div
         className="border border-border bg-card p-3 text-card-foreground"
         style={{ borderRadius: r }}
@@ -250,7 +275,7 @@ export default function Themes() {
     : matches[0]?.name;
 
   const modeLabel = t(dark ? 'themes.dark' : 'themes.light');
-  const previewColors = (dark ? selected.colors?.dark : selected.colors?.light) ?? {};
+  const previewColors = selected.colors?.light ?? {};
   const currentBadge = (
     <span className="inline-flex h-[18px] flex-none items-center rounded-md border border-primary/40 bg-primary/15 px-1.5 text-[10.5px] font-medium">
       {t('themes.current')}
@@ -270,7 +295,6 @@ shellui.addMessageListener('SHELLUI_SETTINGS', (message) =>
     <Tile
       key={theme.name}
       theme={theme}
-      dark={dark}
       checked={theme.name === selectedName}
       focusable={theme.name === tabName}
       current={theme.name === currentName}
@@ -335,17 +359,18 @@ shellui.addMessageListener('SHELLUI_SETTINGS', (message) =>
             </div>
             <code className="font-mono text-[11.5px] text-muted-foreground">{selected.name}</code>
           </div>
-          <Preview
-            key={selected.name}
-            theme={selected}
-            dark={dark}
-            t={t}
-          />
-          <dl className="m-0 grid grid-cols-3">
+          {[false, true].map((isDark) => (
+            <Preview
+              key={`${selected.name}-${isDark}`}
+              theme={selected}
+              dark={isDark}
+              t={t}
+            />
+          ))}
+          <dl className="m-0 grid grid-cols-2">
             {[
               [t('themes.font'), firstFamily(selected.fontFamily)],
               [t('themes.radius'), previewColors.radius?.trim() || '0rem'],
-              [t('themes.mode'), modeLabel],
             ].map(([label, value], i) => (
               <div
                 key={label}

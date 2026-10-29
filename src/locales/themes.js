@@ -29,7 +29,6 @@ export default {
       },
       font: 'Font',
       radius: 'Radius',
-      mode: 'Mode',
       read: {
         t: 'Read the theme in your app',
         d: 'The shell sends every color of the active theme, for light and dark, plus the font and radius. Your app can match the shell without knowing the theme name. This page does it with `applyThemeToDocument` from `src/lib/theme.js`.',
@@ -70,7 +69,6 @@ export default {
       },
       font: 'Police',
       radius: 'Rayon',
-      mode: 'Mode',
       read: {
         t: 'Lire le thème dans votre app',
         d: 'Le shell envoie toutes les couleurs du thème actif, en clair et en sombre, avec la police et le rayon. Votre app peut suivre le shell sans connaître le nom du thème. Cette page le fait avec `applyThemeToDocument` de `src/lib/theme.js`.',
