@@ -30,7 +30,7 @@ Do not:
 - use the Playground to send spam, malware or harmful content;
 - use automated means to create accounts or extract data.
 
-If you find a security issue, report it responsibly to [TO CONFIRM: security contact] instead of exploiting it.
+If you find a security issue, report it responsibly to security@shellui.com instead of exploiting it.
 
 We may suspend or delete accounts that break these rules, without notice.
 
@@ -52,7 +52,7 @@ This exclusion does not apply to damage caused intentionally or through gross ne
 
 The Playground source code is published under the MIT License at github.com/shellui/playground. The license governs your use of the code. These terms govern your use of the hosted Playground. Third-party components keep their own licenses.
 
-The Shellui name and logo are not licensed under the MIT License. [TO CONFIRM: trademark position]
+The Shellui name and logo are not covered by the MIT License.
 
 ## 9. Third-party services
 

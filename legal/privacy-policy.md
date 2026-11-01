@@ -26,7 +26,7 @@ The Playground is a static site served by GitHub Pages. When you load it, GitHub
 
 ### 2.2 Signing in
 
-You can sign in with GitHub, Google or Microsoft. Sign-in is handled by the Shellui identity service at id.eu.shellui.com. The provider you pick shares with us only what these permissions allow:
+You can sign in with GitHub, Google or Microsoft, or with a one-time sign-in link sent to your email address (magic link). Sign-in is handled by the Shellui identity service at id.eu.shellui.com. The provider you pick shares with us only what these permissions allow:
 
 - GitHub: your public profile and email address (`read:user`, `user:email`).
 - Google: your name, email address and profile picture (`openid`, `email`, `profile`).
@@ -69,7 +69,12 @@ If you write to us, the message and your address are received through Fastmail, 
 
 - Legal basis: legitimate interest in answering you (GDPR Art. 6(1)(f)), or steps you request (Art. 6(1)(b)).
 
-[TO CONFIRM: does the Playground send any email to users, for example a welcome or security email through the Shellui email service (Resend, sender no-reply@shellui.com)? If yes, add a section here. Sign-in on the Playground is OAuth only, so no magic-link emails are sent.]
+### 2.7 Sign-in emails we send you
+
+The only emails the Playground sends you are sign-in emails, when you ask for a magic link. They are sent through Resend from no-reply@shellui.com and contain your email address and the one-time link. We send no newsletters or marketing emails.
+
+- Purpose: let you sign in without a password.
+- Legal basis: performance of the agreement (GDPR Art. 6(1)(b)).
 
 We do not sell your data, do not use it for advertising, and do not use analytics or tracking tools.
 
@@ -87,9 +92,8 @@ We use these service providers. They act as processors on our behalf, except whe
 | GitHub, Inc.                       | Hosting of the Playground site                                                             | IP address, technical logs                 | United States       |
 | Functional Software, Inc. (Sentry) | Error reporting                                                                            | Error reports, IP address, browser details | United States       |
 | Fastmail Pty Ltd                   | Email for messages you send us                                                             | Your email and message                     | Australia           |
+| Resend, Inc.                       | Sending sign-in emails (magic links)                                                       | Your email address and the sign-in link    | United States       |
 | GitHub, Google, Microsoft          | Sign-in providers you choose. They act as independent controllers under their own policies | Sign-in request and result                 | Their own locations |
-
-[TO CONFIRM: add the Shellui email service provider (Resend) only if they process Playground user data.]
 
 We may disclose data to authorities when the law requires it.
 
@@ -97,7 +101,7 @@ We may disclose data to authorities when the law requires it.
 
 Some providers above are in the United States or Australia. We protect these transfers as follows:
 
-- United States: where the provider is certified under the EU-US Data Privacy Framework and the Swiss-US Data Privacy Framework, the transfer relies on the adequacy decision of the European Commission and on Switzerland's recognition of the Swiss-US framework (FADP Art. 16(1)). Otherwise it relies on the European Commission's Standard Contractual Clauses, adapted for Swiss law (GDPR Art. 46, FADP Art. 16(2)). [TO CONFIRM: current DPF certification of GitHub, Sentry and Fastmail on dataprivacyframework.gov, and signed DPAs.]
+- United States: where the provider is certified under the EU-US Data Privacy Framework and the Swiss-US Data Privacy Framework, the transfer relies on the adequacy decision of the European Commission and on Switzerland's recognition of the Swiss-US framework (FADP Art. 16(1)). Otherwise it relies on the European Commission's Standard Contractual Clauses, adapted for Swiss law (GDPR Art. 46, FADP Art. 16(2)). [TO CONFIRM: current DPF certification of GitHub, Sentry, Resend and Fastmail on dataprivacyframework.gov, and signed DPAs.]
 - Australia: Standard Contractual Clauses in the provider's data processing agreement. [TO CONFIRM]
 
 You can ask us for a copy of the safeguards at the address in section 1.
@@ -109,8 +113,8 @@ You can ask us for a copy of the safeguards at the address in section 1.
 | Account                                      | Until you delete your account, or until the Playground is reset or shut down            |
 | Sign-in and security events (IP, user agent) | 7 days                                                                                  |
 | Session records                              | Until you delete your account. Expired records are not purged automatically yet         |
-| Error reports in Sentry                      | [TO CONFIRM: Sentry plan retention, typically 30 or 90 days]                            |
-| Emails you send us                           | As long as needed to answer, then [TO CONFIRM: 12 months]                               |
+| Error reports in Sentry                      | The default retention period of our Sentry plan, after which Sentry deletes it          |
+| Emails you send us                           | As long as needed to answer, then 12 months                                             |
 | Browser storage                              | Session storage: until you close the tab. Local storage: until you sign out or clear it |
 
 The Playground is a demo. We may delete all accounts and data at any time, with or without notice.
