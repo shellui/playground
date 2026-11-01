@@ -21,6 +21,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [0.5.1] - 2026-11-01
+
+### 📚 Documentation
+
+- **Legal:** replaced boilerplate privacy policy, terms and legal texts with reviewed drafts, with legal/*.md as the single source.
+- **Legal:** privacy@shellui.com contact, Resend for magic link emails, Fastmail in Australia, security@shellui.com contact.
+- **License:** added MIT LICENSE file.
+
 ## [0.5.0] - 2026-10-29
 
 ### 🏗 Chore

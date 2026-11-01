@@ -1,20 +1,22 @@
 {
   "name": "shellui-playground",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A live demo of Shellui, deployed to GitHub Pages",
   "type": "module",
   "scripts": {
     "start": "shellui start",
     "start:app": "vite",
     "start:desktop": "node tools/desktop/configure-sign-in.mjs && shellui start --app",
-    "build": "DOTENV_CONFIG_PATH=.env.prod shellui build && vite build",
+    "build": "pnpm legal:check && DOTENV_CONFIG_PATH=.env.prod shellui build && vite build",
     "build:desktop": "node tools/desktop/configure-sign-in.mjs && DOTENV_CONFIG_PATH=.env.prod shellui build --app",
     "build:sdk": "pnpm --dir ../shellui run build:sdk",
     "preview": "vite preview",
     "serve:dist": "node tools/serve/serve.js",
     "format": "pnpm exec prettier --write .",
     "format:check": "pnpm exec prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "legal:sync": "node tools/legal/sync-legal.mjs",
+    "legal:check": "node tools/legal/sync-legal.mjs --check"
   },
   "lint-staged": {
     "*": "pnpm exec prettier --write --ignore-unknown"
