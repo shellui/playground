@@ -1,11 +1,11 @@
 # Legal Notice
 
-Last updated: [TO CONFIRM: publication date]
+Last updated: 2026-11-01
 
 ## Publisher
 
 Sébastien Barbier (private individual)
-Email: [TO CONFIRM: privacy@shellui.com]
+Email: privacy@shellui.com
 
 The Shellui Playground is a free, open-source demo. Nothing is sold on this site.
 

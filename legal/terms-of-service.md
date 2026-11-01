@@ -1,12 +1,12 @@
 # Terms of Use
 
-Last updated: [TO CONFIRM: publication date]
+Last updated: 2026-11-01
 
 These terms apply to the Shellui Playground at playground.shellui.com. By signing in, you accept them. If you do not accept them, do not sign in.
 
 ## 1. What the Playground is
 
-The Playground is a free, open-source demo of Shellui, run by Sébastien Barbier as a private individual, Zürich, Switzerland ("we"). Contact: [TO CONFIRM: privacy@shellui.com].
+The Playground is a free, open-source demo of Shellui, run by Sébastien Barbier as a private individual, Zürich, Switzerland ("we"). Contact: privacy@shellui.com.
 
 It exists so you can try Shellui. It is not a commercial service and is not meant for real or production data.
 

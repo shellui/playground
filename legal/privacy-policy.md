@@ -1,6 +1,6 @@
 # Privacy Policy
 
-Last updated: [TO CONFIRM: publication date]
+Last updated: 2026-11-01
 
 This policy explains how your personal data is handled when you use the Shellui Playground at playground.shellui.com. The Playground is a free, open-source demo of Shellui. It is not a commercial service.
 
@@ -11,7 +11,7 @@ It is written to meet the information duties of the EU General Data Protection R
 The controller for the processing described here is:
 
 Sébastien Barbier (private individual)
-Email: [TO CONFIRM: privacy@shellui.com]
+Email: privacy@shellui.com
 
 There is no EU representative and no data protection officer. Neither is required for a project of this size: [TO CONFIRM with a lawyer, GDPR Article 27 exemption for occasional, low-risk processing].
 
@@ -69,7 +69,7 @@ If you write to us, the message and your address are received through Fastmail, 
 
 - Legal basis: legitimate interest in answering you (GDPR Art. 6(1)(f)), or steps you request (Art. 6(1)(b)).
 
-[TO CONFIRM: does the Playground send any email to users, for example a welcome or security email through the Shellui email service (Resend or Amazon SES, sender no-reply@shellui.com)? If yes, add a section here. Sign-in on the Playground is OAuth only, so no magic-link emails are sent.]
+[TO CONFIRM: does the Playground send any email to users, for example a welcome or security email through the Shellui email service (Resend, sender no-reply@shellui.com)? If yes, add a section here. Sign-in on the Playground is OAuth only, so no magic-link emails are sent.]
 
 We do not sell your data, do not use it for advertising, and do not use analytics or tracking tools.
 
@@ -81,15 +81,15 @@ See section 10 for the full list. In short: the Playground uses your browser's l
 
 We use these service providers. They act as processors on our behalf, except where noted.
 
-| Provider                           | Role                                                                                       | Data                                       | Location                                  |
-| ---------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------ | ----------------------------------------- |
-| OVH SAS (OVHcloud)                 | Server hosting for the identity service                                                    | Account, sessions, security events         | France (Gravelines)                       |
-| GitHub, Inc.                       | Hosting of the Playground site                                                             | IP address, technical logs                 | United States                             |
-| Functional Software, Inc. (Sentry) | Error reporting                                                                            | Error reports, IP address, browser details | United States                             |
-| Fastmail Pty Ltd                   | Email for messages you send us                                                             | Your email and message                     | [TO CONFIRM: United States and Australia] |
-| GitHub, Google, Microsoft          | Sign-in providers you choose. They act as independent controllers under their own policies | Sign-in request and result                 | Their own locations                       |
+| Provider                           | Role                                                                                       | Data                                       | Location            |
+| ---------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------ | ------------------- |
+| OVH SAS (OVHcloud)                 | Server hosting for the identity service                                                    | Account, sessions, security events         | France (Gravelines) |
+| GitHub, Inc.                       | Hosting of the Playground site                                                             | IP address, technical logs                 | United States       |
+| Functional Software, Inc. (Sentry) | Error reporting                                                                            | Error reports, IP address, browser details | United States       |
+| Fastmail Pty Ltd                   | Email for messages you send us                                                             | Your email and message                     | Australia           |
+| GitHub, Google, Microsoft          | Sign-in providers you choose. They act as independent controllers under their own policies | Sign-in request and result                 | Their own locations |
 
-[TO CONFIRM: add the Shellui email service providers (Resend, Amazon SES) only if they process Playground user data.]
+[TO CONFIRM: add the Shellui email service provider (Resend) only if they process Playground user data.]
 
 We may disclose data to authorities when the law requires it.
 
@@ -126,7 +126,7 @@ Under the GDPR and the FADP you can:
 - receive your data in a portable format;
 - withdraw consent at any time, for example for error reporting in Settings.
 
-Write to [TO CONFIRM: privacy@shellui.com]. We answer within 30 days. We may ask you to prove your identity.
+Write to privacy@shellui.com. We answer within 30 days. We may ask you to prove your identity.
 
 ## 8. Complaints
 
