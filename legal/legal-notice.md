@@ -1,17 +1,23 @@
 # Legal Notice
 
-Last updated: 2026-05-14
-
-This Legal Notice is sample markdown for the Shellui Playground. It demonstrates how `legalDocuments.legalNotice` is exposed on `/legal/legal-notice`.
+Last updated: 2026-11-01
 
 ## Publisher
 
-Service publisher information is provided by your organization.
+Sébastien Barbier (private individual)
+Email: privacy@shellui.com
+
+The Shellui Playground is a free, open-source demo. Nothing is sold on this site.
 
 ## Hosting
 
-Infrastructure and hosting providers may be used to operate this service.
+- Playground site: GitHub Pages, GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States.
+- Identity service (id.eu.shellui.com): OVH SAS, 2 rue Kellermann, 59100 Roubaix, France. Servers in Gravelines, France.
 
-## Applicable Law
+## Source code
 
-Applicable law and jurisdiction are defined by your organization.
+github.com/shellui/playground, MIT License.
+
+## Applicable law
+
+Swiss law. Venue: Zürich, Switzerland.
