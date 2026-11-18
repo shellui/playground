@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [Unreleased]
+
+### 🏗 Chore
+
+- **Dependencies:** bumped @shellui/cli, core and sdk to 0.8.0.
+
 ## [0.5.1] - 2026-11-01
 
 ### 📚 Documentation
