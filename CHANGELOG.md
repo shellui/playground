@@ -22,7 +22,7 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ### Changed
 
-- Bump to Shellui [0.8.0](https://github.com/shellui/shellui/releases/tag/v0.8.0) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`) ([#31](https://github.com/shellui/playground/pull/31)).
+- Uses Shellui [0.8.1](https://github.com/shellui/shellui/releases/tag/v0.8.1) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`).
 - The Vite dev server reads `PLAYGROUND_DEV_PORT` and stays on 5173 when that variable is unset. The Shellui dev stack sets 5176, because the admin app uses 5173 ([#30](https://github.com/shellui/playground/pull/30)).
 - Dependabot opens npm and GitHub Actions version updates against `develop` ([#33](https://github.com/shellui/playground/pull/33)).
 
