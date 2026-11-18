@@ -6,26 +6,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 <!---
-## [Unreleased] - yyyy-mm-dd
+## [x.y.z] - yyyy-mm-dd
 
-### ✨ Feature – for new features
-### 🛠 Improvements – for general improvements
-### 🚨 Changed – for changes in existing functionality
-### ⚠️ Deprecated – for soon-to-be removed features
-### 📚 Documentation – for documentation update
-### 🗑 Removed – for removed features
-### 🐛 Bug Fixes – for any bug fixes
-### 🔒 Security – in case of vulnerabilities
-### 🏗 Chore – for tidying code
+### Added - for new features
+### Changed - for changes in existing functionality
+### Deprecated - for soon-to-be removed features
+### Removed - for removed features
+### Fixed - for bug fixes
+### Security - for vulnerabilities
 
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
-## [Unreleased]
+## [0.5.2] - 2026-11-18
 
-### 🏗 Chore
+### Changed
 
-- **Dependencies:** bumped @shellui/cli, core and sdk to 0.8.0.
+- Bump to Shellui [0.8.0](https://github.com/shellui/shellui/releases/tag/v0.8.0) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`) ([#31](https://github.com/shellui/playground/pull/31)).
+- The Vite dev server reads `PLAYGROUND_DEV_PORT` and stays on 5173 when that variable is unset. The Shellui dev stack sets 5176, because the admin app uses 5173 ([#30](https://github.com/shellui/playground/pull/30)).
+- Dependabot opens npm and GitHub Actions version updates against `develop` ([#33](https://github.com/shellui/playground/pull/33)).
 
 ## [0.5.1] - 2026-11-01
 
