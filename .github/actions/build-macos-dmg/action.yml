@@ -48,10 +48,51 @@ inputs:
     description: Apple Team ID
     required: false
     default: ''
+  shellui-company-id:
+    description: Company id from Actions variable SHELLUI_COMPANY_ID
+    required: true
+  shellui-admin-url:
+    description: Admin app URL from Actions variable SHELLUI_ADMIN_URL
+    required: true
+  files-url:
+    description: Files app URL from Actions variable FILES_URL
+    required: true
 
 runs:
   using: composite
   steps:
+    - name: Require company, admin, and files
+      shell: bash
+      env:
+        SHELLUI_COMPANY_ID: ${{ inputs.shellui-company-id }}
+        SHELLUI_ADMIN_URL: ${{ inputs.shellui-admin-url }}
+        FILES_URL: ${{ inputs.files-url }}
+      run: |
+        set -euo pipefail
+        missing=""
+        for name in SHELLUI_COMPANY_ID SHELLUI_ADMIN_URL FILES_URL; do
+          if [ -z "${!name}" ]; then
+            missing="${missing} ${name}"
+          fi
+        done
+        if [ -n "${missing}" ]; then
+          echo "::error::Disk image build needs Actions variables:${missing}."
+          echo "Set SHELLUI_COMPANY_ID, SHELLUI_ADMIN_URL, and FILES_URL. The Pages workflow reads the same names."
+          exit 1
+        fi
+        delim="PROD_ENV_$(openssl rand -hex 8)"
+        {
+          echo "SHELLUI_COMPANY_ID<<${delim}"
+          echo "${SHELLUI_COMPANY_ID}"
+          echo "${delim}"
+          echo "SHELLUI_ADMIN_URL<<${delim}"
+          echo "${SHELLUI_ADMIN_URL}"
+          echo "${delim}"
+          echo "FILES_URL<<${delim}"
+          echo "${FILES_URL}"
+          echo "${delim}"
+        } >> "${GITHUB_ENV}"
+
     - name: Install pnpm
       uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
 
@@ -154,6 +195,9 @@ runs:
         # navigation at the Vite build in dist/web/app, not the dev server.
         DOTENV_CONFIG_PATH: .env.prod
         PLAYGROUND_APP_URL: /app
+        SHELLUI_COMPANY_ID: ${{ inputs.shellui-company-id }}
+        SHELLUI_ADMIN_URL: ${{ inputs.shellui-admin-url }}
+        FILES_URL: ${{ inputs.files-url }}
       with:
         projectPath: dist/app
         tauriScript: ${{ github.workspace }}/node_modules/.bin/tauri

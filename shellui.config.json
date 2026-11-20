@@ -6,8 +6,7 @@
       {
         "label": { "en": "Homepage", "fr": "Accueil" },
         "path": "home",
-        "url": "https://playground.shellui.com",
-        "safeForAuthToken": true,
+        "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/",
         "icon": "/icons/home.svg"
       }
     ]
@@ -16,8 +15,8 @@
   "backend": {
     "type": "shellui",
     "url": "${SHELLUI_IDENTITY_URL:-https://id.eu.shellui.com}",
-    "companyId": "${SHELLUI_COMPANY_ID:-1}",
-    "adminUrl": "https://admin.shellui.com",
+    "companyId": "${SHELLUI_COMPANY_ID:-}",
+    "adminUrl": "${SHELLUI_ADMIN_URL:-}",
     "login": { "methods": ["oauth"], "oauthProviders": ["github", "google", "microsoft"] }
   },
   "cookieConsent": {
@@ -137,8 +136,7 @@
         {
           "label": "Files",
           "path": "files",
-          "url": "${FILES_URL:-https://files.shellui.com}",
-          "safeForAuthToken": true,
+          "url": "${FILES_URL:-}",
           "icon": "/icons/folder.svg",
           "hideWhenLoggedOut": true,
           "requiresAuth": true
@@ -149,7 +147,6 @@
       "label": "Website",
       "path": "website",
       "url": "${WEBSITE_URL:-http://localhost:8080/}",
-      "safeForAuthToken": true,
       "icon": "/icons/globe.svg",
       "position": "end"
     },
@@ -157,7 +154,6 @@
       "label": { "en": "Docs", "fr": "Documentation" },
       "path": "docs",
       "url": "${DOCS_URL:-https://docs.shellui.com}",
-      "safeForAuthToken": true,
       "icon": "/icons/book-open.svg",
       "position": "end"
     },
@@ -167,8 +163,7 @@
       "url": "/",
       "icon": "/icons/play.svg",
       "position": "end",
-      "settings": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/settings",
-      "safeForAuthToken": true
+      "settings": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/settings"
     },
     {
       "label": { "en": "Settings", "fr": "Paramètres" },
@@ -199,7 +194,7 @@
   "language": ["en", "fr"],
   "layout": "sidebar",
   "activeTheme": "shellui",
-  "storage": { "url": "https://storage.eu.shellui.com", "filesUrl": "https://files.shellui.com" },
+  "storage": { "url": "https://storage.eu.shellui.com", "filesUrl": "${FILES_URL:-}" },
   "themes": [
     "shellui",
     "claude",
