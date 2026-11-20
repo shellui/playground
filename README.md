@@ -36,23 +36,81 @@ pnpm format:check
 
 Every push to `main` builds and deploys `dist/web/` to GitHub Pages.
 
+## Test Shellui Marketplace locally
+
+`shellui.config.json` turns Shellui Marketplace on with `"marketplace": true`. In Shellui 0.9 that flag selects the public directory at `https://marketplace.shellui.com` and the catalog API at `https://api.marketplace.shellui.com`. Listings are free. There is no price and no checkout.
+
+Home, Settings, Login, and Playground are pinned with `"locked": true`. The shell keeps those routes even when a navigation overlay tries to hide or remove them. Dialogs, toasts, modals, action buttons, layouts, themes, language, account, storage, Files, Website, and Docs are not pinned, so you can hide them, reorder them, install apps, and remove apps.
+
+This repo pins `@shellui/cli`, `@shellui/core`, and `@shellui/sdk` at 0.8.1. `shellui build` checks `shellui.config.json` against the schema in that pin, and 0.8.1 rejects `marketplace` and `locked`. `pnpm start` and `pnpm build` run [tools/shellui/accept-marketplace-config.mjs](tools/shellui/accept-marketplace-config.mjs) first. The script adds those fields to the installed schema copy when they are missing, and the published CLI then validates the config.
+
+After 0.9.0 is on npm, bump the three `@shellui/*` packages to `0.9.0` and delete the script. The published 0.8.1 shell does not install apps or apply `locked`. To try that behavior, run this playground against the marketplace runtime on [shellui#215](https://github.com/shellui/shellui/pull/215) instead of the published packages.
+
+### Directory and catalog
+
+Clone the siblings next to this repo:
+
+```bash
+git clone https://github.com/shellui/marketplace.git ../marketplace
+git clone https://github.com/shellui/marketplace-service.git ../marketplace-service
+```
+
+Start the directory:
+
+```bash
+cd ../marketplace
+cp .env.example .env.local
+pnpm install
+pnpm start
+```
+
+The directory listens on `http://localhost:5176`. The playground Vite app stays on `http://localhost:5173`, so those two ports do not clash. The Shellui dev stack also serves the playground on 5176. If that stack is already up, start the directory on another port:
+
+```bash
+VITE_DEV_PORT=5177 VITE_DEV_ORIGIN=http://localhost:5177 pnpm start
+```
+
+`VITE_MARKETPLACE_API_URL` in `../marketplace/.env.local` points at marketplace-service. The default is `https://api.marketplace.shellui.com`. Start marketplace-service with the command in that repo's README, then set `VITE_MARKETPLACE_API_URL` to the origin it prints. When that origin does not answer, the directory keeps its local catalog and shows "Showing the local catalog."
+
+`"marketplace": true` is the public default. While you test local origins, replace it with an object. Set `url` to the directory and `apiUrl` to the same origin as `VITE_MARKETPLACE_API_URL`:
+
+```json
+"marketplace": {
+  "url": "http://localhost:5176",
+  "apiUrl": "https://api.marketplace.shellui.com"
+}
+```
+
+Put the playground back to `"marketplace": true` before you commit. `http://localhost` is allowed for local development. A remote install URL has to be `https`.
+
+### What to check
+
+Run `pnpm start` and open `http://localhost:4000`. With the marketplace runtime:
+
+- Shellui Marketplace is in the sidebar. Install an app from the directory. The item appears. Remove it and the item leaves.
+- Hide Dialogs, Toasts, or Files. Home, Settings, Login, and Playground stay.
+- Reorder an item that is not pinned. A reload keeps the order.
+- Signed out, the overlay is in `localStorage` under `shellui.navigation.overlay`. Signed in, storage `auto` uses identity-service at `/api/v1/user/navigation-overlay`.
+
 ## Contributing
 
 Open an issue or a pull request against `develop`. Coding agents start with [AGENTS.md](AGENTS.md).
 
 ## Shellui projects
 
-| Project                                                         | What it does                        |
-| --------------------------------------------------------------- | ----------------------------------- |
-| [shellui](https://github.com/shellui/shellui)                   | The shell, CLI and SDK              |
-| [admin](https://github.com/shellui/admin)                       | Administration app inside the shell |
-| [files](https://github.com/shellui/files)                       | File explorer for storage-service   |
-| [identity-service](https://github.com/shellui/identity-service) | Sign-in, companies and tokens       |
-| [storage-service](https://github.com/shellui/storage-service)   | File storage                        |
-| [hosting-service](https://github.com/shellui/hosting-service)   | Deploys and serves Shellui apps     |
-| [email-service](https://github.com/shellui/email-service)       | Templates and sends email           |
-| [skills](https://github.com/shellui/skills)                     | Agent Skills for coding agents      |
-| [playground](https://github.com/shellui/playground)             | Live demo of the shell              |
+| Project                                                               | What it does                          |
+| --------------------------------------------------------------------- | ------------------------------------- |
+| [shellui](https://github.com/shellui/shellui)                         | The shell, CLI and SDK                |
+| [admin](https://github.com/shellui/admin)                             | Administration app inside the shell   |
+| [files](https://github.com/shellui/files)                             | File explorer for storage-service     |
+| [identity-service](https://github.com/shellui/identity-service)       | Sign-in, companies and tokens         |
+| [storage-service](https://github.com/shellui/storage-service)         | File storage                          |
+| [hosting-service](https://github.com/shellui/hosting-service)         | Deploys and serves Shellui apps       |
+| [email-service](https://github.com/shellui/email-service)             | Templates and sends email             |
+| [marketplace](https://github.com/shellui/marketplace)                 | Directory of apps for a Shellui shell |
+| [marketplace-service](https://github.com/shellui/marketplace-service) | Catalog API for Shellui Marketplace   |
+| [skills](https://github.com/shellui/skills)                           | Agent Skills for coding agents        |
+| [playground](https://github.com/shellui/playground)                   | Live demo of the shell                |
 
 ## License
 

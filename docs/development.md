@@ -61,6 +61,8 @@ When every secret above is present, the same workflow signs and notarizes the di
 
 `pnpm build` loads [`.env.prod`](../.env.prod) (via `DOTENV_CONFIG_PATH`) so navigation URLs in `shellui.config.json` resolve to production values (`${PLAYGROUND_APP_URL}`, `${WEBSITE_URL}`, …). Local `pnpm start` keeps the `${VAR:-default}` localhost defaults unless you set them in `.env`.
 
+`pnpm start`, `pnpm start:desktop`, `pnpm build`, and `pnpm build:desktop` run [tools/shellui/accept-marketplace-config.mjs](../tools/shellui/accept-marketplace-config.mjs) before the Shellui CLI. The published `@shellui/core` 0.8.1 schema rejects `marketplace` and `locked`. The script adds those fields to the installed schema copy so the config still validates. How to test Shellui Marketplace against [marketplace](https://github.com/shellui/marketplace) and [marketplace-service](https://github.com/shellui/marketplace-service) is in the [README](../README.md#test-shellui-marketplace-locally).
+
 ## Build for Production
 
 ```bash
