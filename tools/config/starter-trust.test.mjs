@@ -21,8 +21,6 @@ const COMPANION_PATHS = new Set([
   'storage',
 ]);
 
-const SHELL_FALLBACK_ADMIN = 'https://admin.shellui.com';
-
 function parseEnvFile(text) {
   /** @type {Record<string, string>} */
   const env = {};
@@ -102,22 +100,13 @@ function isPlaygroundAppUrl(url) {
   }
 }
 
-function effectiveAdminUrl(adminUrl) {
-  const trimmed = typeof adminUrl === 'string' ? adminUrl.trim() : '';
-  return trimmed || SHELL_FALLBACK_ADMIN;
-}
-
 function assertStarter(env, label) {
   const resolved = substitute(config, env);
   const items = walk(resolved.navigation);
   const flagged = items.filter((item) => item.safeForAuthToken === true);
 
   assert.equal(resolved.backend.companyId, '', `${label}: company id is set`);
-  assert.equal(
-    effectiveAdminUrl(resolved.backend.adminUrl),
-    'http://admin.invalid',
-    `${label}: admin app is a hosted origin`,
-  );
+  assert.equal(resolved.backend.adminUrl, '', `${label}: admin URL is set`);
   assert.equal(resolved.storage.filesUrl, '', `${label}: files app URL is set`);
 
   const files = items.find((item) => item.path === 'files');
