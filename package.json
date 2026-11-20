@@ -14,6 +14,7 @@
     "serve:dist": "node tools/serve/serve.js",
     "format": "pnpm exec prettier --write .",
     "format:check": "pnpm exec prettier --check .",
+    "test": "node --test tools/config/starter-trust.test.mjs",
     "prepare": "husky",
     "legal:sync": "node tools/legal/sync-legal.mjs",
     "legal:check": "node tools/legal/sync-legal.mjs --check"
