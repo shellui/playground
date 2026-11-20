@@ -16,7 +16,7 @@
     "type": "shellui",
     "url": "${SHELLUI_IDENTITY_URL:-https://id.eu.shellui.com}",
     "companyId": "${SHELLUI_COMPANY_ID:-}",
-    "adminUrl": "${SHELLUI_ADMIN_URL:-http://admin.invalid}",
+    "adminUrl": "${SHELLUI_ADMIN_URL:-}",
     "login": { "methods": ["oauth"], "oauthProviders": ["github", "google", "microsoft"] }
   },
   "cookieConsent": {

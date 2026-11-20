@@ -22,7 +22,7 @@ Publish a GitHub release on a version tag such as `v0.4.0`, or push that tag you
 
 To build without publishing a release, open the Actions tab, choose **Desktop macOS**, and run the workflow on your branch. Download the `Playground-macos-universal` artifact. That artifact is the disk image.
 
-The disk image contains the Shellui shell and the React playground. `vite build` writes the playground to `dist/web/app` (Vite `base` `/app/`). Navigation opens that build because the workflow sets `PLAYGROUND_APP_URL=/app` and `DOTENV_CONFIG_PATH=.env.prod`, the same values `pnpm build` and `pnpm build:desktop` load from [`.env.prod`](../.env.prod). That file also supplies `WEBSITE_URL` and `DOCS_URL`. It leaves `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` unset. Without `PLAYGROUND_APP_URL=/app`, navigation falls back to `http://localhost:5173` and the window never shows the bundled app.
+The disk image contains the Shellui shell and the React playground. `vite build` writes the playground to `dist/web/app` (Vite `base` `/app/`). Navigation opens that build because the workflow sets `PLAYGROUND_APP_URL=/app` and `DOTENV_CONFIG_PATH=.env.prod`, the same values `pnpm build` and `pnpm build:desktop` load from [`.env.prod`](../.env.prod). That file also supplies `WEBSITE_URL` and `DOCS_URL`. It leaves `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` unset. The disk image job reads those three from Actions variables, the same names as GitHub Pages, and stops if one is unset. Without `PLAYGROUND_APP_URL=/app`, navigation falls back to `http://localhost:5173` and the window never shows the bundled app.
 
 The disk image is unsigned, so Gatekeeper blocks the first open:
 
@@ -61,7 +61,7 @@ When every secret above is present, the same workflow signs and notarizes the di
 
 `pnpm build` loads [`.env.prod`](../.env.prod) (via `DOTENV_CONFIG_PATH`) so navigation URLs in `shellui.config.json` resolve to production values (`${PLAYGROUND_APP_URL}`, `${WEBSITE_URL}`, `${DOCS_URL}`). Local `pnpm start` keeps the `${VAR:-default}` localhost defaults unless you set them in `.env`.
 
-Leave `SHELLUI_COMPANY_ID` unset until you choose a company. Leave `SHELLUI_ADMIN_URL` unset and the config uses `http://admin.invalid`, so `/admin` does not load a hosted admin app. Leave `FILES_URL` unset and the Files link and `storage.filesUrl` stay empty. Set `FILES_URL` to your files app when that app should open in the shell. The shell then shares the access token with that origin. The GitHub Pages workflow reads these three names from Actions variables.
+Leave `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` unset in the starter. The admin URL stays empty. The Files link and `storage.filesUrl` stay empty until you set `FILES_URL`. Setting `FILES_URL` points the Files item at that app, and the shell shares the access token with that origin. GitHub Pages and the macOS disk image read the same three Actions variables. The disk image build stops if any of them is unset.
 
 ## Build for Production
 
