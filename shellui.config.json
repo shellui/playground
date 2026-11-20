@@ -8,7 +8,8 @@
         "path": "home",
         "url": "https://playground.shellui.com",
         "safeForAuthToken": true,
-        "icon": "/icons/home.svg"
+        "icon": "/icons/home.svg",
+        "locked": true
       }
     ]
   },
@@ -40,13 +41,15 @@
     "termsOfService": "# Terms of Use\n\nLast updated: 2026-11-01\n\nThese terms apply to the Shellui Playground at playground.shellui.com. By signing in, you accept them. If you do not accept them, do not sign in.\n\n## 1. What the Playground is\n\nThe Playground is a free, open-source demo of Shellui, run by Sébastien Barbier as a private individual, Zürich, Switzerland (\"we\"). Contact: privacy@shellui.com.\n\nIt exists so you can try Shellui. It is not a commercial service and is not meant for real or production data.\n\n## 2. Free of charge\n\nThe Playground costs nothing. No contract for paid services is formed by using it.\n\n## 3. Your account\n\n- You sign in with GitHub, Google or Microsoft. You are responsible for your account with that provider.\n- Keep your session secure and do not share access.\n- You can delete your account at any time in Settings.\n\n## 4. Acceptable use\n\nDo not:\n\n- break the law or infringe the rights of others;\n- upload or enter sensitive personal data, confidential data or data you are not allowed to share;\n- attack, overload, scan or probe the service, or bypass its security or rate limits;\n- use the Playground to send spam, malware or harmful content;\n- use automated means to create accounts or extract data.\n\nIf you find a security issue, report it responsibly to security@shellui.com instead of exploiting it.\n\nWe may suspend or delete accounts that break these rules, without notice.\n\n## 5. Demo data may be reset\n\nThe Playground is a demo. We may change, reset or delete any data, account or feature, or stop the Playground, at any time and without notice. Do not rely on it to keep anything.\n\n## 6. No warranty, no service level\n\nThe Playground is provided \"as is\" and \"as available\". We give no warranty that it is available, error-free, secure or fit for any purpose, and we offer no service level, support or uptime commitment.\n\n## 7. Liability\n\nTo the extent the law allows, we exclude liability for any damage arising from your use of the Playground, including loss of data, lost profits and indirect damage.\n\nThis exclusion does not apply to damage caused intentionally or through gross negligence (Article 100 of the Swiss Code of Obligations), or to any other liability that cannot be excluded under mandatory law, including mandatory consumer protection law of your country of residence.\n\n## 8. Open-source software\n\nThe Playground source code is published under the MIT License at github.com/shellui/playground. The license governs your use of the code. These terms govern your use of the hosted Playground. Third-party components keep their own licenses.\n\nThe Shellui name and logo are not covered by the MIT License.\n\n## 9. Third-party services\n\nSign-in goes through GitHub, Google or Microsoft. Their own terms and privacy policies apply to that part. We are not responsible for them.\n\n## 10. Privacy\n\nOur Privacy Policy explains how your data is handled. It is part of these terms for information only. It is not a contract you must accept.\n\n## 11. Changes\n\nWe may update these terms. The date at the top shows the latest version. If you keep using the Playground after a change, the new terms apply. If you do not agree, stop using it and delete your account.\n\n## 12. Governing law and venue\n\nThese terms are governed by Swiss law, excluding its conflict-of-law rules and the UN Convention on Contracts for the International Sale of Goods.\n\nThe courts of Zürich, Switzerland, have exclusive jurisdiction, unless mandatory law gives you, as a consumer, the right to sue or be sued at your place of residence.\n\nIf any part of these terms is invalid, the rest stays in force.\n",
     "legalNotice": "# Legal Notice\n\nLast updated: 2026-11-01\n\n## Publisher\n\nSébastien Barbier (private individual)\nEmail: privacy@shellui.com\n\nThe Shellui Playground is a free, open-source demo. Nothing is sold on this site.\n\n## Hosting\n\n- Playground site: GitHub Pages, GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States.\n- Identity service (id.eu.shellui.com): OVH SAS, 2 rue Kellermann, 59100 Roubaix, France. Servers in Gravelines, France.\n\n## Source code\n\ngithub.com/shellui/playground, MIT License.\n\n## Applicable law\n\nSwiss law. Venue: Zürich, Switzerland.\n"
   },
+  "marketplace": true,
   "navigation": [
     {
       "label": { "en": "Home", "fr": "Accueil" },
       "path": "",
       "url": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/",
       "safeForAuthToken": true,
-      "icon": "/icons/home.svg"
+      "icon": "/icons/home.svg",
+      "locked": true
     },
     {
       "title": { "en": "Overlays", "fr": "Superpositions" },
@@ -168,7 +171,8 @@
       "icon": "/icons/play.svg",
       "position": "end",
       "settings": "${PLAYGROUND_APP_URL:-http://localhost:5173}/#/settings",
-      "safeForAuthToken": true
+      "safeForAuthToken": true,
+      "locked": true
     },
     {
       "label": { "en": "Settings", "fr": "Paramètres" },
@@ -176,7 +180,8 @@
       "url": "/__settings",
       "icon": "/icons/settings.svg",
       "openIn": "modal",
-      "position": "end"
+      "position": "end",
+      "locked": true
     },
     {
       "label": { "en": "Login", "fr": "Connexion" },
@@ -184,7 +189,8 @@
       "url": "/login",
       "icon": "/icons/user.svg",
       "openIn": "modal",
-      "position": "end"
+      "position": "end",
+      "locked": true
     }
   ],
   "dev": { "run": "vite", "url": "http://localhost:5173" },
