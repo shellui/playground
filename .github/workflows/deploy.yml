@@ -21,6 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+      # Unset in the repo. Set the Actions variables when this deploy should use them.
+      SHELLUI_COMPANY_ID: ${{ vars.SHELLUI_COMPANY_ID }}
+      SHELLUI_ADMIN_URL: ${{ vars.SHELLUI_ADMIN_URL }}
+      FILES_URL: ${{ vars.FILES_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7

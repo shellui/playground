@@ -20,6 +20,12 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 
 ## [Unreleased]
 
+### Security
+
+- Website, docs, and the shell root omit `safeForAuthToken`. The playground app keeps it.
+- The administration homepage loads the playground app.
+- `shellui.config.json` and `.env.prod` leave the company, the admin app, and the files app unset. Set `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` on a deploy that needs them.
+
 ### Changed
 
 - Uses Shellui [0.8.6](https://github.com/shellui/shellui/releases/tag/v0.8.6) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`).
