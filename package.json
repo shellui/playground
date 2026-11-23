@@ -40,7 +40,7 @@
     "@shellui/cli": "0.8.1",
     "@shellui/core": "0.8.1",
     "@shellui/sdk": "0.8.1",
-    "i18next": "^24.2.3",
+    "i18next": "^27.2.2",
     "lucide-react": "^0.468.0",
     "prism-react-renderer": "^2.4.1",
     "react": "^18.3.1",
