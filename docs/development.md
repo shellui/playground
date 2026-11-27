@@ -65,6 +65,8 @@ Leave `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` unset in the st
 
 GitHub Pages and the macOS disk image read the same three Actions variables (repository Settings, Secrets and variables, Actions, Variables). Both stop when any of them is unset or empty: the Pages workflow runs `node tools/config/check-hosted-config.mjs env` before the build and `... dist` after it, which compares `dist/web/shellui.config.json` with the variables. CI builds on pull requests do not need the variables.
 
+The published `@shellui/core` 0.8.6 schema rejects `marketplace` and `locked`, so a pnpm patch (`patches/@shellui__core@0.8.6.patch`) adds them. `pnpm start:desktop` and `pnpm build:desktop` first write `.shellui-desktop/shellui.config.json` with the marketplace off and set `SHELLUI_CONFIG` to it, because the desktop app does not include the marketplace. The disk image workflow does the same. How to test Shellui Marketplace against [marketplace](https://github.com/shellui/marketplace) and [marketplace-service](https://github.com/shellui/marketplace-service) is in the [README](../README.md#test-shellui-marketplace-locally).
+
 ## Build for Production
 
 ```bash

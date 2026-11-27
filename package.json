@@ -6,9 +6,9 @@
   "scripts": {
     "start": "shellui start",
     "start:app": "vite",
-    "start:desktop": "node tools/desktop/configure-sign-in.mjs && shellui start --app",
+    "start:desktop": "node tools/desktop/configure-sign-in.mjs && node tools/desktop/write-desktop-config.mjs && SHELLUI_CONFIG=.shellui-desktop/shellui.config.json shellui start --app",
     "build": "pnpm legal:check && DOTENV_CONFIG_PATH=.env.prod shellui build && vite build",
-    "build:desktop": "node tools/desktop/configure-sign-in.mjs && DOTENV_CONFIG_PATH=.env.prod shellui build --app",
+    "build:desktop": "node tools/desktop/configure-sign-in.mjs && node tools/desktop/write-desktop-config.mjs && DOTENV_CONFIG_PATH=.env.prod SHELLUI_CONFIG=.shellui-desktop/shellui.config.json shellui build --app",
     "build:sdk": "pnpm --dir ../shellui run build:sdk",
     "preview": "vite preview",
     "serve:dist": "node tools/serve/serve.js",
@@ -35,6 +35,9 @@
     ],
     "overrides": {
       "source-map-js": "^1.2.2"
+    },
+    "patchedDependencies": {
+      "@shellui/core@0.8.6": "patches/@shellui__core@0.8.6.patch"
     }
   },
   "dependencies": {

@@ -160,8 +160,11 @@ runs:
       shell: bash
       env:
         DOTENV_CONFIG_PATH: .env.prod
+        # The desktop app does not include Shellui Marketplace.
+        SHELLUI_CONFIG: .shellui-desktop/shellui.config.json
       run: |
         set -euo pipefail
+        node tools/desktop/write-desktop-config.mjs
         node .github/actions/build-macos-dmg/scaffold.mjs
         cargo generate-lockfile --manifest-path dist/app/src-tauri/Cargo.toml
         python3 - <<'PY'
@@ -195,6 +198,7 @@ runs:
         # navigation at the Vite build in dist/web/app, not the dev server.
         DOTENV_CONFIG_PATH: .env.prod
         PLAYGROUND_APP_URL: /app
+        SHELLUI_CONFIG: .shellui-desktop/shellui.config.json
         SHELLUI_COMPANY_ID: ${{ inputs.shellui-company-id }}
         SHELLUI_ADMIN_URL: ${{ inputs.shellui-admin-url }}
         FILES_URL: ${{ inputs.files-url }}
@@ -251,6 +255,8 @@ runs:
         from pathlib import Path
 
         cfg = json.loads(Path("dist/web/shellui.config.json").read_text())
+        if cfg.get("marketplace") is not False:
+            raise SystemExit("the desktop build must turn the marketplace off")
 
         def walk(items):
             for item in items or []:

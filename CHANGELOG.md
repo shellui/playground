@@ -27,6 +27,12 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 - `shellui.config.json` and `.env.prod` leave the company, the admin URL, and the files app unset. Set `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` as Actions variables. The Pages deploy now fails when any is unset, and checks that `dist/web/shellui.config.json` carries their values. The Files item keeps `safeForAuthToken` and stays empty until `FILES_URL` is set.
 - The macOS disk image build reads those three names from Actions variables and stops if one is unset.
 
+### Added
+
+- Shellui Marketplace on the public playground with explicit `url` and `apiUrl`, `allowThirdParty: false` and layout storage in `localStorage`. Home, Settings, Login, and Playground are `locked`.
+- A small pnpm patch adds only `marketplace` and `locked` to the published `@shellui/core` 0.8.6 schema. No script edits `node_modules`. pnpm 10.30 or later is required.
+- The desktop app builds with the marketplace off (`tools/desktop/write-desktop-config.mjs`).
+
 ### Changed
 
 - Uses Shellui [0.8.6](https://github.com/shellui/shellui/releases/tag/v0.8.6) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`).

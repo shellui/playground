@@ -1,0 +1,84 @@
+diff --git a/schemas/shellui.config.schema.json b/schemas/shellui.config.schema.json
+index 837756f..02eccd6 100644
+--- a/schemas/shellui.config.schema.json
++++ b/schemas/shellui.config.schema.json
+@@ -150,6 +150,17 @@
+         "$schema": {
+           "type": "string",
+           "description": "JSON Schema URL for editor autocomplete and validation."
++        },
++        "marketplace": {
++          "description": "Shellui Marketplace. `true` opts in with the public defaults (marketplace URL, API URL, third-party installs, and navigation overlay storage). An object overrides only the fields you set.",
++          "anyOf": [
++            {
++              "type": "boolean"
++            },
++            {
++              "$ref": "#/definitions/MarketplaceConfig"
++            }
++          ]
+         }
+       },
+       "additionalProperties": false
+@@ -291,11 +302,61 @@
+         "aiService": {
+           "$ref": "#/definitions/AiServiceConfig",
+           "description": "AI service for this app. Same fallback as `email`."
++        },
++        "locked": {
++          "type": "boolean",
++          "description": "When true, people cannot hide or remove this item. The route stays in navigation even if a runtime overlay lists its path."
+         }
+       },
+       "required": ["label", "path", "url"],
+       "additionalProperties": false
+     },
++    "MarketplaceConfig": {
++      "type": "object",
++      "additionalProperties": false,
++      "description": "Shellui Marketplace. `true` selects the public defaults. An object overrides only the fields you set.",
++      "properties": {
++        "url": {
++          "type": "string",
++          "description": "Marketplace app origin. Default: `https://marketplace.shellui.com`."
++        },
++        "apiUrl": {
++          "type": "string",
++          "description": "Marketplace HTTP API. Default: `https://api.marketplace.shellui.com`."
++        },
++        "allowThirdParty": {
++          "type": "boolean",
++          "description": "When false, third-party installs are rejected. Default: true."
++        },
++        "navigationCustomization": {
++          "$ref": "#/definitions/NavigationCustomizationConfig"
++        }
++      }
++    },
++    "NavigationCustomizationConfig": {
++      "type": "object",
++      "additionalProperties": false,
++      "description": "User-level navigation changes (order, hidden items, installed apps). `auto` syncs with Shellui Identity when the person is signed in and Identity is configured, and uses localStorage otherwise.",
++      "properties": {
++        "enabled": {
++          "type": "boolean",
++          "description": "When false, the shell ignores the runtime overlay. Default: true when marketplace is on."
++        },
++        "storage": {
++          "$ref": "#/definitions/NavigationStorageMode",
++          "description": "`auto` (default), `localStorage`, or `api`."
++        },
++        "apiUrl": {
++          "type": "string",
++          "description": "Identity base URL, or the full navigation-overlay endpoint. When omitted, the shell uses `backend.url` for a Shellui identity server."
++        }
++      }
++    },
++    "NavigationStorageMode": {
++      "type": "string",
++      "enum": ["auto", "localStorage", "api"],
++      "description": "Where a signed-in person's navigation overlay is stored."
++    },
+     "LocalizedString": {
+       "anyOf": [
+         {
