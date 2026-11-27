@@ -50,7 +50,7 @@ Every push to `main` builds and deploys `dist/web/` to GitHub Pages.
 
 ## Test Shellui Marketplace locally
 
-`shellui.config.json` turns Shellui Marketplace on for the public playground with `allowThirdParty: false` and `navigationCustomization.storage: "localStorage"`. The public playground does not install third-party apps, and a person's layout stays in their browser. In Shellui 0.9 the marketplace URL defaults to `https://marketplace.shellui.com` and the catalog API to `https://api.marketplace.shellui.com`.
+`shellui.config.json` turns Shellui Marketplace on for the public playground with explicit `url` and `apiUrl`, `allowThirdParty: false` and `navigationCustomization.storage: "localStorage"`. The public playground does not install third-party apps, and a person's layout stays in their browser. In Shellui 0.9 the marketplace URL defaults to `https://marketplace.shellui.com` and the catalog API to `https://api.marketplace.shellui.com`.
 
 The desktop app does not include the marketplace. `pnpm start:desktop` and `pnpm build:desktop` run [tools/desktop/write-desktop-config.mjs](tools/desktop/write-desktop-config.mjs), which writes a git-ignored `.shellui-desktop/shellui.config.json` with `"marketplace": false`. Both scripts then point the CLI at it with `SHELLUI_CONFIG`, and so does the macOS disk image build.
 

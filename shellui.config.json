@@ -41,6 +41,8 @@
     "legalNotice": "# Legal Notice\n\nLast updated: 2026-11-01\n\n## Publisher\n\nSébastien Barbier (private individual)\nEmail: privacy@shellui.com\n\nThe Shellui Playground is a free, open-source demo. Nothing is sold on this site.\n\n## Hosting\n\n- Playground site: GitHub Pages, GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, United States.\n- Identity service (id.eu.shellui.com): OVH SAS, 2 rue Kellermann, 59100 Roubaix, France. Servers in Gravelines, France.\n\n## Source code\n\ngithub.com/shellui/playground, MIT License.\n\n## Applicable law\n\nSwiss law. Venue: Zürich, Switzerland.\n"
   },
   "marketplace": {
+    "url": "https://marketplace.shellui.com",
+    "apiUrl": "https://api.marketplace.shellui.com",
     "allowThirdParty": false,
     "navigationCustomization": { "storage": "localStorage" }
   },
