@@ -52,7 +52,7 @@ Every push to `main` builds and deploys `dist/web/` to GitHub Pages.
 
 `shellui.config.json` turns Shellui Marketplace on for the public playground with explicit `url` and `apiUrl`, `allowThirdParty: false` and `navigationCustomization.storage: "localStorage"`. The public playground does not install third-party apps, and a person's layout stays in their browser. In Shellui 0.9 the marketplace URL defaults to `https://marketplace.shellui.com` and the catalog API to `https://api.marketplace.shellui.com`.
 
-The desktop app does not include the marketplace. `pnpm start:desktop` and `pnpm build:desktop` run [tools/desktop/write-desktop-config.mjs](tools/desktop/write-desktop-config.mjs), which writes a git-ignored `.shellui-desktop/shellui.config.json` with `"marketplace": false`. Both scripts then point the CLI at it with `SHELLUI_CONFIG`, and so does the macOS disk image build.
+The marketplace is not available in the desktop app, so the app stays compatible with the Mac App Store (a directory that installs web apps at runtime is not). `pnpm start:desktop` and `pnpm build:desktop` run [tools/desktop/write-desktop-config.mjs](tools/desktop/write-desktop-config.mjs), which writes a git-ignored `.shellui-desktop/shellui.config.json` with `"marketplace": false`. Both scripts then point the CLI at it with `SHELLUI_CONFIG`, and so does the macOS disk image build.
 
 Home, Settings, Login, and Playground are pinned with `"locked": true`. The shell keeps those routes even when a navigation overlay tries to hide or remove them. Dialogs, toasts, modals, action buttons, layouts, themes, language, account, storage, Files, Website, and Docs are not pinned, so you can hide them and reorder them.
 
