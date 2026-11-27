@@ -18,6 +18,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [Unreleased]
+
+### Changed
+
+- Uses Shellui [0.8.6](https://github.com/shellui/shellui/releases/tag/v0.8.6) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`).
+- Dependencies: React 19.3, i18next 27 with react-i18next 18, `@vitejs/plugin-react` 5, lint-staged 17 and other minor updates.
+- Node 26.13.1 (current LTS) in `.nvmrc`, used by CI and the Pages deploy.
+
 ## [0.5.2] - 2026-11-18
 
 ### Changed

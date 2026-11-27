@@ -37,25 +37,25 @@
     }
   },
   "dependencies": {
-    "@shellui/cli": "0.8.1",
-    "@shellui/core": "0.8.1",
-    "@shellui/sdk": "0.8.1",
-    "i18next": "^24.2.3",
+    "@shellui/cli": "0.8.6",
+    "@shellui/core": "0.8.6",
+    "@shellui/sdk": "0.8.6",
+    "i18next": "^27.2.9",
     "lucide-react": "^0.468.0",
     "prism-react-renderer": "^2.4.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-i18next": "^15.7.4",
-    "react-router-dom": "^7.18.4"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-i18next": "^18.0.3",
+    "react-router-dom": "^7.18.7"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.3.3",
-    "@tauri-apps/api": "^2.12.3",
-    "@tauri-apps/cli": "^2.12.2",
-    "@vitejs/plugin-react": "^4.7.0",
+    "@tailwindcss/vite": "^4.3.5",
+    "@tauri-apps/api": "^2.12.5",
+    "@tauri-apps/cli": "^2.12.6",
+    "@vitejs/plugin-react": "^5.2.0",
     "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
-    "prettier": "^3.9.8",
-    "vite": "^6.4.3"
+    "lint-staged": "^17.6.2",
+    "prettier": "^3.10.1",
+    "vite": "^6.4.6"
   }
 }

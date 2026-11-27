@@ -9,7 +9,7 @@ The playground is one package: a Shellui shell (`shellui.config.json`) and a Vit
 
 ## Get started
 
-You need Node.js 18 or later and [pnpm](https://pnpm.io/).
+You need Node.js 26 (the version in `.nvmrc`) and [pnpm](https://pnpm.io/).
 
 ```bash
 git clone https://github.com/shellui/playground.git
