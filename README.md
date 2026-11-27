@@ -20,6 +20,18 @@ pnpm start
 
 Open [http://localhost:4000](http://localhost:4000). One command starts the app on port 5173 and the shell around it. `pnpm start:desktop` opens the same thing in a native Tauri window.
 
+## Deploy variables
+
+The GitHub Pages deploy and the macOS disk image need three repository Actions variables, and stop when one is missing:
+
+| Variable             | What it is                                      |
+| -------------------- | ----------------------------------------------- |
+| `SHELLUI_COMPANY_ID` | The Shellui company the playground signs in to  |
+| `SHELLUI_ADMIN_URL`  | The admin app URL                               |
+| `FILES_URL`          | The Files app URL, also shares the access token |
+
+Local `pnpm start` and CI builds run without them.
+
 ## Documentation
 
 - [Create a project](https://docs.shellui.com/quickstart/) and the [SDK reference](https://docs.shellui.com/sdk/) on docs.shellui.com
