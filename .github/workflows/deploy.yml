@@ -21,6 +21,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SENTRY_DSN: ${{ vars.SENTRY_DSN }}
+      # Required: the deploy stops when any of the three is unset (see the check step).
+      SHELLUI_COMPANY_ID: ${{ vars.SHELLUI_COMPANY_ID }}
+      SHELLUI_ADMIN_URL: ${{ vars.SHELLUI_ADMIN_URL }}
+      FILES_URL: ${{ vars.FILES_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -39,8 +43,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Check hosted config variables
+        run: node tools/config/check-hosted-config.mjs env
+
       - name: Build
         run: pnpm build
+
+      - name: Check built config
+        run: node tools/config/check-hosted-config.mjs dist
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

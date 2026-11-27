@@ -9,7 +9,7 @@ The playground is one package: a Shellui shell (`shellui.config.json`) and a Vit
 
 ## Get started
 
-You need Node.js 18 or later and [pnpm](https://pnpm.io/).
+You need Node.js 26 (the version in `.nvmrc`) and [pnpm](https://pnpm.io/).
 
 ```bash
 git clone https://github.com/shellui/playground.git
@@ -19,6 +19,18 @@ pnpm start
 ```
 
 Open [http://localhost:4000](http://localhost:4000). One command starts the app on port 5173 and the shell around it. `pnpm start:desktop` opens the same thing in a native Tauri window.
+
+## Deploy variables
+
+The GitHub Pages deploy and the macOS disk image need three repository Actions variables, and stop when one is missing:
+
+| Variable             | What it is                                      |
+| -------------------- | ----------------------------------------------- |
+| `SHELLUI_COMPANY_ID` | The Shellui company the playground signs in to  |
+| `SHELLUI_ADMIN_URL`  | The admin app URL                               |
+| `FILES_URL`          | The Files app URL, also shares the access token |
+
+Local `pnpm start` and CI builds run without them.
 
 ## Documentation
 

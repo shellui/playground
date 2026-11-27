@@ -66,6 +66,11 @@ jobs:
               "PLAYGROUND_APP_URL",
               "DOTENV_CONFIG_PATH",
               "vite build",
+              "vars.SHELLUI_COMPANY_ID",
+              "vars.SHELLUI_ADMIN_URL",
+              "vars.FILES_URL",
+              "Disk image build needs Actions variables",
+              "check-hosted-config.mjs dist",
           ):
               blob = workflow + "\n" + action + "\n" + scaffold
               if needle not in blob:
@@ -150,6 +155,9 @@ jobs:
         with:
           upload-release: 'false'
           upload-artifact: 'true'
+          shellui-company-id: ${{ vars.SHELLUI_COMPANY_ID }}
+          shellui-admin-url: ${{ vars.SHELLUI_ADMIN_URL }}
+          files-url: ${{ vars.FILES_URL }}
           apple-certificate: ${{ secrets.APPLE_CERTIFICATE }}
           apple-certificate-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
           apple-signing-identity: ${{ secrets.APPLE_SIGNING_IDENTITY }}
@@ -173,6 +181,9 @@ jobs:
         with:
           upload-release: 'true'
           upload-artifact: 'false'
+          shellui-company-id: ${{ vars.SHELLUI_COMPANY_ID }}
+          shellui-admin-url: ${{ vars.SHELLUI_ADMIN_URL }}
+          files-url: ${{ vars.FILES_URL }}
           tag-name: ${{ github.event.release.tag_name || github.ref_name }}
           release-name: Playground ${{ github.event.release.tag_name || github.ref_name }}
           release-id: ${{ github.event_name == 'release' && github.event.release.id || '' }}

@@ -18,6 +18,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog-emoji/master/CHANGELOG.md
 -->
 
+## [Unreleased]
+
+### Security
+
+- Website, docs, and the shell root omit `safeForAuthToken`. The playground app keeps it.
+- The administration homepage loads the playground app, without `safeForAuthToken`. It no longer receives the access token.
+- `shellui.config.json` and `.env.prod` leave the company, the admin URL, and the files app unset. Set `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` as Actions variables. The Pages deploy now fails when any is unset, and checks that `dist/web/shellui.config.json` carries their values. The Files item keeps `safeForAuthToken` and stays empty until `FILES_URL` is set.
+- The macOS disk image build reads those three names from Actions variables and stops if one is unset.
+
+### Changed
+
+- Uses Shellui [0.8.6](https://github.com/shellui/shellui/releases/tag/v0.8.6) (`@shellui/cli`, `@shellui/core`, `@shellui/sdk`).
+- Dependencies: React 19.3, i18next 27 with react-i18next 18, `@vitejs/plugin-react` 5, lint-staged 17 and other minor updates.
+- Node 26.13.1 (current LTS) in `.nvmrc`, used by CI and the Pages deploy.
+
 ## [0.5.2] - 2026-11-18
 
 ### Changed
