@@ -28,7 +28,7 @@ The GitHub Pages deploy and the macOS disk image need three repository Actions v
 | -------------------- | ----------------------------------------------- |
 | `SHELLUI_COMPANY_ID` | The Shellui company the playground signs in to  |
 | `SHELLUI_ADMIN_URL`  | The admin app URL                               |
-| `FILES_URL`          | The Files app URL, also shared the access token |
+| `FILES_URL`          | The Files app URL, also shares the access token |
 
 Local `pnpm start` and CI builds run without them.
 

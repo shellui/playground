@@ -213,8 +213,13 @@ runs:
 
     - name: Confirm the disk image
       shell: bash
+      env:
+        SHELLUI_COMPANY_ID: ${{ inputs.shellui-company-id }}
+        SHELLUI_ADMIN_URL: ${{ inputs.shellui-admin-url }}
+        FILES_URL: ${{ inputs.files-url }}
       run: |
         set -euo pipefail
+        node tools/config/check-hosted-config.mjs dist
         files="$(find dist/app/src-tauri/target -path '*/bundle/dmg/*.dmg' -type f | sort)"
         if [ -z "${files}" ]; then
           echo "No .dmg was produced."

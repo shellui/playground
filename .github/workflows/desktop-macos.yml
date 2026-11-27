@@ -70,6 +70,7 @@ jobs:
               "vars.SHELLUI_ADMIN_URL",
               "vars.FILES_URL",
               "Disk image build needs Actions variables",
+              "check-hosted-config.mjs dist",
           ):
               blob = workflow + "\n" + action + "\n" + scaffold
               if needle not in blob:
