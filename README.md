@@ -50,13 +50,15 @@ Every push to `main` builds and deploys `dist/web/` to GitHub Pages.
 
 ## Test Shellui Marketplace locally
 
-`shellui.config.json` turns Shellui Marketplace on with `"marketplace": true`. In Shellui 0.9 that flag selects the public directory at `https://marketplace.shellui.com` and the catalog API at `https://api.marketplace.shellui.com`. Listings are free. There is no price and no checkout.
+`shellui.config.json` turns Shellui Marketplace on for the public playground with `allowThirdParty: false` and `navigationCustomization.storage: "localStorage"`. The public playground does not install third-party apps, and a person's layout stays in their browser. In Shellui 0.9 the marketplace URL defaults to `https://marketplace.shellui.com` and the catalog API to `https://api.marketplace.shellui.com`.
 
-Home, Settings, Login, and Playground are pinned with `"locked": true`. The shell keeps those routes even when a navigation overlay tries to hide or remove them. Dialogs, toasts, modals, action buttons, layouts, themes, language, account, storage, Files, Website, and Docs are not pinned, so you can hide them, reorder them, install apps, and remove apps.
+The desktop app does not include the marketplace. `pnpm start:desktop` and `pnpm build:desktop` run [tools/desktop/write-desktop-config.mjs](tools/desktop/write-desktop-config.mjs), which writes a git-ignored `.shellui-desktop/shellui.config.json` with `"marketplace": false`. Both scripts then point the CLI at it with `SHELLUI_CONFIG`, and so does the macOS disk image build.
 
-This repo pins `@shellui/cli`, `@shellui/core`, and `@shellui/sdk` at 0.8.1. `shellui build` checks `shellui.config.json` against the schema in that pin, and 0.8.1 rejects `marketplace` and `locked`. `pnpm start` and `pnpm build` run [tools/shellui/accept-marketplace-config.mjs](tools/shellui/accept-marketplace-config.mjs) first. The script adds those fields to the installed schema copy when they are missing, and the published CLI then validates the config.
+Home, Settings, Login, and Playground are pinned with `"locked": true`. The shell keeps those routes even when a navigation overlay tries to hide or remove them. Dialogs, toasts, modals, action buttons, layouts, themes, language, account, storage, Files, Website, and Docs are not pinned, so you can hide them and reorder them.
 
-After 0.9.0 is on npm, bump the three `@shellui/*` packages to `0.9.0` and delete the script. The published 0.8.1 shell does not install apps or apply `locked`. To try that behavior, run this playground against the marketplace runtime on [shellui#215](https://github.com/shellui/shellui/pull/215) instead of the published packages.
+This repo pins `@shellui/cli`, `@shellui/core`, and `@shellui/sdk` at 0.8.6. `shellui build` checks `shellui.config.json` against the schema in `@shellui/core`, and the published 0.8.6 schema rejects `marketplace` and `locked`. A [pnpm patch](patches/@shellui__core@0.8.6.patch) adds those two fields to the schema, so no script edits `node_modules`. After 0.9.0 is on npm, bump the three `@shellui/*` packages to `0.9.0`, remove `pnpm.patchedDependencies` from `package.json`, and delete the `patches` folder.
+
+The published 0.8.6 shell does not install apps or apply `locked`. To try that behavior, run this playground against the marketplace runtime on [shellui#215](https://github.com/shellui/shellui/pull/215) instead of the published packages.
 
 ### Directory and catalog
 
@@ -65,6 +67,13 @@ Clone the siblings next to this repo:
 ```bash
 git clone https://github.com/shellui/marketplace.git ../marketplace
 git clone https://github.com/shellui/marketplace-service.git ../marketplace-service
+```
+
+Start the catalog API. It listens on `http://localhost:8010`:
+
+```bash
+cd ../marketplace-service
+docker compose up
 ```
 
 Start the directory:
@@ -82,27 +91,29 @@ The directory listens on `http://localhost:5176`. The playground Vite app stays 
 VITE_DEV_PORT=5177 VITE_DEV_ORIGIN=http://localhost:5177 pnpm start
 ```
 
-`VITE_MARKETPLACE_API_URL` in `../marketplace/.env.local` points at marketplace-service. The default is `https://api.marketplace.shellui.com`. Start marketplace-service with the command in that repo's README, then set `VITE_MARKETPLACE_API_URL` to the origin it prints. When that origin does not answer, the directory keeps its local catalog and shows "Showing the local catalog."
+Set `VITE_MARKETPLACE_API_URL=http://localhost:8010` in `../marketplace/.env.local`. When that origin does not answer, the directory keeps its local catalog and shows "Showing the local catalog."
 
-`"marketplace": true` is the public default. While you test local origins, replace it with an object. Set `url` to the directory and `apiUrl` to the same origin as `VITE_MARKETPLACE_API_URL`:
+To test installs, change the `marketplace` block in `shellui.config.json` to point at those local origins and allow third-party installs:
 
 ```json
 "marketplace": {
   "url": "http://localhost:5176",
-  "apiUrl": "https://api.marketplace.shellui.com"
+  "apiUrl": "http://localhost:8010",
+  "allowThirdParty": true,
+  "navigationCustomization": { "storage": "localStorage" }
 }
 ```
 
-Put the playground back to `"marketplace": true` before you commit. `http://localhost` is allowed for local development. A remote install URL has to be `https`.
+Put the block back to the committed values before you commit. `http://localhost` is allowed for local development. A remote install URL has to be `https`.
 
 ### What to check
 
-Run `pnpm start` and open `http://localhost:4000`. With the marketplace runtime:
+Run `pnpm start` and open `http://localhost:4000`. With the marketplace runtime and the local block above:
 
-- Shellui Marketplace is in the sidebar. Install an app from the directory. The item appears. Remove it and the item leaves.
+- Shellui Marketplace is in the sidebar. Choose an app from the directory. The shell asks you to confirm, and names the app and its origin. After you confirm, the item appears, labelled as third-party. Remove it and the item leaves.
 - Hide Dialogs, Toasts, or Files. Home, Settings, Login, and Playground stay.
 - Reorder an item that is not pinned. A reload keeps the order.
-- Signed out, the overlay is in `localStorage` under `shellui.navigation.overlay`. Signed in, storage `auto` uses identity-service at `/api/v1/user/navigation-overlay`.
+- The layout is in `localStorage` under a key for the signed-in person and company. To sync it with identity-service instead, set `navigationCustomization.storage` to `"auto"`. The shell then uses `{backend.url}/api/v1/navigation-overlay`.
 
 ## Contributing
 
