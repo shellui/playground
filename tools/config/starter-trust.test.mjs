@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 import test from 'node:test';
 
 const config = JSON.parse(
@@ -103,7 +106,7 @@ function isPlaygroundAppUrl(url) {
 function assertStarter(env, label) {
   const resolved = substitute(config, env);
   const items = walk(resolved.navigation);
-  const flagged = items.filter((item) => item.safeForAuthToken === true);
+  const flagged = items.filter((item) => item.safeForAuthToken === true && item.path !== 'files');
 
   assert.equal(resolved.backend.companyId, '', `${label}: company id is set`);
   assert.equal(resolved.backend.adminUrl, '', `${label}: admin URL is set`);
@@ -112,7 +115,8 @@ function assertStarter(env, label) {
   const files = items.find((item) => item.path === 'files');
   assert.ok(files, `${label}: Files item missing`);
   assert.equal(files.url, '', `${label}: Files URL is set`);
-  assert.notEqual(files.safeForAuthToken, true, `${label}: Files receives the access token`);
+  // Files keeps the opt-in, but its URL is empty here, so no origin receives the token.
+  assert.equal(files.safeForAuthToken, true, `${label}: Files lost safeForAuthToken`);
 
   for (const path of ['website', 'docs', 'playground']) {
     const item = items.find((entry) => entry.path === path);
@@ -177,4 +181,61 @@ test('env examples do not assign hosted admin, files, or company 1', () => {
       assert.equal(line.includes('SHELLUI_COMPANY_ID=1'), false, `${name}: ${line}`);
     }
   }
+});
+
+test('with FILES_URL set, the Files item opens that app with the token opt-in', () => {
+  const env = {
+    SHELLUI_COMPANY_ID: '7',
+    SHELLUI_ADMIN_URL: 'https://admin.example.test',
+    FILES_URL: 'https://files.example.test',
+  };
+  const resolved = substitute(config, env);
+  const files = walk(resolved.navigation).find((item) => item.path === 'files');
+  assert.equal(files.url, 'https://files.example.test');
+  assert.equal(files.safeForAuthToken, true);
+  assert.equal(resolved.storage.filesUrl, 'https://files.example.test');
+  assert.equal(resolved.backend.companyId, 7);
+  assert.equal(resolved.backend.adminUrl, 'https://admin.example.test');
+});
+
+function runGuard(args, env) {
+  return spawnSync(process.execPath, ['tools/config/check-hosted-config.mjs', ...args], {
+    cwd: new URL('../..', import.meta.url),
+    env: { PATH: process.env.PATH, ...env },
+    encoding: 'utf8',
+  });
+}
+
+test('the deploy guard fails when any hosted variable is unset or empty', () => {
+  const all = {
+    SHELLUI_COMPANY_ID: '1',
+    SHELLUI_ADMIN_URL: 'https://admin.example.test',
+    FILES_URL: 'https://files.example.test',
+  };
+  assert.equal(runGuard(['env'], all).status, 0);
+  for (const name of Object.keys(all)) {
+    const missing = { ...all };
+    delete missing[name];
+    const result = runGuard(['env'], missing);
+    assert.equal(result.status, 1, `${name} unset should fail`);
+    assert.match(result.stderr, new RegExp(name));
+    assert.equal(runGuard(['env'], { ...all, [name]: '' }).status, 1, `${name} empty should fail`);
+  }
+});
+
+test('the dist guard checks the built config against the variables', () => {
+  const dir = mkdtempSync(path.join(tmpdir(), 'hosted-'));
+  const file = path.join(dir, 'shellui.config.json');
+  const env = {
+    SHELLUI_COMPANY_ID: '1',
+    SHELLUI_ADMIN_URL: 'https://admin.example.test',
+    FILES_URL: 'https://files.example.test',
+  };
+  const built = substitute(config, env);
+  writeFileSync(file, JSON.stringify(built));
+  assert.equal(runGuard(['dist', file], env).status, 0);
+  writeFileSync(file, JSON.stringify(substitute(config, {})));
+  const result = runGuard(['dist', file], env);
+  assert.equal(result.status, 1);
+  assert.match(result.stderr, /backend\.companyId/);
 });

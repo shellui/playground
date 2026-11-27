@@ -137,6 +137,7 @@
           "label": "Files",
           "path": "files",
           "url": "${FILES_URL:-}",
+          "safeForAuthToken": true,
           "icon": "/icons/folder.svg",
           "hideWhenLoggedOut": true,
           "requiresAuth": true

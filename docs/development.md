@@ -61,7 +61,9 @@ When every secret above is present, the same workflow signs and notarizes the di
 
 `pnpm build` loads [`.env.prod`](../.env.prod) (via `DOTENV_CONFIG_PATH`) so navigation URLs in `shellui.config.json` resolve to production values (`${PLAYGROUND_APP_URL}`, `${WEBSITE_URL}`, `${DOCS_URL}`). Local `pnpm start` keeps the `${VAR:-default}` localhost defaults unless you set them in `.env`.
 
-Leave `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` unset in the starter. The admin URL stays empty. The Files link and `storage.filesUrl` stay empty until you set `FILES_URL`. Setting `FILES_URL` points the Files item at that app, and the shell shares the access token with that origin. GitHub Pages and the macOS disk image read the same three Actions variables. The disk image build stops if any of them is unset.
+Leave `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` unset in the starter. The admin URL stays empty. The Files item keeps `safeForAuthToken`, but its URL and `storage.filesUrl` stay empty until you set `FILES_URL`. Setting `FILES_URL` points the Files item at that app, and the shell shares the access token with that origin.
+
+GitHub Pages and the macOS disk image read the same three Actions variables (repository Settings, Secrets and variables, Actions, Variables). Both stop when any of them is unset or empty: the Pages workflow runs `node tools/config/check-hosted-config.mjs env` before the build and `... dist` after it, which compares `dist/web/shellui.config.json` with the variables. CI builds on pull requests do not need the variables.
 
 ## Build for Production
 

@@ -23,8 +23,8 @@ See for sample https://raw.githubusercontent.com/favoloso/conventional-changelog
 ### Security
 
 - Website, docs, and the shell root omit `safeForAuthToken`. The playground app keeps it.
-- The administration homepage loads the playground app.
-- `shellui.config.json` and `.env.prod` leave the company, the admin URL, and the files app unset. Set `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` on a deploy that needs them.
+- The administration homepage loads the playground app, without `safeForAuthToken`. It no longer receives the access token.
+- `shellui.config.json` and `.env.prod` leave the company, the admin URL, and the files app unset. Set `SHELLUI_COMPANY_ID`, `SHELLUI_ADMIN_URL`, and `FILES_URL` as Actions variables. The Pages deploy now fails when any is unset, and checks that `dist/web/shellui.config.json` carries their values. The Files item keeps `safeForAuthToken` and stays empty until `FILES_URL` is set.
 - The macOS disk image build reads those three names from Actions variables and stops if one is unset.
 
 ### Changed
